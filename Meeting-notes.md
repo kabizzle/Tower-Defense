@@ -8,13 +8,45 @@ In each meeting, you are required to discuss:
 4. Deviations and changes to the project plan, if any
 
 
-# Meeting dd.mm.2021 HH::MM
+# Meeting 07.11.2022 18:00
 
 **Participants**: 
-1. Member 1
-2. Member 2
-3. Member 3
-4. Member 4 
+1. Elias Peltokangas
+2. Kabir Bissessar
+3. Juho Poteri
+4. Antti Pekkanen
+
+## Summary of the meeting
+- Introductions, discussed backgrounds in programming.  
+This is the first or one of the first group programming projects for all of us.
+
+- Agreed on "the secretary".  
+Elias will be responsible for meeting notes, and possible other documentations / text submissions.
+
+- Agreed on communication.  
+Created a Telegram channel which will be used for internal communication.
+
+- Sketched the contents for the project plan (game structure, initial feature list, work division etc.).  
+Agreed on Elias finishing it.
+
+## Project status
+The project has officially been started and a sketch for the plan has been made.
+
+## Next meeting
+Next meeting will be on Wednesday. The project plan will be discussed and finalized as well as next steps and next meeting determined.
+
+## TODOs for the next meeting
+* Create a draft of the full project plan (Elias)
+* Create/acquire an initial idea of your part and the whole project. (Everyone)
+
+
+# Example Meeting xx.xx.2022 xx:xx
+
+**Participants**: 
+1. Elias Peltokangas
+2. Kabir Bissessar
+3. Juho Poteri
+4. Antti Pekkanen
 
 ## Summary of works
 1. Member 1 

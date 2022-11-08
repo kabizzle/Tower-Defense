@@ -14,6 +14,6 @@ large dependencies, such as QT.
 
 
 > If you are using already compiled library, place it in this folder, and set the linker options appropriately.
-> The inlcude files of the dependent library should also be placed in this folder.
+> The include files of the dependent library should also be placed in this folder.
 
 

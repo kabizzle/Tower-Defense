@@ -1,16 +1,17 @@
-# Project Name (replace here!)
+# Tower Defense 2
 
-This is the template for the projects. Please copy the project description here. 
-You can use Markdown language to render it as formatted **HTML** file.
+“Tower defense (or informally TD) is a subgenre of strategy video game where the goal is to defend a player’s territories or possessions by obstructing enemy attackers, usually achieved by placing defensive structures on or along their path of attack.”  
+
+In a tower defense game, the enemies move in waves from some position of the map to another. The goal of the player is to place towers on their path in order to block, impede, attack or destroy the enemies before they are able to reach their goal. The primary object is the survival of the base.
 
 # Group
-- Member 1
-- Member 2
-- Member 3
-- Member 4
+- Elias Peltokangas
+- Kabir Bissessar
+- Juho Poteri
+- Antti Pekkanen
 
 # Repository organization
-Your project implementation should follow the skelaton organization in this repository.
+Your project implementation should follow the skeleton organization in this repository.
 See readme.md files in each folder.
 
 # Project Implementation 
@@ -50,8 +51,11 @@ preferably at a regular weekly time. In the meeting the group updates:
 It is strongly recommended to use Doxygen to document your source code.
 Please go over the *Project Guidelines* for details.
 
-# TODOs (Date)
-You can create a list of TODOs in this file.
-The recommended format is:
-- Complete class implementation **foo**. Assigned to \<Member 1\>
-- Test ...
+# TODOs
+Collective to-do lists for each week will be set in meeting notes. This list is updated individually.
+
+## TO DO:
+* Project plan
+
+## COMPLETED:
+* 
