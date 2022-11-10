@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <string>
+#include <ostream>
 
 #include "renderable.hpp"
 
@@ -24,17 +25,16 @@ enum Enemy {
 class Assignment : public Renderable
 {
 public:
-  Assignment(uint32_t cr, uint32_t speed, const std::string& imageName)
-    : Renderable(imageName), m_maxCr(cr), m_curCr(cr), m_speed(speed) { }
-  ~Assignment();
+  Assignment(uint32_t cr, uint32_t speed, const std::string& imageName);
 
   /**
    * @brief A function which can be called to advance the enemy forward
-   * 
+   * The object also keeps track of the remainder of time, since otherwise
+   * it would never move if timeframes t are too small.
    * @param t The time which has elapsed since the last tick, in ms
    * @return The amound of pixels the enemy has advanced
    */
-  uint32_t Advance(uint32_t t) const;
+  uint32_t Advance(uint32_t t);
 
   /**
    * @brief Makes the enemy take damage
@@ -42,15 +42,13 @@ public:
    * @param dmg The amount of damage taken
    * @return The amount of credits the player has gotten from attacking, non-zero amount means that the enemy died
    * */
-  virtual uint32_t TakeDmg(uint32_t dmg){
-    if(this->m_curCr > dmg){
-      this->m_curCr -= dmg;
-      return 0;
-    } else {
-      return this ->m_maxCr;
-    }
-  }
+  virtual uint32_t TakeDmg(uint32_t dmg);
+
+  /**
+   * @brief Overload for stream operator << for debugging 
+   */
+  friend std::ostream& operator<<(std::ostream& os, const Assignment& as);
 
 protected:
-  uint32_t m_maxCr, m_curCr, m_speed;
+  uint32_t m_maxCr, m_curCr, m_speed, m_timeRemainder;
 };
