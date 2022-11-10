@@ -1,0 +1,27 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "Build tower-defense",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${cwd}/build",
+            ],
+            "problemMatcher": [],
+        },
+        {
+            "type": "shell",
+            "label": "Valgrind tower-defense",
+            "command": "valgrind",
+            "args": [
+                "--trace-children=yes",
+                "--leak-check=full",
+                "--show-leak-kinds=all",
+                "${command:cmake.launchTargetPath}",
+            ],
+            "problemMatcher": [],
+        },
+    ],
+    "version": "2.0.0"
+}
