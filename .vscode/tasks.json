@@ -22,6 +22,18 @@
             ],
             "problemMatcher": [],
         },
+        {
+            "type": "cmake",
+            "label": "Configure tower-defense",
+            "command": "configure",
+            "problemMatcher": [],
+        },
+        {
+            "type": "cmake",
+            "label": "Clean tower-defense",
+            "command": "clean",
+            "problemMatcher": [],
+        },
     ],
     "version": "2.0.0"
 }
