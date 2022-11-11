@@ -42,7 +42,7 @@ Assignment* EnemyFactory::CreateEnemy(Enemy e) {
 uint32_t EnemyFactory::GetRound() const { return m_round; }
 
 std::ostream& operator<<(std::ostream& os, const EnemyFactory& ef) {
-  os << "Enemy factory on round " << ef.m_round << " with the following enemies allocated:\n"
+  os << "Enemy factory waiting for round " << ef.m_round << " with the following enemies allocated for the previous round:\n"
      << "*** " << ef.m_roundEnemies.size() << " enemies for the round initially:\n";
   for(auto [n, e] : ef.m_roundEnemies) {
     os << *e;

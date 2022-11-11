@@ -9,13 +9,16 @@ In this folder, you can create your own unit test files to validate the operatio
 # Unit Tests
 
 
-## Test of MyClass
+## Test of EnemyFactory
 
 **Involved Classes:**
+EnemyFactory, Assignment, Degree(TODO), Renderable
 
 **Test File:**
+enemy_factory_test.cpp
 
 **Results:**
+An initial check on first few rounds indicates that the logic works and no leaks were spotted using valgrind
 
 
 ## Test of MyClass
