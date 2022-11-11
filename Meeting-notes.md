@@ -40,6 +40,49 @@ Next meeting will be on Wednesday. The project plan will be discussed and finali
 * Create/acquire an initial idea of your part and the whole project. (Everyone)
 
 
+# Meeting 2 09.11.2022 17:00
+
+**Participants**: 
+1. Elias Peltokangas
+2. Kabir Bissessar
+3. Juho Poteri
+4. Antti Pekkanen
+
+## Summary of works
+1. **Elias**: Project plan draft completed. (4h)
+
+2. **Kabir**: Initial preparations.
+
+3. **Juho**: High-level draft of enemy and tower classes done. (2h)
+
+4. **Antti**: Initial preparations.
+
+
+
+## Challenges
+
+1. How to have enough time to build all features.
+
+## Actions
+This week:
+1. **Elias**: finalize and commit the project plan and meeting notes.
+
+Before next meeting:
+1. **Elias**: Build first version of the Map class and the map system.
+
+2. **Kabir**: Look into GUIs and the SFML, add SFML to project, make a base/prototype window to build on.
+
+3. **Juho**: Build first versions of Enemy and Tower classes and some subclasses, build class that generates waves of enemies.
+
+4. **Antti**: Create first working Cmake and a basic hello world main.c, create first versions of the game class and gametime loop.
+
+
+
+## Project status 
+High level project plan is done. Some of the interfaces between software modules were preliminarily planned during this meeting.
+
+
+
 # Example Meeting xx.xx.2022 xx:xx
 
 **Participants**: 
@@ -49,36 +92,22 @@ Next meeting will be on Wednesday. The project plan will be discussed and finali
 4. Antti Pekkanen
 
 ## Summary of works
-1. Member 1 
-   
-   Implementing the class XX. Tested the class XX. 
-   Results are in `tests/<class-xx-tests>`. Resolved the identified problems.
-
-2. Member 2
-
-   Same as above
-
-3. ...
+1. **Elias**:
+2. **Kabir**:
+3. **Juho**:
+4. **Antti**:
 
 ## Challenges
 
-1. The integration of UI with the monsters requires an abstract interface.
-2. ...
+1. 
 
 ## Actions
-1. Member 1 is going to look into defining an abstract interface for monsters 
-   to enable easy UI integration.
-2. Member 2 is going to work with Member 1 to use abstract interface in derived 
-   monster classes.
-3. Member 2 is going to test the interface.
-4. Member 3 is going to use ...
+1. **Elias**:
+2. **Kabir**:
+3. **Juho**:
+4. **Antti**:
 
-> Please reflect these action decisions in your git commit messages so that 
-> your group members and advisor can follow the progress.
 
 ## Project status 
-Short summary of current project status. 
 
-### TODOs
-1. Member 1: Write an action.
-2. ...
+

@@ -52,10 +52,17 @@ It is strongly recommended to use Doxygen to document your source code.
 Please go over the *Project Guidelines* for details.
 
 # TODOs
-Collective to-do lists for each week will be set in meeting notes. This list is updated individually.
+Detailed to-do lists for each person for each week will be set in meeting notes.
 
 ## TO DO:
-* Project plan
+* Discuss plan with advisor
+* Implement modules
+* Piece modules together
+* Test the full game
+* Create final documentation
+* Submit project
+* Present demo to advisor
+* Do peer-reviews
 
 ## COMPLETED:
-* 
+* Project plan
