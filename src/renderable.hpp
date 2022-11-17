@@ -6,7 +6,7 @@
 
 /**
  * @brief A class which encapsulates the renderable objects (enemies and towers)
- * 
+ * Is not supposed to be directly instanciated, so the constructor is protected
  */
 class Renderable
 {
@@ -19,9 +19,7 @@ public:
   const std::string& ImgPath() const;
 
 protected:
-  Renderable(const std::string& imageName)
-    : m_imageName(imageName) { }
-  ~Renderable();
+  Renderable(const std::string& imageName);
 
 private:
   std::string m_imageName;

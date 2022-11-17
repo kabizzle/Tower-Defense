@@ -1,6 +1,6 @@
 #pragma once
 
-#include <map>
+#include <list>
 
 #include "degree.hpp"
 
@@ -11,7 +11,7 @@ enum Difficulty {
 };
 
 /**
- * @brief A class which handles the logic about what enemies come and how much during each round
+ * @brief A class which handles the logic about what enemies come and how much of during each round
  * 
  * The logic as in "Which enemies are present in the round?" is as follows:
  *    In addition to the round number m_round, we have a Fibonacci-like sequence, where
@@ -23,74 +23,65 @@ enum Difficulty {
  * The logic as in "How many enemies come during the round?" is based on the array m_batchSizes.
  *    After each round an enemy type is present, the batch size will also be incremented according to the deltas.
  * 
+ * This class handles the memory management of the allocated Assignment instances, it frees all the enemies either
+ *    when next round starts or when it is destructed.
+ * 
  */
 class EnemyFactory
 {
 public:
-  EnemyFactory(Difficulty diff) : m_diff(diff), m_round(1), m_nums({1}), m_batchSizes({10, 5, 3, 2, 2}) { }
+  /**
+   * @brief Constructs a new Enemy Factory object
+   * 
+   * @param diff The difficulty of the game, scales the HP of the enemies
+   */
+  EnemyFactory(Difficulty diff);
 
-  //No copying
+  /**
+   * @brief Copying is not allowed
+   */
   EnemyFactory(const EnemyFactory& other) = delete;
   EnemyFactory& operator=(const EnemyFactory& other) = delete;
 
-  ~EnemyFactory();  //Must release the allocated enemies
-
-  std::map<uint32_t, Assignment*>& NextRound(); //Frees the memory of previously allocated enemies
-
-  std::map<uint32_t, Assignment*>& Round(uint32_t r);   //Similar but can give any round
+  /**
+   * @brief Destroys the Enemy Factory object, releases all allocated enemies
+   */
+  ~EnemyFactory();
 
   /**
-   * @brief Creates an enemy based on the enumeration
-   * 
-   * The function may be used by the class itself or from other places, since some enemies
-   * spawn new ones when they are defeated
-   * 
-   * @param e The enumeration of the enemy to be created
-   * @return A DYNAMICALLY allocated enemy
+   * @brief Gives the enemy composition of the next round
+   * Also frees the previously allocated enemies
+   * @return A reference to a container where the enemies are in order of their arrival
    */
-  static Assignment* CreateEnemy(Enemy e) {
-    switch (e)
-    {
-    case Homework:
-      return new Assignment(1, 30, "homework");
-    case Essay:
-      return new Assignment(3, 25, "essay");
-    case Project:
-      return new Assignment(5, 15, "project");
-    case B_Thesis:
-      return new Assignment(10, 10, "B_thesis");
-    case M_Thesis:
-      return new Assignment(30, 5, "M_thesis");
-    case D_Thesis:
-      return new Assignment(50, 2, "D_thesis");
-    case BSc:
-      return new Degree(180, 2, std::string("BSc"), {
-                        {Enemy::B_Thesis, 1}, {Enemy::Project, 10},
-                        {Enemy::Essay, 10}, {Enemy::Homework, 20}
-                      });
-    case MSc:
-      return new Degree(300, 1, std::string("MSc"), {
-                        {Enemy::BSc, 1}, {Enemy::M_Thesis, 1},
-                        {Enemy::Project, 20}, {Enemy::Essay, 25},
-                        {Enemy::Homework, 40}
-                      });
-    case DSc:
-      return new Degree(500, 1, std::string("DSc"), {
-                        {Enemy::MSc, 1}, {Enemy::BSc, 1},
-                        {Enemy::D_Thesis, 1}, {Enemy::Project, 50},
-                        {Enemy::Essay, 70}, {Enemy::Homework, 100}
-                      });
-    default:
-      break;
-    }
-  }
+  const std::list<std::pair<uint32_t, Assignment*>>& NextRound();
+
+  /**
+   * @brief TODO gives any round desired
+   * 
+   * @param r 
+   * @return std::map<uint32_t, Assignment*>& 
+   */
+  const std::list<std::pair<uint32_t, Assignment*>>& Round(uint32_t r);
+
+  /**
+   * @brief Creates an Enemy object
+   * For external use. Since this class must keep track of the allocated enemies, this version
+   * adds the enemy to the collection m_lateEnemies
+   * @return A dynamically allocated enemy
+   */
+  Assignment* CreateEnemy(Enemy e);
+
+  uint32_t GetRound() const;
+
+  friend std::ostream& operator<<(std::ostream& os, const EnemyFactory& ef);
 
 private:
   Difficulty m_diff;
   uint32_t m_round;
-  uint32_t m_nums[3];   //< Used in the internal logic to get the enemy composition of each round
-  std::map<uint32_t, Assignment*> m_roundEnemies;
-  uint32_t m_batchSizes[9], m_batchSizeDeltas[9];
+  uint32_t m_nums[3] = {1, 1, 1};   //< Used in the internal logic to get the enemy composition of each round
+  std::list<std::pair<uint32_t, Assignment*>> m_roundEnemies;
+  std::list<Assignment*> m_lateEnemies;
+  uint32_t m_batchSizes[9] = {0}, m_batchSizeDeltas[9] = {10, 5, 3, 2, 2, 2, 1, 1, 1};
 
   //Private functions
 
@@ -98,5 +89,22 @@ private:
    * @brief Uses m_nums to calculate the next one in the sequence
    * @return the next number in the sequence
    */
-  uint32_t nextNum();
+  uint32_t Priv_NextNum();
+
+  /**
+   * @brief Creates an enemy based on the enumeration
+   * 
+   * The function is for the classes other methods to call when constructing the initial layout of the class.
+   * A publicly available version CreateEnemy for the need to spawn other enemies when one dies
+   * 
+   * @param e The enumeration of the enemy to be created
+   * @return A DYNAMICALLY allocated enemy
+   */
+  Assignment* Priv_CreateEnemy(Enemy e);
+
+  /**
+   * @brief Used by destructor and NextRound to free the previously allocated enemies
+   * 
+   */
+  void Priv_Free();
 };
