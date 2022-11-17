@@ -4,3 +4,6 @@ You can also place hpp files in a separate directory `include `.
 
 You can create a summary of files here. It might be useful to describe 
 file relations, and brief summary of their content.
+
+# Files:
+* Map.hpp/.cpp contains the map system, including the map class.
