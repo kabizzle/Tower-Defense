@@ -1,13 +1,20 @@
 {
     "tasks": [
         {
-            "type": "cppbuild",
+            "type": "shell",
             "label": "Build tower-defense",
             "command": "cmake",
             "args": [
                 "--build",
                 "${cwd}/build",
             ],
+            "windows": {
+                "command": "cmake",
+                "args": [
+                    "--build",
+                    "${cwd}\\build",
+                ],
+            },
             "problemMatcher": [],
         },
         {
