@@ -1,5 +1,7 @@
 #include "enemy_factory.hpp"
 
+#define DETAILED_DEBUG_PRINT 0
+
 EnemyFactory::EnemyFactory(Difficulty diff)
   : m_diff(diff), m_round(1) { }
 
@@ -20,11 +22,11 @@ const std::list<std::pair<uint32_t, Assignment*>>& EnemyFactory::NextRound() {
   for(uint32_t e = Enemy::Homework; e < 9; e++){
     if((typesInRound >> e) & 1){
       //This type is present, so we add them
+      m_batchSizes[e] += m_batchSizeDeltas[e];
+      //We update the batch size
       for(uint32_t i = 0; i < m_batchSizes[e]; i++){
         m_roundEnemies.emplace_back(tOffset, Priv_CreateEnemy(static_cast<Enemy>(e)));
       }
-      //We update the batch size
-      m_batchSizes[e] += m_batchSizeDeltas[e];
       //Update timeOffset
       tOffset++;
     }
@@ -42,8 +44,10 @@ Assignment* EnemyFactory::CreateEnemy(Enemy e) {
 uint32_t EnemyFactory::GetRound() const { return m_round; }
 
 std::ostream& operator<<(std::ostream& os, const EnemyFactory& ef) {
-  os << "Enemy factory waiting for round " << ef.m_round << " with the following enemies allocated for the previous round:\n"
+  os << "Enemy factory waiting for round " << ef.m_round << "; number is " << ef.m_nums[0]
+     << " and the enemies allocated for the previous round were:\n"
      << "*** " << ef.m_roundEnemies.size() << " enemies for the round initially:\n";
+#if DETAILED_DEBUG_PRINT
   for(auto [n, e] : ef.m_roundEnemies) {
     os << *e;
   }
@@ -51,6 +55,12 @@ std::ostream& operator<<(std::ostream& os, const EnemyFactory& ef) {
   for(auto e : ef.m_lateEnemies) {
     os << *e;
   }
+#else
+  for(uint32_t i = 0; i < 9; i++) {
+    os << (((ef.m_nums[2] - ef.m_nums[0]) >> i) & 1 ? ef.m_batchSizes[i] : 0) << " - ";
+  }
+  os << "\n";
+#endif
   os << std::flush;
   return os;
 }

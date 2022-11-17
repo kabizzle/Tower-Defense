@@ -81,7 +81,7 @@ private:
   uint32_t m_nums[3] = {1, 1, 1};   //< Used in the internal logic to get the enemy composition of each round
   std::list<std::pair<uint32_t, Assignment*>> m_roundEnemies;
   std::list<Assignment*> m_lateEnemies;
-  uint32_t m_batchSizes[9] = {10, 5, 3, 2, 2, 2, 1, 1, 1}, m_batchSizeDeltas[9] = {10, 5, 3, 2, 2, 2, 1, 1, 1};
+  uint32_t m_batchSizes[9] = {0}, m_batchSizeDeltas[9] = {10, 5, 3, 2, 2, 2, 1, 1, 1};
 
   //Private functions
 

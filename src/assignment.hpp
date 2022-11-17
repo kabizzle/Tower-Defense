@@ -27,6 +27,8 @@ class Assignment : public Renderable
 public:
   Assignment(uint32_t cr, uint32_t speed, const std::string& imageName);
 
+  virtual ~Assignment() { }
+
   /**
    * @brief A function which can be called to advance the enemy forward
    * The object also keeps track of the remainder of time, since otherwise

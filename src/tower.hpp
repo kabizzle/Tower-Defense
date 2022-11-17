@@ -13,10 +13,9 @@
 class Tower : public Renderable
 {
 public:
-  Tower(uint32_t power, uint32_t range, const std::string& imageName)
-    : Renderable(imageName), m_power(power), m_range(range) { }
-  ~Tower();
+  Tower(uint32_t power, uint32_t range, uint32_t healt, const std::string& imageName);
 
+  virtual ~Tower() { }
   /**
    * @brief Used for attacking/supporting, TODO needs some way to contact Map
    * 
@@ -26,5 +25,5 @@ public:
   //TODO methods to apply buffs (from supports etc)
 
 private:
-  uint32_t m_power, m_range;
+  uint32_t m_power, m_range, m_health;
 };

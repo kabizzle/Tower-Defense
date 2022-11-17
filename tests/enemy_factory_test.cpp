@@ -11,7 +11,7 @@ int main() {
   ef.NextRound();
   std::cout << ef;
   std::cout << "GETTING MORE ROUNDS" <<std::endl;
-  for(uint32_t r = 2; r < 10; r++){
+  for(uint32_t r = 2; r < 100; r++){
     ef.NextRound();
     std::cout << ef;
   }
