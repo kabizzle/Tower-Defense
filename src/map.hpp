@@ -14,32 +14,41 @@ enum tileType { towerTile, startTile, pathTile, endTile };
  * @brief Map class that represents the grid map system behind each unique
  * level.
  *
- * Method InitializeMap is used to initialize the map tiles (path) from a text
- * file.
  */
 class Map {
  public:
+  /**
+   * @brief Construct a new Map object
+   *
+   * @param width Limit of x-coordinate of the map.
+   * @param length Limit of y-coordinate of the map.
+   */
   Map(int width, int length) : m_width(width), m_length(length) {}
   ~Map() = default;
 
-  /* Used to initialize a map text file to m_grid.*/
+  /**
+   * @brief Initialize a map from a text file to m_grid.
+   *
+   * @param filename
+   * @return true
+   * @return false
+   */
   bool InitializeMap(const std::string& filename);
 
+  /**
+   * @brief Get the Path object
+   *
+   * @return std::vector<std::pair<int, int>>
+   */
+  std::vector<std::pair<int, int>> GetPath();
+
  private:
-  /* Store the map width (x grows to right) and length (y grows down).*/
   int m_width, m_length;
-
-  /* Stores the map grid itself. */
   std::map<std::pair<int, int>, int> m_grid;
-
-  /* Store the path start and end coordinates. */
   std::pair<int, int> m_start, m_end;
-
-  /* Stores the path in order from start to finish. */
   std::vector<std::pair<int, int>> m_path;
 
-  /*Helper functions below:*/
   std::vector<std::pair<int, int>> GetNeighbors(int x, int y);
-  bool ValidateMap();  // Used to validate the m_grid created in initialization.
-  bool BuildPath();    // Used to build m_path from the m_grid created.
+  bool ValidateMap();
+  bool BuildPath();
 };
