@@ -44,35 +44,35 @@ std::list<Assignment*> EnemyFactory::NextTick() {
   return ret;
 }
 
-Assignment* EnemyFactory::CreateEnemy(Enemy e) {
+Assignment* EnemyFactory::CreateEnemy(Enemy e) const {
   float hpScale = static_cast<float>(m_diff + 4) / 4.0f;
   switch (e)
   {
   case Homework:
-    return new Assignment(1 * hpScale, 30, "homework");
+    return new Assignment(1 * hpScale, 1, "homework");
   case Essay:
-    return new Assignment(3 * hpScale, 25, "essay");
+    return new Assignment(3 * hpScale, 1, "essay");
   case Project:
-    return new Assignment(5 * hpScale, 15, "project");
+    return new Assignment(5 * hpScale, 1, "project");
   case B_Thesis:
-    return new Assignment(10 * hpScale, 10, "B_thesis");
+    return new Assignment(10 * hpScale, 2, "B_thesis");
   case M_Thesis:
-    return new Assignment(30 * hpScale, 5, "M_thesis");
+    return new Assignment(30 * hpScale, 2, "M_thesis");
   case D_Thesis:
     return new Assignment(50 * hpScale, 2, "D_thesis");
   case BSc:
-    return new Degree(180 * hpScale, 2, std::string("BSc"), {
+    return new Degree(180 * hpScale, 4, std::string("BSc"), *this, {
                       {Enemy::B_Thesis, 1}, {Enemy::Project, 10},
                       {Enemy::Essay, 10}, {Enemy::Homework, 20}
                     });
   case MSc:
-    return new Degree(300 * hpScale, 1, std::string("MSc"), {
+    return new Degree(300 * hpScale, 4, std::string("MSc"), *this,  {
                       {Enemy::BSc, 1}, {Enemy::M_Thesis, 1},
                       {Enemy::Project, 20}, {Enemy::Essay, 25},
                       {Enemy::Homework, 40}
                     });
   case DSc:
-    return new Degree(500 * hpScale, 1, std::string("DSc"), {
+    return new Degree(500 * hpScale, 4, std::string("DSc"), *this,  {
                       {Enemy::MSc, 1}, {Enemy::BSc, 1},
                       {Enemy::D_Thesis, 1}, {Enemy::Project, 50},
                       {Enemy::Essay, 70}, {Enemy::Homework, 100}

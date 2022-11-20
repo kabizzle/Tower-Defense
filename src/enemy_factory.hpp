@@ -74,7 +74,7 @@ public:
    * Can be used either by this class itself or by the game core to spawn the additional enemies at some location
    * @return A dynamically allocated enemy
    */
-  Assignment* CreateEnemy(Enemy e);
+  Assignment* CreateEnemy(Enemy e) const;
 
   /**
    * @brief Tells which round is currently active (in initialized state)

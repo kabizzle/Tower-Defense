@@ -51,6 +51,8 @@ bool Map::InitializeMap(const std::string& filename) {
   return ValidateMap() && BuildPath();
 }
 
+const std::vector<std::pair<int, int>>& Map::GetPath() const { return m_path; }
+
 std::vector<std::pair<int, int>> Map::GetNeighbors(int x, int y) {
   std::vector<std::pair<int, int>> neighbors;
   if (x != 0) {
