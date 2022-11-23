@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "utils.hpp"
+
 /**
  * @brief Grid tile enumeration representing different kinds of map positions.
  *
