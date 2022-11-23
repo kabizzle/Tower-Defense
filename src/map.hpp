@@ -21,9 +21,9 @@ class Map {
    * @brief Construct a new Map object
    *
    * @param width Limit of x-coordinate of the map.
-   * @param length Limit of y-coordinate of the map.
+   * @param height Limit of y-coordinate of the map.
    */
-  Map(int width, int length) : m_width(width), m_length(length) {}
+  Map(int width, int height) : m_width(width), m_height(height) {}
   ~Map() = default;
 
   /**
@@ -36,6 +36,27 @@ class Map {
   bool InitializeMap(const std::string& filename);
 
   /**
+   * @brief Get the Start object
+   *
+   * @return std::pair<int, int>
+   */
+  const std::pair<int, int> GetStart() const;
+
+  /**
+   * @brief Get the End object
+   *
+   * @return std::pair<int, int>
+   */
+  const std::pair<int, int> GetEnd() const;
+
+  /**
+   * @brief Get the Grid object
+   *
+   * @return const std::map<std::pair<int, int>, int>
+   */
+  const std::map<std::pair<int, int>, int> GetGrid() const;
+
+  /**
    * @brief Get the Path object
    *
    * @return std::vector<std::pair<int, int>>
@@ -43,7 +64,7 @@ class Map {
   const std::vector<std::pair<int, int>>& GetPath() const;
 
  private:
-  int m_width, m_length;
+  int m_width, m_height;
   std::map<std::pair<int, int>, int> m_grid;
   std::pair<int, int> m_start, m_end;
   std::vector<std::pair<int, int>> m_path;

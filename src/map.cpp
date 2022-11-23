@@ -9,7 +9,7 @@ bool Map::InitializeMap(const std::string& filename) {
   }
 
   char c;
-  for (int y = 0; y < m_length; y++) {
+  for (int y = 0; y < m_height; y++) {
     for (int x = 0; x <= m_width; x++) {
       is.get(c);
       if (c == EOF) {
@@ -64,7 +64,7 @@ std::vector<std::pair<int, int>> Map::GetNeighbors(int x, int y) {
   if (y != 0) {
     neighbors.push_back(std::make_pair(x, y - 1));
   }
-  if (y != (m_length - 1)) {
+  if (y != (m_height - 1)) {
     neighbors.push_back(std::make_pair(x, y + 1));
   }
   return neighbors;
@@ -73,11 +73,11 @@ std::vector<std::pair<int, int>> Map::GetNeighbors(int x, int y) {
 bool Map::ValidateMap() {
   int startFlag = 0;
   int endFlag = 0;
-  if (m_grid.size() != (m_length * m_width)) {
+  if (m_grid.size() != (m_height * m_width)) {
     throw std::invalid_argument("Loaded map is wrong size.");
   }
 
-  for (int y = 0; y < m_length; y++) {
+  for (int y = 0; y < m_height; y++) {
     for (int x = 0; x < m_width; x++) {
       int tile = m_grid[std::make_pair(x, y)];
       auto neighbors = GetNeighbors(x, y);
@@ -164,3 +164,9 @@ bool Map::BuildPath() {
 
   return true;
 }
+
+const std::pair<int, int> Map::GetStart() const { return m_start; }
+
+const std::pair<int, int> Map::GetEnd() const { return m_end; }
+
+const std::map<std::pair<int, int>, int> Map::GetGrid() const { return m_grid; }
