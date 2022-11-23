@@ -40,7 +40,7 @@ class Map {
    *
    * @return std::vector<std::pair<int, int>>
    */
-  std::vector<std::pair<int, int>> GetPath();
+  const std::vector<std::pair<int, int>>& GetPath() const;
 
  private:
   int m_width, m_length;

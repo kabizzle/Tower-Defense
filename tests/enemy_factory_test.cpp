@@ -8,11 +8,11 @@ int main() {
   EnemyFactory ef(Difficulty::Easy);
   std::cout << ef;
   std::cout << "GETTING THE FIRST ROUND" <<std::endl;
-  ef.NextRound();
+  ef.NextRoundInit();
   std::cout << ef;
   std::cout << "GETTING MORE ROUNDS" <<std::endl;
   for(uint32_t r = 2; r < 100; r++){
-    ef.NextRound();
+    ef.NextRoundInit();
     std::cout << ef;
   }
   std::cout << "TEST DONE" <<std::endl;

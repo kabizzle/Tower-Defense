@@ -23,8 +23,8 @@ enum Difficulty {
  * The logic as in "How many enemies come during the round?" is based on the array m_batchSizes.
  *    After each round an enemy type is present, the batch size will also be incremented according to the deltas.
  * 
- * This class handles the memory management of the allocated Assignment instances, it frees all the enemies either
- *    when next round starts or when it is destructed.
+ * This class allocates the enemies dynamically, and then the game logic class is responsible for freeing the memory when enemies either reach the
+ * end or die
  * 
  */
 class EnemyFactory
@@ -44,43 +44,54 @@ public:
   EnemyFactory& operator=(const EnemyFactory& other) = delete;
 
   /**
-   * @brief Destroys the Enemy Factory object, releases all allocated enemies
+   * @brief Destroys the Enemy Factory object, if there were some enemies left in the storage, frees them
    */
   ~EnemyFactory();
 
   /**
-   * @brief Gives the enemy composition of the next round
-   * Also frees the previously allocated enemies
-   * @return A reference to a container where the enemies are in order of their arrival
+   * @brief Initializes the enemies of the next round
+   * After calling this, the enemies which come each tick can be obtained using NextTick()
+   * Also frees the previously allocated enemies if the previous round for some reason did not finnish
    */
-  const std::list<std::pair<uint32_t, Assignment*>>& NextRound();
+  void NextRoundInit();
 
   /**
-   * @brief TODO gives any round desired
-   * 
-   * @param r 
-   * @return std::map<uint32_t, Assignment*>& 
+   * @brief Used to get the enemies which appear on the next game tick
+   * Removes them from the objects own collection, so the resposibility is
+   * transferred to the object which calls the function
+   * The max amound of enemies during the tick for round n is approximately base-2-log(a_n) + 1
+   * where a_n is the element of the sequence used to determine the types present
    */
-  const std::list<std::pair<uint32_t, Assignment*>>& Round(uint32_t r);
+  std::list<Assignment*> NextTick();
+
+  /**
+   * @brief TODO initializes any round desired
+   */
+  void Round(uint32_t r);
 
   /**
    * @brief Creates an Enemy object
-   * For external use. Since this class must keep track of the allocated enemies, this version
-   * adds the enemy to the collection m_lateEnemies
+   * Can be used either by this class itself or by the game core to spawn the additional enemies at some location
    * @return A dynamically allocated enemy
    */
-  Assignment* CreateEnemy(Enemy e);
+  Assignment* CreateEnemy(Enemy e) const;
 
+  /**
+   * @brief Tells which round is currently active (in initialized state)
+   * 0 means that the first round has yet to be initialized
+   */
   uint32_t GetRound() const;
 
+  /**
+   * @brief An overload for the stream operator for debugging purposes
+   */
   friend std::ostream& operator<<(std::ostream& os, const EnemyFactory& ef);
 
 private:
   Difficulty m_diff;
   uint32_t m_round;
   uint32_t m_nums[3] = {1, 1, 1};   //< Used in the internal logic to get the enemy composition of each round
-  std::list<std::pair<uint32_t, Assignment*>> m_roundEnemies;
-  std::list<Assignment*> m_lateEnemies;
+  std::list<Assignment*> m_roundEnemies;
   uint32_t m_batchSizes[9] = {0}, m_batchSizeDeltas[9] = {10, 5, 3, 2, 2, 2, 1, 1, 1};
 
   //Private functions
@@ -92,19 +103,7 @@ private:
   uint32_t Priv_NextNum();
 
   /**
-   * @brief Creates an enemy based on the enumeration
-   * 
-   * The function is for the classes other methods to call when constructing the initial layout of the class.
-   * A publicly available version CreateEnemy for the need to spawn other enemies when one dies
-   * 
-   * @param e The enumeration of the enemy to be created
-   * @return A DYNAMICALLY allocated enemy
-   */
-  Assignment* Priv_CreateEnemy(Enemy e);
-
-  /**
-   * @brief Used by destructor and NextRound to free the previously allocated enemies
-   * 
+   * @brief Used by destructor to free the enemies which are left
    */
   void Priv_Free();
 };
