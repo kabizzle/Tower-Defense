@@ -2,28 +2,43 @@
 
 #include <cstdint>
 #include <string>
+#include <utility>
+#include <vector>
 
 #include "renderable.hpp"
+#include "map.hpp"
 
 /**
  * @brief An abstarct base-class for the towers
  * 
- * Sub-classes will be Attackin towers and supporting towers
+ * Sub-classes will be Attacking towers and supporting towers
  */
 class Tower : public Renderable
 {
 public:
-  Tower(uint32_t power, uint32_t range, uint32_t healt, const std::string& imageName);
-
-  virtual ~Tower() { }
   /**
-   * @brief Used for attacking/supporting, TODO needs some way to contact Map
+   * @brief Get the coordinates of the tower 
+   */
+  const std::pair<int32_t, int32_t>& GetCoords() const;
+
+protected:
+  uint32_t m_range;
+  std::pair<int32_t, int32_t> m_coords;
+
+  //Private functions
+  /**
+   * @brief Plain towers are not meant to be constructed, only the subclassess are
+   * 
+   * @param range The basic range, all towers have this
+   * @param coords The coordinates of the tower
+   * @param imageName The name of the image representing this particular tower, also the name of the tower type
+   */
+  Tower(uint32_t range, std::pair<int32_t, int32_t> coords, const std::string& imageName);
+  virtual ~Tower() { }
+
+  /**
+   * @brief TODO, for possible range updates
    * 
    */
-  virtual void Act() = 0;
-
-  //TODO methods to apply buffs (from supports etc)
-
-private:
-  uint32_t m_power, m_range, m_health;
+  void UpdateTargetable();
 };

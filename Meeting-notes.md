@@ -49,11 +49,11 @@ Next meeting will be on Wednesday. The project plan will be discussed and finali
 4. Antti Pekkanen
 
 ## Summary of works
-1. **Elias**: Project plan draft completed. (4h)
+1. **Elias**: Project plan draft completed.
 
 2. **Kabir**: Initial preparations.
 
-3. **Juho**: High-level draft of enemy and tower classes done. (2h)
+3. **Juho**: High-level draft of enemy and tower classes done.
 
 4. **Antti**: Initial preparations.
 
@@ -83,6 +83,36 @@ High level project plan is done. Some of the interfaces between software modules
 
 
 
+# Week 2 Meeting 18.11.2022 15:00
+
+**Participants**: 
+1. Elias Peltokangas
+2. Kabir Bissessar
+3. Juho Poteri
+4. Antti Pekkanen
+
+## Summary of works
+1. **Elias**: First version of map class, initialization from textfile and validation complete. Path building complete.
+2. **Kabir**: Figuring out the SFML, how to run it etc.
+3. **Juho**: Enemy_Factory nearly complete, enemies in progress
+4. **Antti**: Gametime loop under design, cmake done, hello world done
+
+## Challenges
+
+1. Running the SFML GUI has problems depending on the system
+2. How the game core works (we discussed this)
+
+## Actions
+1. **Elias**: Draw graphics for a resolution of about 1200x800, finish Map class (GetStart() method etc.).
+2. **Kabir**: Get SFML working, create the drawing methods. Start working on the GUI class.
+3. **Juho**: Tower Act takes the map of (x, y) -> Enemy as a parameter and enemy advance returns true or false depending.
+4. **Antti**: Game class: variables, map, towerlist, enemypos and methods AdvanceEnemies and TowersAction. Work on GUI loop with Kabir.
+
+## Project status
+Map and enemies are roughly complete.
+Goal of the next week: Get the wave part of the game running
+
+
 # Example Meeting xx.xx.2022 xx:xx
 
 **Participants**: 
@@ -109,5 +139,3 @@ High level project plan is done. Some of the interfaces between software modules
 
 
 ## Project status 
-
-

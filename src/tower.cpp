@@ -1,4 +1,6 @@
 #include "tower.hpp"
 
-Tower::Tower(uint32_t power, uint32_t range, uint32_t health, const std::string& imageName)
-  : Renderable(imageName), m_power(power), m_range(range), m_health(health) { }
+Tower::Tower(uint32_t range, std::pair<int32_t, int32_t> coords, const std::string& imageName)
+  : Renderable(imageName), m_range(range), m_coords(coords) { }
+
+const std::pair<int32_t, int32_t>& Tower::GetCoords() const { return m_coords; }
