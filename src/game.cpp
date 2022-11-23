@@ -17,7 +17,7 @@ Game::Game(uint32_t mapWidth,
 
  void Game::EnemyTurn() {
     // Add new enemies to the first path tile
-    m_enemyFactory.NextRoundInit();
+    m_enemyFactory.NextRoundInit();               //!!!Not for every turn -Juho
     for (auto e : m_enemyFactory.NextTick()) {
         m_enemies.front().push_back(e);
     }
