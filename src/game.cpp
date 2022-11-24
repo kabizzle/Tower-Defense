@@ -15,38 +15,61 @@ Game::Game(uint32_t mapWidth,
         }
  }
 
- void Game::EnemyTurn() {
+ bool Game::EnemyTurn() {
+    // Start advancing enemies from the last path tile to avoid advancing moving enemies twice
+    for (uint32_t i = m_enemies.size() - 1; i >= 0; i--) {
+        for (auto enemyIt = m_enemies[i].begin(); enemyIt != m_enemies[i].end();) {
+            Assignment *e = *enemyIt;
+            if (e->Advance()) {
+                // Remove moving enemy from the current tile and advance iterator
+                enemyIt = m_enemies[i].erase(enemyIt);
+                // If enemy moves from the last tile decrease player's health and check if the game ends
+                if (i == m_enemies.size() - 1) {
+                    m_playerHealth -= 1;
+                    if (m_playerHealth == 0) {
+                        return false;
+                    }
+                    delete e;
+                } else {
+                    // Move enemy to the next tile
+                    m_enemies[i + 1].push_back(e);
+                }
+            } else {
+                // Advance iterator if enemy didn't move
+                enemyIt++;
+            }
+        }
+    }
+
     // Add new enemies to the first path tile
-    m_enemyFactory.NextRoundInit();               //!!!Not for every turn -Juho
     for (auto e : m_enemyFactory.NextTick()) {
         m_enemies.front().push_back(e);
     }
 
-    // Start advancing enemies from the last path tile to avoid advancing moving enemies twice
-    for (auto it = m_enemies.rbegin(); it != m_enemies.rend(); it++) {
-        for (auto e : *it) {
-            /*  TODO:
-                Check with Assignment::Advance if the enemy moves
-                If it moves, move it to the next list in m_enemies
-                If it is in the last list, free it and decrease m_playerHealth
-            */
-        }
-    }
+    return true;
  }
 
  void Game::TowerTurn() {
     // Supporting towers act first because they affect attacking towers
-    /*
     for (auto t : m_supportingTowers){
-        t->Act();
+        t->Act(m_attakingTowers);
     }
-    */
+    auto enemies = Priv_GetEnemyMap();
     for (auto t : m_attakingTowers) {
-        //t->Attack();
+        t->Attack(enemies);
     }
-    /*  TODO:
-        Remove and free enemies that have died
-    */
+    // Remove and free dead enemies
+    for (uint32_t i = 0; i < m_enemies.size(); i++) {
+        for (auto enemyIt = m_enemies[i].begin(); enemyIt != m_enemies[i].end();) {
+            Assignment *e = *enemyIt;
+            if (!e->IsAlive()) {
+                enemyIt = m_enemies[i].erase(enemyIt);
+                delete e;
+            } else {
+                enemyIt++;
+            }
+        }
+    }
  }
 
  std::list<std::pair<std::pair<int32_t, int32_t>, Renderable*>> Game::GetEnemies() {
@@ -58,4 +81,12 @@ Game::Game(uint32_t mapWidth,
         }
     }
     return enemies;
+ }
+
+ std::map<std::pair<int32_t, int32_t>, std::list<Assignment*>> Game::Priv_GetEnemyMap() {
+    std::map<std::pair<int32_t, int32_t>, std::list<Assignment*>> enemyMap;
+    for (uint32_t i = 0; i < m_enemies.size(); i++) {
+        enemyMap[m_map.GetPath()[i]] = m_enemies[i];
+    }
+    return enemyMap;
  }
