@@ -2,7 +2,8 @@
 
 #include <list>
 
-#include "degree.hpp"
+// #include "degree.hpp"
+#include "assignment.hpp"
 
 enum Difficulty {
   Easy,

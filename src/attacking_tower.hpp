@@ -2,6 +2,7 @@
 
 //#include <cmath>
 
+#include <list>
 #include "tower.hpp"
 #include "assignment.hpp"
 #include "utils.hpp"
@@ -57,7 +58,7 @@ public:
   static AttackingTower* Freshman(std::pair<int32_t, int32_t> coords, const Map& map);
 
 private:
-  uint32_t m_basePower, m_maxHealth, m_health;
+  uint32_t m_basePower, m_health, m_maxHealth;
   float m_buffs;
   std::vector<std::pair<int32_t, int32_t>> m_inRange;
 };

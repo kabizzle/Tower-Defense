@@ -3,9 +3,10 @@
 #include <cstdint>
 #include <string>
 #include <ostream>
+#include <list>
 
 #include "renderable.hpp"
-#include "enemy_factory.hpp"
+// #include "enemy_factory.hpp"
 
 enum Enemy {
   Homework,

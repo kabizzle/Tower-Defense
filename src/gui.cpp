@@ -1,23 +1,23 @@
-#include <SFML/Graphics.hpp>
+#include "gui.hpp"
 
-int gui() {
-    
-  sf::RenderWindow window(sf::VideoMode(400, 600), "Hello World");
+GUI::GUI(sf::RenderWindow& window) : 
+  m_window(window) { }
+
+void GUI::draw_display() {
   sf::CircleShape shape(100.f);
   shape.setFillColor(sf::Color::Green);
+  m_window.draw(shape);
 
-  while (window.isOpen())
-  {
-      sf::Event event;
-      while (window.pollEvent(event))
-      {
-          if (event.type == sf::Event::Closed)
-              window.close();
-      }
+  // while (m_window.isOpen())
+  // {
+  //     sf::Event event;
+  //     while (m_window.pollEvent(event))
+  //     {
+  //         if (event.type == sf::Event::Closed)
+  //             m_window.close();
+  //     }
 
-      window.clear();
-      window.draw(shape);
-      window.display();
-  }
-  return 0;
+      // m_window.clear();
+      // m_window.display();
+  // }
 }

@@ -4,6 +4,7 @@
 #include <utility>
 
 #include "assignment.hpp"
+#include "enemy_factory.hpp"
 
 /**
  * @brief A more advanced type of enemy, will split into multiple other enemies

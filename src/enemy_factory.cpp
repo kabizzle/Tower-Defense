@@ -1,4 +1,5 @@
 #include "enemy_factory.hpp"
+#include "degree.hpp"
 
 #define DETAILED_DEBUG_PRINT 0
 
