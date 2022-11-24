@@ -12,13 +12,14 @@ protected:
   SupportTower(uint32_t range, std::pair<int32_t, int32_t> coords, const std::string& imageName);
   virtual ~SupportTower();
 
+public:
   /**
    * @brief Used by the supporting towers to buff/heal the attacking towers
    * The towers go through the attacking towers present on the game board and apply buffs/heal those that are
    * within range
    * @param towers The towers present on the game board
    */
-  virtual void Act(std::vector<AttackingTower*>& towers) = 0;
+  virtual void Act(std::list<AttackingTower*>& towers) = 0;
 };
 
 /**
@@ -43,7 +44,7 @@ public:
    * 
    * @param towers The towers on the game board
    */
-  void Act(std::vector<AttackingTower*>& towers);
+  void Act(std::list<AttackingTower*>& towers);
 private:
   float m_buffStrength;
 };
@@ -69,7 +70,7 @@ public:
    * 
    * @param towers The towers on the game board
    */
-  void Act(std::vector<AttackingTower*>& towers);
+  void Act(std::list<AttackingTower*>& towers);
 private:
   uint32_t m_healStrength;
 };

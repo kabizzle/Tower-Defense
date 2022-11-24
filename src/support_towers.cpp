@@ -9,7 +9,7 @@ SupportTower::SupportTower(uint32_t range, std::pair<int32_t, int32_t> coords, c
 BuffTower::BuffTower(uint32_t range, std::pair<int32_t, int32_t> coords, float buffStrength, const std::string& imageName)
   : SupportTower(range, coords, imageName), m_buffStrength(buffStrength) { }
 
-void BuffTower::Act(std::vector<AttackingTower*>& towers) {
+void BuffTower::Act(std::list<AttackingTower*>& towers) {
   for(AttackingTower* t : towers){
     float d = UtilFunctions::distance(t->GetCoords(), this->GetCoords());
     if(d <= m_range) {
@@ -23,7 +23,7 @@ void BuffTower::Act(std::vector<AttackingTower*>& towers) {
 HealTower::HealTower(uint32_t range, std::pair<int32_t, int32_t> coords, uint32_t healStrength, const std::string& imageName)
   : SupportTower(range, coords, imageName), m_healStrength(healStrength) { }
 
-void HealTower::Act(std::vector<AttackingTower*>& towers) {
+void HealTower::Act(std::list<AttackingTower*>& towers) {
   for(AttackingTower* t : towers){
     float d = UtilFunctions::distance(t->GetCoords(), this->GetCoords());
     if(d <= m_range) {
