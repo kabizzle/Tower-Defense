@@ -2,30 +2,26 @@
 #include "gui.hpp"
 
 int main() {
-  sf::RenderWindow window(sf::VideoMode(1200, 600), "Hello World");
-  window.setKeyRepeatEnabled(false);
-  
-  // // window.clear();
-  // // game.draw_display();
-  // // window.display();
+  GUI gui;
 
-  while (window.isOpen())
-  {
-    sf::CircleShape shape(300.f);
-    shape.setFillColor(sf::Color::Green);
-    sf::Event event;
-    while (window.pollEvent(event))
-    {
-        if (event.type == sf::Event::Closed)
-            window.close();
-    }
+  gui.init();
+  gui.render();
 
-      window.clear();
-      window.draw(shape);
-      window.display();
+  while (gui.running()) {
+  //   while (window.pollEvent(event))
+  //   {
+  //       if (event.type == sf::Event::Closed)
+  //           window.close();
+  //   }
+
+  //     window.clear();
+  //     window.draw(shape);
+  //     window.display();
+
+  // }
+    gui.update();
 
   }
-
   std::cout << "Hello, World!" << std::endl;
   return 0;
 }
