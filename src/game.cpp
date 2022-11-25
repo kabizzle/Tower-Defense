@@ -54,7 +54,7 @@ Game::Game(uint32_t mapWidth,
     for (auto t : m_supportingTowers){
         t->Act(m_attakingTowers);
     }
-    auto enemies = Priv_GetEnemyMap();
+    auto enemies = Priv_GetEnemyMap();  //Probably need references instead of copies here
     for (auto t : m_attakingTowers) {
         t->Attack(enemies);
     }
@@ -72,6 +72,7 @@ Game::Game(uint32_t mapWidth,
     }
  }
 
+//Probably need references instead of copies here
  std::list<std::pair<std::pair<int32_t, int32_t>, Renderable*>> Game::GetEnemies() {
     std::list<std::pair<std::pair<int32_t, int32_t>, Renderable*>> enemies;
     for (uint32_t i = 0; i < m_enemies.size(); i++) {
@@ -83,6 +84,7 @@ Game::Game(uint32_t mapWidth,
     return enemies;
  }
 
+//Probably need references instead of copies here
  std::map<std::pair<int32_t, int32_t>, std::list<Assignment*>> Game::Priv_GetEnemyMap() {
     std::map<std::pair<int32_t, int32_t>, std::list<Assignment*>> enemyMap;
     for (uint32_t i = 0; i < m_enemies.size(); i++) {
