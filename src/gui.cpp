@@ -53,7 +53,7 @@ void GUI::render() {
 void GUI::addEnemy() {
   sf::RectangleShape enemy;
   enemy.setSize(sf::Vector2f(100, 100));
-  enemy.setPosition(sf::Vector2f(200, 200));
+  enemy.setPosition(sf::Vector2f(600, 200));
   // this->m_window->draw(enemy);
   this->enemies.push_back(enemy);
 }
@@ -63,7 +63,7 @@ void GUI::moveEnemies() {
     sf::Vector2f position = enemy->getPosition();
     float z = 3;
     position.x += z;
-    // position.y += z;
+    position.y += z;
     enemy->setPosition(position);
   }
 }
@@ -73,16 +73,18 @@ void GUI::update() {
 
   this->pollEvents();
 
+  // this->addEnemy();
+
   // clear window
   this->m_window->clear();
 
   // draw changes
-  // this->addEnemy();
 
-    this->moveEnemies();
+    // this->moveEnemies();
     for (std::vector<sf::RectangleShape>::iterator enemy = this->enemies.begin(); enemy != this->enemies.end(); enemy++){
       this->m_window->draw(*enemy);
     }
+
 
   // display window
   this->m_window->display();
