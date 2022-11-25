@@ -1,5 +1,3 @@
-#pragma once
-
 #include "gui.hpp"
 
 GUI::GUI() {}
