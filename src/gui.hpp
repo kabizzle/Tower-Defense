@@ -22,7 +22,7 @@ public:
     void render();
 
     // determine if gui is open
-    const bool running();
+    bool running();
 
     // Detect events in gui window
     void pollEvents();
@@ -42,5 +42,7 @@ private:
     sf::VideoMode m_videoMode; // dimensions of window
     sf::Event m_event; // events that occur in gui window
     std::vector<sf::RectangleShape> enemies; // list of enemy objects
+    float x_velo = 3.f;
+    float y_velo = 4.f;
 
 };

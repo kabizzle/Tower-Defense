@@ -9,12 +9,12 @@ GUI::~GUI() {
 
 void GUI::init() {
   this->m_window = nullptr;
-  this->m_videoMode.height = 800;
-  this->m_videoMode.width = 1200;
+  this->m_videoMode.height = 720;
+  this->m_videoMode.width = 1280;
 }
 
 
-const bool GUI::running() {
+bool GUI::running() {
   return this->m_window->isOpen();
 }
 
@@ -28,7 +28,7 @@ void GUI::pollEvents() {
 
 
 void GUI::render() {
-  this->m_window = new sf::RenderWindow(this->m_videoMode, "test window");
+  this->m_window = new sf::RenderWindow(this->m_videoMode, "test window", sf::Style::Close);
   this->m_window->setFramerateLimit(60);
   this->addEnemy();
 
@@ -53,7 +53,7 @@ void GUI::render() {
 void GUI::addEnemy() {
   sf::RectangleShape enemy;
   enemy.setSize(sf::Vector2f(100, 100));
-  enemy.setPosition(sf::Vector2f(600, 200));
+  enemy.setPosition(sf::Vector2f(200, 200));
   // this->m_window->draw(enemy);
   this->enemies.push_back(enemy);
 }
@@ -61,9 +61,11 @@ void GUI::addEnemy() {
 void GUI::moveEnemies() {
   for (std::vector<sf::RectangleShape>::iterator enemy = this->enemies.begin(); enemy != this->enemies.end(); enemy++){
     sf::Vector2f position = enemy->getPosition();
-    float z = 3;
-    position.x += z;
-    position.y += z;
+    if (position.x < 0 || position.x > 1280 - 100) this->x_velo *= -1; 
+    if (position.y < 0 || position.y > 720 - 100) this->y_velo *= -1;
+    position.x += this->x_velo;
+    position.y += this->y_velo;
+
     enemy->setPosition(position);
   }
 }
@@ -80,7 +82,7 @@ void GUI::update() {
 
   // draw changes
 
-    // this->moveEnemies();
+    this->moveEnemies();
     for (std::vector<sf::RectangleShape>::iterator enemy = this->enemies.begin(); enemy != this->enemies.end(); enemy++){
       this->m_window->draw(*enemy);
     }
