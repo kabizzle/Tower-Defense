@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/kabir/tower-defense-2/build",
+  "command": "/usr/bin/g++   -I/home/kabir/tower-defense-2/src  -g   -Wall -Wextra -pedantic -Wno-missing-field-initializers -std=gnu++17 -o CMakeFiles/tower-defense.dir/src/main.cpp.o -c /home/kabir/tower-defense-2/src/main.cpp",
+  "file": "/home/kabir/tower-defense-2/src/main.cpp"
+},
+{
+  "directory": "/home/kabir/tower-defense-2/build",
+  "command": "/usr/bin/g++   -I/home/kabir/tower-defense-2/src  -g   -Wall -Wextra -pedantic -Wno-missing-field-initializers -std=gnu++17 -o CMakeFiles/tower-defense.dir/src/gui.cpp.o -c /home/kabir/tower-defense-2/src/gui.cpp",
+  "file": "/home/kabir/tower-defense-2/src/gui.cpp"
+}
+]

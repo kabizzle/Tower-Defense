@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/kabir/tower-defense-2/src/gui.cpp
+gui.hpp
+/home/kabir/tower-defense-2/src/gui.hpp
+
+/home/kabir/tower-defense-2/src/gui.hpp
+SFML/Graphics.hpp
+-
+vector
+-
+
+/home/kabir/tower-defense-2/src/main.cpp
+iostream
+-
+gui.hpp
+/home/kabir/tower-defense-2/src/gui.hpp
+
