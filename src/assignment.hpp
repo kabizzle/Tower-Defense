@@ -44,6 +44,11 @@ public:
   bool IsAlive() const;
 
   /**
+   * @brief Tells the amount of health the enemy has left
+   */
+  uint32_t CrLeft() const;
+
+  /**
    * @brief Get the amount of credits the enemy is worth
    */
   uint32_t GetCredits() const;

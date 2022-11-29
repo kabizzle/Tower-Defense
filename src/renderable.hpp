@@ -21,6 +21,11 @@ public:
 protected:
   Renderable(const std::string& imageName);
 
+  /**
+   * @brief Is used by the towers to alter the image name to update the look of upgraded towers
+   */
+  void AddSuffix(const std::string& suffix);
+
 private:
   std::string m_imageName;
 };
