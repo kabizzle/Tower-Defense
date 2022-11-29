@@ -35,6 +35,15 @@ public:
   void Attack(std::map<std::pair<int32_t, int32_t>, std::list<Assignment*>>& enemies);
 
   /**
+   * @brief Performs an attack against one enemy NOTE: migrate to using this overload
+   * The tower goes through the possible targetable locations in m_inRangeInd, starting from the one closest to end
+   * and when it finds a living enemy in one of the locations, it attacks that.
+   * After performing an attack, it clears the buffs
+   * @param enemies A reference to the map of enemies in different coordinates
+   */
+  void Attack(std::vector<std::list<Assignment*>>& enemies);
+
+  /**
    * @brief Used by the buffing towers to apply a buff
    * In case multiple buffing towers buff a single tower, the buffs stack additively, not multiplicatively
    * @param b The buff amount as a decimal number (e.g. 20% buff is 0.2f)
@@ -60,4 +69,5 @@ private:
   uint32_t m_basePower, m_maxHealth, m_health;
   float m_buffs;
   std::vector<std::pair<int32_t, int32_t>> m_inRange;
+  std::vector<uint32_t> m_inRangeInd;
 };
