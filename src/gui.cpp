@@ -71,6 +71,10 @@ void GUI::init_textures() {
   this->textures_map["bachelor_3"] = "src/images/bachelor_upgraded_twice.png";
   this->textures_map["bachelor_2"] = "src/images/bachelor_upgraded.png";
   this->textures_map["doctor"] = "src/images/doctor.png";
+  if (!this->bg.loadFromFile("src/images/background.png")) {
+    std::cout << "Error: Image not found" << std::endl; 
+    return;
+  }
   // this->textures_map.insert();
   // this->textures_map.insert();
   // this->textures_map.insert();
@@ -142,12 +146,13 @@ void GUI::update() {
   this->pollEvents();
 
   // this->addEnemy();
+  this->m_bg.setTexture(this->bg);
 
   // clear window
   this->m_window->clear();
 
   // draw changes
-
+  this->m_window->draw(this->m_bg);
     // this->moveEnemies();
     for (auto enemy = this->enemies.begin(); enemy != this->enemies.end(); enemy++){
       this->m_window->draw(*enemy);

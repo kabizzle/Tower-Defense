@@ -53,6 +53,8 @@ private:
     float x_velo = 3.f;
     float y_velo = 4.f;
     sf::Vector2f start;
+    sf::Texture bg;
+    sf::Sprite m_bg;
 };
 
 // void GUI::addEnemy(std::string type, sf::Vector2f pos) {
