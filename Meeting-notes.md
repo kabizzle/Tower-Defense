@@ -8,7 +8,7 @@ In each meeting, you are required to discuss:
 4. Deviations and changes to the project plan, if any
 
 
-# Meeting 07.11.2022 18:00
+# Week 1 Meeting 1 07.11.2022 18:00
 
 **Participants**: 
 1. Elias Peltokangas
@@ -40,7 +40,7 @@ Next meeting will be on Wednesday. The project plan will be discussed and finali
 * Create/acquire an initial idea of your part and the whole project. (Everyone)
 
 
-# Meeting 2 09.11.2022 17:00
+# Week 1 Meeting 2 09.11.2022 17:00
 
 **Participants**: 
 1. Elias Peltokangas
@@ -112,6 +112,29 @@ High level project plan is done. Some of the interfaces between software modules
 Map and enemies are roughly complete.
 Goal of the next week: Get the wave part of the game running
 
+
+# Week 3 Meeting 1 25.11.2022 15:00
+
+**Participants**: 
+1. Kabir Bissessar
+2. Juho Poteri
+3. Antti Pekkanen
+
+## Summary of works
+1. **Elias**: Images done for tiles, enemies, towers and a basic background.
+2. **Kabir**: GUI can now draw general shapes.
+3. **Juho**: Towers have a basic logic to attack enemies etc. (towers and enemies communicate together)
+4. **Antti**: Game core has functions that advance enemies and make towers attack. (Game communicates with towers and enemies)
+
+## Actions
+1. **Elias**: Building the shop part of the game (with Kabir).
+2. **Kabir**: Figuring out sprites and creating a map from maptiles (then enemies and towers).
+3. **Juho**: Tower upgrade logic.
+4. **Antti**: Tower building logic for the game core.
+
+## Project status 
+GUI still a work in progress. Basic structures for core and classes done. Communication between classes is partly done.  
+Next focusing on piecing the puzzle together and adding the rest of the features to complete the game.
 
 # Example Meeting xx.xx.2022 xx:xx
 
