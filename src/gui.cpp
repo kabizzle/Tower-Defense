@@ -14,6 +14,7 @@ void GUI::init() {
   this->m_videoMode.height = 720;
   this->m_videoMode.width = 1280;
   this->start = sf::Vector2f(100, 200);
+  this->init_textures();
 }
 
 
@@ -26,6 +27,16 @@ void GUI::pollEvents() {
   while (this->m_window->pollEvent(this->m_event)) {
     if (this->m_event.type == sf::Event::Closed)
       this->m_window->close();
+    
+    if (this->m_event.type == sf::Event::MouseButtonPressed)
+{
+    if (this->m_event.mouseButton.button == sf::Mouse::Right)
+    {
+        std::cout << "the right button was pressed" << std::endl;
+        std::cout << "mouse x: " << this->m_event.mouseButton.x << std::endl;
+        std::cout << "mouse y: " << this->m_event.mouseButton.y << std::endl;
+    }
+}
   }
 }
 
@@ -34,9 +45,9 @@ void GUI::render() {
   this->m_window = new sf::RenderWindow(this->m_videoMode, "test window", sf::Style::Close);
   this->m_window->setFramerateLimit(60);
   this->addEnemy("bachelor_2", this->start);
-  sf::Vector2f pos = this->start;
-  pos.x += 200;
-  this->addEnemy("doctor", pos);
+  // sf::Vector2f pos = this->start;
+  // pos.x += 200;
+  // this->addEnemy("doctor", pos);
 
   // sf::CircleShape shape(100.f);
   // shape.setFillColor(sf::Color::Green);

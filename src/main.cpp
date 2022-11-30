@@ -5,7 +5,6 @@ int main() {
   GUI gui;
 
   gui.init();
-  gui.init_textures();
   gui.render();
 
   while (gui.running()) {
