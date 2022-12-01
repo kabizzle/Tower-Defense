@@ -24,7 +24,7 @@ class MenuState : public State {
    * presses "Play".
    *
    */
-  void run();
+  void Run();
 
  private:
 };

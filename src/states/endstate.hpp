@@ -27,7 +27,7 @@ class EndState : public State {
    * the user presses "Main menu".
    *
    */
-  void run();
+  void Run();
 
  private:
   int m_score;

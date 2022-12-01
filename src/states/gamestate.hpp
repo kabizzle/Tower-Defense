@@ -33,7 +33,7 @@ class GameState : public State {
    * over.
    *
    */
-  void run();
+  void Run();
 
  private:
   Difficulty m_difficulty;

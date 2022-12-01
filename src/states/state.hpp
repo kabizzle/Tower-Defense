@@ -24,7 +24,7 @@ class State {
    * necessary backend methods and draws the window.)
    *
    */
-  virtual void run() = 0;
+  virtual void Run() = 0;
 
  private:
   Gui* m_gui;
