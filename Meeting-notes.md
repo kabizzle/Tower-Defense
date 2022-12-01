@@ -136,7 +136,7 @@ Goal of the next week: Get the wave part of the game running
 GUI still a work in progress. Basic structures for core and classes done. Communication between classes is partly done.  
 Next focusing on piecing the puzzle together and adding the rest of the features to complete the game.
 
-# Example Meeting xx.xx.2022 xx:xx
+# Week 4 Meeting 1 30.11.2022 15:00
 
 **Participants**: 
 1. Elias Peltokangas
@@ -145,20 +145,18 @@ Next focusing on piecing the puzzle together and adding the rest of the features
 4. Antti Pekkanen
 
 ## Summary of works
-1. **Elias**:
-2. **Kabir**:
-3. **Juho**:
-4. **Antti**:
+1. **Elias**: Images for sprites.
+2. **Kabir**: Figured out sprites and creating the window.
+3. **Juho**: Tower upgrade stuff done.
+4. **Antti**: Tower building in progress.
 
-## Challenges
-
-1. 
 
 ## Actions
-1. **Elias**:
-2. **Kabir**:
-3. **Juho**:
-4. **Antti**:
+1. **Elias**: Create the abstract State class. Create all backend functionality for level editor.
+2. **Kabir**: Initializing the GameState: drawing the map tiles then moving to building the round, create the loop for the building 
+3. **Juho**: Make the game core TowerTurn() return a list of actions ((x,y), (x,y)), ((x,y), (x, y)), Create the loop for running the wave in GameState without the drawing stuff. (Calls towerturn and enemyturn and saves the returned values for drawing the projectiles etc.)
+4. **Antti**: Finish game core backend: add money + methods for increase and decrease, add game core method for create tower at x,y and remove a certain tower. Create and finish all high score backend functionality
 
 
-## Project status 
+## Project status
+Backend is close to complete, GUI and the game loops have been designed and need to be implemented.

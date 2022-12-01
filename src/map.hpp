@@ -24,7 +24,6 @@ class Map {
    * @param height Limit of y-coordinate of the map.
    */
   Map(int width, int height) : m_width(width), m_height(height) {}
-  ~Map() = default;
 
   /**
    * @brief Initialize a map from a text file to m_grid.

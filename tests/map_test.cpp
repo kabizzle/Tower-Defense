@@ -1,7 +1,6 @@
-/*
-#include <iostream>
+#include "../src/map.hpp"
 
-#include "map.hpp"
+#include <iostream>
 
 int main() {
   Map map1 = Map(30, 20);
@@ -14,4 +13,3 @@ int main() {
   std::cout << "Map initialization complete." << std::endl;
   return 0;
 }
-*/
