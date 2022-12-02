@@ -50,27 +50,35 @@ Game::Game(uint32_t mapWidth,
  }
 
  void Game::TowerTurn() {
-    // Supporting towers act first because they affect attacking towers
-    for (auto t : m_supportingTowers){
-        t->Act(m_attakingTowers);
+  //Reset the m_tickattacks collection
+  m_tickAttacks.clear();
+  // Supporting towers act first because they affect attacking towers
+  for (auto t : m_supportingTowers){
+    t->Act(m_attakingTowers);
+  }
+  //auto enemies = Priv_GetEnemyMap();  //Probably need references instead of copies here
+  for (auto t : m_attakingTowers) {
+    if(t->IsFunctional()){
+      t->Attack(m_enemies, m_tickAttacks);   //Refactored to used the vector m_enemies directly
     }
-    auto enemies = Priv_GetEnemyMap();  //Probably need references instead of copies here
-    for (auto t : m_attakingTowers) {
-        t->Attack(enemies);
-    }
-    // Remove and free dead enemies
-    for (uint32_t i = 0; i < m_enemies.size(); i++) {
-        for (auto enemyIt = m_enemies[i].begin(); enemyIt != m_enemies[i].end();) {
-            Assignment *e = *enemyIt;
-            if (!e->IsAlive()) {
-                enemyIt = m_enemies[i].erase(enemyIt);
-                delete e;
-            } else {
-                enemyIt++;
-            }
-        }
-    }
+  }
+  // Remove and free dead enemies
+  for (uint32_t i = 0; i < m_enemies.size(); i++) {
+      for (auto enemyIt = m_enemies[i].begin(); enemyIt != m_enemies[i].end();) {
+          Assignment *e = *enemyIt;
+          if (!e->IsAlive()) {
+              enemyIt = m_enemies[i].erase(enemyIt);
+              delete e;
+          } else {
+              enemyIt++;
+          }
+      }
+  }
  }
+
+const std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>>& Game::GetAttacks() {
+  return m_tickAttacks;
+}
 
 //Probably need references instead of copies here
  std::list<std::pair<std::pair<int32_t, int32_t>, Renderable*>> Game::GetEnemies() {

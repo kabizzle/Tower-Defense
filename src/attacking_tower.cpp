@@ -23,12 +23,15 @@ void AttackingTower::Attack(std::map<std::pair<int32_t, int32_t>, std::list<Assi
   m_buffs = 1.0f;
 }
 
-void AttackingTower::Attack(std::vector<std::list<Assignment*>>& enemies) {
+void AttackingTower::Attack(std::vector<std::list<Assignment*>>& enemies,
+                            std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>>& attackCollection) {
   //Start going through the accessible indices and find the first non-dead enemy to attack
   uint32_t dmgToGiveOut = m_basePower * m_buffs;
   for(uint32_t i: m_inRangeInd) {
     for(auto e: enemies[i]){
       if(e->IsAlive()){
+        //Tower will attack this enemy, add the action to attackCollection
+        attackCollection.emplace_back(this->m_coords, this->m_map.GetPath()[i]);
         if(dmgToGiveOut <= e->CrLeft()) {
           //The last bit of dmg the tower has left
           uint32_t dmgToTower = e->TakeDmg(dmgToGiveOut, enemies[i]);

@@ -39,9 +39,12 @@ public:
    * The tower goes through the possible targetable locations in m_inRangeInd, starting from the one closest to end
    * and when it finds a living enemy in one of the locations, it attacks that.
    * After performing an attack, it clears the buffs
+   * It also adds the attacks which it performs to a collection given as a reference
    * @param enemies A reference to the map of enemies in different coordinates
+   * @param attackCollection A reference to the collection where the attacks happening during the round are stored
    */
-  void Attack(std::vector<std::list<Assignment*>>& enemies);
+  void Attack(std::vector<std::list<Assignment*>>& enemies,
+              std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>>& attackCollection);
 
   /**
    * @brief Used by the buffing towers to apply a buff

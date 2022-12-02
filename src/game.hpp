@@ -26,6 +26,12 @@ public:
     // Method for getting enemies and their coordinates for GUI to draw
     std::list<std::pair<std::pair<int32_t, int32_t>, Renderable*>> GetEnemies();
 
+    /**
+     * @brief Gives information about which attacks happened during the turn
+     * @return const std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>>& 
+     */
+    const std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>>& GetAttacks();
+
 private:
     uint32_t m_playerHealth;
     uint32_t m_score;
@@ -38,6 +44,12 @@ private:
         where indices corresponds to indices of Map::GetPath
     */
     std::vector<std::list<Assignment*>> m_enemies;
+
+    /**
+     * @brief Stores the attack performed during towerturn so that they can be rendered
+     * They are stored as pairs of coordinate pairs, in the order "from, to"
+     */
+    std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>> m_tickAttacks;
 
     // Method for getting enemies and their coordinates for towers to attack
     std::map<std::pair<int32_t, int32_t>, std::list<Assignment*>> Priv_GetEnemyMap();

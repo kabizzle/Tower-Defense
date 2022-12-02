@@ -58,7 +58,7 @@ class Map {
   /**
    * @brief Get the Path object
    *
-   * @return std::vector<std::pair<int, int>>
+   * @return const std::vector<std::pair<int, int>>&
    */
   const std::vector<std::pair<int, int>>& GetPath() const;
 
