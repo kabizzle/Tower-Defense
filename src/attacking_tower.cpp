@@ -1,6 +1,6 @@
 #include "attacking_tower.hpp"
 
-AttackingTower::AttackingTower(uint32_t power, uint32_t range, uint32_t health, uint32_t upgCost, std::pair<int32_t, int32_t> coords, const Map& map, const std::string& imageName)
+AttackingTower::AttackingTower(uint32_t power, uint32_t range, uint32_t health, uint32_t upgCost, const std::pair<int32_t, int32_t>& coords, const Map& map, const std::string& imageName)
   : Tower(range, coords, imageName), m_basePower(power), m_maxHealth(health),
     m_health(health), m_upgCost(upgCost), m_level(1),
     m_buffs(1.0f), m_map(map) {
@@ -85,8 +85,24 @@ bool AttackingTower::Upgrade() {
 }
 
 
-AttackingTower* AttackingTower::Freshman(std::pair<int32_t, int32_t> coords, const Map& map) {
+AttackingTower* AttackingTower::Freshman(const std::pair<int32_t, int32_t>& coords, const Map& map) {
   return new AttackingTower(1, 7, 40, 20, coords, map, "freshman");
+}
+
+AttackingTower* AttackingTower::Teekkari(const std::pair<int32_t, int32_t>& coords, const Map& map) {
+  return new AttackingTower(5, 7, 80, 40, coords, map, "teekkari");
+}
+
+AttackingTower* AttackingTower::Bachelor(const std::pair<int32_t, int32_t>& coords, const Map& map) {
+  return new AttackingTower(20, 8, 120, 60, coords, map, "bachelor");
+}
+
+AttackingTower* AttackingTower::Master(const std::pair<int32_t, int32_t>& coords, const Map& map) {
+  return new AttackingTower(50, 8, 160, 80, coords, map, "master");
+}
+
+AttackingTower* AttackingTower::Doctor(const std::pair<int32_t, int32_t>& coords, const Map& map) {
+  return new AttackingTower(100, 9, 200, 100, coords, map, "doctor");
 }
 
 void AttackingTower::Priv_UpdateRange(uint32_t newRange) {

@@ -23,7 +23,7 @@ public:
    * @param map A reference to the map used for the game, this is needed to know the enemy path and find attackable locations
    * @param imageName The name of the image representing this particular tower, also the name of the tower type
    */
-  AttackingTower(uint32_t power, uint32_t range, uint32_t health, uint32_t upgCost, std::pair<int32_t, int32_t> coords, const Map& map, const std::string& imageName);
+  AttackingTower(uint32_t power, uint32_t range, uint32_t health, uint32_t upgCost, const std::pair<int32_t, int32_t>& coords, const Map& map, const std::string& imageName);
 
   /**
    * @brief Performs an attack against one enemy
@@ -76,7 +76,15 @@ public:
 
 
   //Static member functions to create some types of attacking towers
-  static AttackingTower* Freshman(std::pair<int32_t, int32_t> coords, const Map& map);
+  static AttackingTower* Freshman(const std::pair<int32_t, int32_t>& coords, const Map& map);
+
+  static AttackingTower* Teekkari(const std::pair<int32_t, int32_t>& coords, const Map& map);
+
+  static AttackingTower* Bachelor(const std::pair<int32_t, int32_t>& coords, const Map& map);
+
+  static AttackingTower* Master(const std::pair<int32_t, int32_t>& coords, const Map& map);
+
+  static AttackingTower* Doctor(const std::pair<int32_t, int32_t>& coords, const Map& map);
 
 private:
   uint32_t m_basePower, m_maxHealth, m_health, m_upgCost, m_level;
