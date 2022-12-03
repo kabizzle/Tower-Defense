@@ -44,6 +44,8 @@ std::list<Assignment*> EnemyFactory::NextTick() {
   return ret;
 }
 
+bool EnemyFactory::EnemiesLeft() const { return !m_roundEnemies.empty(); }
+
 Assignment* EnemyFactory::CreateEnemy(Enemy e) const {
   float hpScale = static_cast<float>(m_diff + 4) / 4.0f;
   switch (e)

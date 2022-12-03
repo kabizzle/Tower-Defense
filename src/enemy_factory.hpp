@@ -65,6 +65,11 @@ public:
   std::list<Assignment*> NextTick();
 
   /**
+   * @brief Tells if there are still enemies left which have not been handed to the Game logic unit
+   */
+  bool EnemiesLeft() const;
+
+  /**
    * @brief TODO initializes any round desired
    */
   void Round(uint32_t r);

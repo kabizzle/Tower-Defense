@@ -3,16 +3,20 @@
 Game::Game(uint32_t mapWidth,
            uint32_t mapLength,
            const std::string& filename,
-           Difficulty difficulty,
-           uint32_t playerHealth)
+           Difficulty difficulty)
     : m_map(Map(mapWidth, mapLength)),
-    m_enemyFactory(difficulty),
-    m_playerHealth(playerHealth) {
+    m_enemyFactory(EnemyFactory(difficulty)),
+    m_playerHealth(100 - difficulty * 20)
+{
         m_map.InitializeMap(filename);
         // Create empty list for enemies for each path tile
         for (uint32_t i = 0; i < m_map.GetPath().size(); i++) {
             m_enemies.push_back(std::list<Assignment*>());
         }
+ }
+
+ uint32_t Game::StartNextRound() {
+
  }
 
  bool Game::EnemyTurn() {
@@ -56,7 +60,7 @@ Game::Game(uint32_t mapWidth,
   for (auto t : m_supportingTowers){
     t->Act(m_attakingTowers);
   }
-  //auto enemies = Priv_GetEnemyMap();  //Probably need references instead of copies here
+  //auto enemies = Priv_GetEnemyMap();
   for (auto t : m_attakingTowers) {
     if(t->IsFunctional()){
       t->Attack(m_enemies, m_tickAttacks);   //Refactored to used the vector m_enemies directly
@@ -67,7 +71,7 @@ Game::Game(uint32_t mapWidth,
       for (auto enemyIt = m_enemies[i].begin(); enemyIt != m_enemies[i].end();) {
           Assignment *e = *enemyIt;
           if (!e->IsAlive()) {
-              enemyIt = m_enemies[i].erase(enemyIt);
+              enemyIt = m_enemies[i].erase(enemyIt);    //NOTE We can update the score/money of the player here using e->GetCredits()
               delete e;
           } else {
               enemyIt++;
@@ -76,9 +80,20 @@ Game::Game(uint32_t mapWidth,
   }
  }
 
-const std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>>& Game::GetAttacks() {
-  return m_tickAttacks;
+bool Game::RoundIsFinished() {
+  if(m_enemyFactory.EnemiesLeft()) {
+    return false;
+  } else {
+    //Must check if there are enemies still present on the field
+    for(const auto& eList: m_enemies){
+      if(!eList.empty()){
+        return false;
+      }
+    }
+    return true;
+  }
 }
+
 
 //Probably need references instead of copies here
  std::list<std::pair<std::pair<int32_t, int32_t>, Renderable*>> Game::GetEnemies() {
@@ -91,6 +106,10 @@ const std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t
     }
     return enemies;
  }
+
+const std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>>& Game::GetAttacks() {
+  return m_tickAttacks;
+}
 
 //Probably need references instead of copies here
  std::map<std::pair<int32_t, int32_t>, std::list<Assignment*>> Game::Priv_GetEnemyMap() {

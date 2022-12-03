@@ -1,3 +1,4 @@
+#pragma once
 #include "state.hpp"
 
 class EndState : public State {
