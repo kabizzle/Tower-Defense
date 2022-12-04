@@ -123,6 +123,87 @@ tower-defense/fast:
 	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/build
 .PHONY : tower-defense/fast
 
+src/assignment.o: src/assignment.cpp.o
+
+.PHONY : src/assignment.o
+
+# target to build an object file
+src/assignment.cpp.o:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/assignment.cpp.o
+.PHONY : src/assignment.cpp.o
+
+src/assignment.i: src/assignment.cpp.i
+
+.PHONY : src/assignment.i
+
+# target to preprocess a source file
+src/assignment.cpp.i:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/assignment.cpp.i
+.PHONY : src/assignment.cpp.i
+
+src/assignment.s: src/assignment.cpp.s
+
+.PHONY : src/assignment.s
+
+# target to generate assembly for a file
+src/assignment.cpp.s:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/assignment.cpp.s
+.PHONY : src/assignment.cpp.s
+
+src/attacking_tower.o: src/attacking_tower.cpp.o
+
+.PHONY : src/attacking_tower.o
+
+# target to build an object file
+src/attacking_tower.cpp.o:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/attacking_tower.cpp.o
+.PHONY : src/attacking_tower.cpp.o
+
+src/attacking_tower.i: src/attacking_tower.cpp.i
+
+.PHONY : src/attacking_tower.i
+
+# target to preprocess a source file
+src/attacking_tower.cpp.i:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/attacking_tower.cpp.i
+.PHONY : src/attacking_tower.cpp.i
+
+src/attacking_tower.s: src/attacking_tower.cpp.s
+
+.PHONY : src/attacking_tower.s
+
+# target to generate assembly for a file
+src/attacking_tower.cpp.s:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/attacking_tower.cpp.s
+.PHONY : src/attacking_tower.cpp.s
+
+src/game.o: src/game.cpp.o
+
+.PHONY : src/game.o
+
+# target to build an object file
+src/game.cpp.o:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/game.cpp.o
+.PHONY : src/game.cpp.o
+
+src/game.i: src/game.cpp.i
+
+.PHONY : src/game.i
+
+# target to preprocess a source file
+src/game.cpp.i:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/game.cpp.i
+.PHONY : src/game.cpp.i
+
+src/game.s: src/game.cpp.s
+
+.PHONY : src/game.s
+
+# target to generate assembly for a file
+src/game.cpp.s:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/game.cpp.s
+.PHONY : src/game.cpp.s
+
 src/gui.o: src/gui.cpp.o
 
 .PHONY : src/gui.o
@@ -177,6 +258,87 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/renderable.o: src/renderable.cpp.o
+
+.PHONY : src/renderable.o
+
+# target to build an object file
+src/renderable.cpp.o:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/renderable.cpp.o
+.PHONY : src/renderable.cpp.o
+
+src/renderable.i: src/renderable.cpp.i
+
+.PHONY : src/renderable.i
+
+# target to preprocess a source file
+src/renderable.cpp.i:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/renderable.cpp.i
+.PHONY : src/renderable.cpp.i
+
+src/renderable.s: src/renderable.cpp.s
+
+.PHONY : src/renderable.s
+
+# target to generate assembly for a file
+src/renderable.cpp.s:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/renderable.cpp.s
+.PHONY : src/renderable.cpp.s
+
+src/support_towers.o: src/support_towers.cpp.o
+
+.PHONY : src/support_towers.o
+
+# target to build an object file
+src/support_towers.cpp.o:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/support_towers.cpp.o
+.PHONY : src/support_towers.cpp.o
+
+src/support_towers.i: src/support_towers.cpp.i
+
+.PHONY : src/support_towers.i
+
+# target to preprocess a source file
+src/support_towers.cpp.i:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/support_towers.cpp.i
+.PHONY : src/support_towers.cpp.i
+
+src/support_towers.s: src/support_towers.cpp.s
+
+.PHONY : src/support_towers.s
+
+# target to generate assembly for a file
+src/support_towers.cpp.s:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/support_towers.cpp.s
+.PHONY : src/support_towers.cpp.s
+
+src/tower.o: src/tower.cpp.o
+
+.PHONY : src/tower.o
+
+# target to build an object file
+src/tower.cpp.o:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/tower.cpp.o
+.PHONY : src/tower.cpp.o
+
+src/tower.i: src/tower.cpp.i
+
+.PHONY : src/tower.i
+
+# target to preprocess a source file
+src/tower.cpp.i:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/tower.cpp.i
+.PHONY : src/tower.cpp.i
+
+src/tower.s: src/tower.cpp.s
+
+.PHONY : src/tower.s
+
+# target to generate assembly for a file
+src/tower.cpp.s:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/tower.cpp.s
+.PHONY : src/tower.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -186,12 +348,30 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... tower-defense"
+	@echo "... src/assignment.o"
+	@echo "... src/assignment.i"
+	@echo "... src/assignment.s"
+	@echo "... src/attacking_tower.o"
+	@echo "... src/attacking_tower.i"
+	@echo "... src/attacking_tower.s"
+	@echo "... src/game.o"
+	@echo "... src/game.i"
+	@echo "... src/game.s"
 	@echo "... src/gui.o"
 	@echo "... src/gui.i"
 	@echo "... src/gui.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/renderable.o"
+	@echo "... src/renderable.i"
+	@echo "... src/renderable.s"
+	@echo "... src/support_towers.o"
+	@echo "... src/support_towers.i"
+	@echo "... src/support_towers.s"
+	@echo "... src/tower.o"
+	@echo "... src/tower.i"
+	@echo "... src/tower.s"
 .PHONY : help
 
 

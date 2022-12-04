@@ -1,6 +1,12 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/tower-defense.dir/src/assignment.cpp.o"
+  "CMakeFiles/tower-defense.dir/src/attacking_tower.cpp.o"
+  "CMakeFiles/tower-defense.dir/src/game.cpp.o"
   "CMakeFiles/tower-defense.dir/src/gui.cpp.o"
   "CMakeFiles/tower-defense.dir/src/main.cpp.o"
+  "CMakeFiles/tower-defense.dir/src/renderable.cpp.o"
+  "CMakeFiles/tower-defense.dir/src/support_towers.cpp.o"
+  "CMakeFiles/tower-defense.dir/src/tower.cpp.o"
   "tower-defense"
   "tower-defense.pdb"
 )
