@@ -32,6 +32,6 @@ uint32_t Assignment::TakeDmg(uint32_t dmg, std::list<Assignment*>& location){
   }
 
 std::ostream& operator<<(std::ostream& os, const Assignment& as) {
-  os << "Assignment: " << as.ImgPath() << std::endl;
+  os << "Enemy: " << as.ImgPath() << "\t\tHealth: " << as.m_curCr << std::endl;
   return os;
 }

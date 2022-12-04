@@ -4,7 +4,6 @@
 
 #include "tower.hpp"
 #include "assignment.hpp"
-#include "utils.hpp"
 
 /**
  * @brief A class for the offensive towers
@@ -77,6 +76,8 @@ public:
    */
   bool Upgrade();
 
+  friend std::ostream& operator<<(std::ostream& os, const AttackingTower& at);
+
 
   //Static member functions to create some types of attacking towers
   static AttackingTower* Freshman(const std::pair<int32_t, int32_t>& coords, const Map& map);
@@ -92,7 +93,7 @@ public:
 private:
   uint32_t m_basePower, m_maxHealth, m_health, m_upgCost, m_level;
   float m_buffs;
-  std::vector<std::pair<int32_t, int32_t>> m_inRange;
+  //std::vector<std::pair<int32_t, int32_t>> m_inRange;
   std::vector<uint32_t> m_inRangeInd;
   const Map& m_map;
 

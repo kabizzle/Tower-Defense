@@ -1,3 +1,5 @@
+#pragma once
+
 #include <exception>
 #include <fstream>
 #include <map>
@@ -53,7 +55,7 @@ class Map {
    *
    * @return const std::map<std::pair<int, int>, int>
    */
-  const std::map<std::pair<int, int>, int> GetGrid() const;
+  const std::map<std::pair<int, int>, int>& GetGrid() const;
 
   /**
    * @brief Get the Path object

@@ -4,6 +4,7 @@
 #include <utility>
 
 #include "assignment.hpp"
+class EnemyFactory; //Forward declaration
 
 /**
  * @brief A more advanced type of enemy, will split into multiple other enemies

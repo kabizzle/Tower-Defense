@@ -10,9 +10,9 @@ class SupportTower : public Tower
 {
 protected:
   SupportTower(uint32_t range, const std::pair<int32_t, int32_t>& coords, const std::string& imageName);
-  virtual ~SupportTower();
 
 public:
+  virtual ~SupportTower() { }
   /**
    * @brief Used by the supporting towers to buff/heal the attacking towers
    * The towers go through the attacking towers present on the game board and apply buffs/heal those that are
@@ -20,6 +20,12 @@ public:
    * @param towers The towers present on the game board
    */
   virtual void Act(std::list<AttackingTower*>& towers) = 0;
+
+  /**
+   * @brief Overload to stream output operator
+   * @return std::ostream& 
+   */
+  friend std::ostream& operator<<(std::ostream& os, const SupportTower& st);
 
   //static functions to create support towers
   static SupportTower* Calculator(const std::pair<int32_t, int32_t>& coords);
@@ -43,7 +49,7 @@ public:
    * @param imageName The name of the image representing this particular tower, also the name of the tower type
    */
   BuffTower(uint32_t range, const std::pair<int32_t, int32_t>& coords, float buffStrength, const std::string& imageName);
-  
+  //~BuffTower();
   /**
    * @brief Goes trough the attacking towers in the game and applies buff to them
    * 
@@ -69,7 +75,7 @@ public:
    * @param imageName The name of the image representing this particular tower, also the name of the tower type
    */
   HealTower(uint32_t range, const std::pair<int32_t, int32_t>& coords, uint32_t healStrength, const std::string& imageName);
-  
+  //~HealTower();
   /**
    * @brief Goes through the attacking towers and heals them if in range and not in full health already
    * 

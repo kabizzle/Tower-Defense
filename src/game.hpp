@@ -10,6 +10,21 @@
 #include "map.hpp"
 #include "support_towers.hpp"
 
+/**
+ * @brief An enumeration for creating the towers
+ * 
+ 
+enum TowerType {
+  Freshman,
+  Teekkari,
+  Bachelor,
+  Master,
+  Doctor,
+  Calculator,
+  CoffeeTable
+};
+*/
+
 class Game
 {
 public:
@@ -17,6 +32,12 @@ public:
         uint32_t mapLength,
         const std::string& filename,
         Difficulty difficulty);
+
+  /**
+   * @brief Destroy the Game object
+   * In case of a game over / quit the enemies and towers present must be freed
+   */
+  ~Game();
 
   /**
    * @brief Used to start the next round
@@ -43,7 +64,7 @@ public:
   bool RoundIsFinished();
 
   // Method for getting enemies and their coordinates for GUI to draw
-  std::list<std::pair<std::pair<int32_t, int32_t>, Renderable*>> GetEnemies();
+  std::list<std::pair<std::pair<int32_t, int32_t>, Assignment*>> GetEnemies();
 
   /**
    * @brief Gives information about which attacks happened during the turn
@@ -56,7 +77,35 @@ public:
    * 
    * @return const Map& 
    */
-  const Map& GetMap();
+  const Map& GetMap() const;
+
+  /**
+   * @brief For adding a tower to the Game. NOTE: not ideal implementation, just for the text-based test
+   * 
+   * @param t A pointer to the dynamically allocated tower
+   * Will fail if the Tower is not an instance of Attacking or supporting Tower
+   * @return bool Whether the adding was successfull
+   */
+  bool AddTower(Tower* t);
+
+  /**
+   * @brief Get a ref to the Attacking Towers for drawing them
+   * 
+   * @return const std::list<AttackingTower*>& 
+   */
+  const std::list<AttackingTower*>& GetAttackingTowers() const;
+
+  /**
+   * @brief Get a ref to the Support Towers for drawing them
+   * 
+   * @return const std::list<SupportTower*>& 
+   */
+  const std::list<SupportTower*>& GetSupportTowers() const;
+
+  /**
+   * @brief Overload for the stream output operator
+   */
+  friend std::ostream& operator<<(std::ostream& os, const Game& game);
 
 private:
   uint32_t m_playerHealth;

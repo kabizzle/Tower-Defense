@@ -1,4 +1,5 @@
 #include "attacking_tower.hpp"
+#include "utils.hpp"
 
 AttackingTower::AttackingTower(uint32_t power, uint32_t range, uint32_t health, uint32_t upgCost, const std::pair<int32_t, int32_t>& coords, const Map& map, const std::string& imageName)
   : Tower(range, coords, imageName), m_basePower(power), m_maxHealth(health),
@@ -8,6 +9,7 @@ AttackingTower::AttackingTower(uint32_t power, uint32_t range, uint32_t health, 
   Priv_UpdateRange(range);
 }
 
+/*
 void AttackingTower::Attack(std::map<std::pair<int32_t, int32_t>, std::list<Assignment*>>& enemies) {
   //Start going through the accessible coordinates and find the first non-dead enemy to attack
   for(const auto& c: m_inRange){
@@ -21,7 +23,7 @@ void AttackingTower::Attack(std::map<std::pair<int32_t, int32_t>, std::list<Assi
   }
   //After the attack, reset the buffs to 0.0
   m_buffs = 1.0f;
-}
+}*/
 
 void AttackingTower::Attack(std::vector<std::list<Assignment*>>& enemies,
                             std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>>& attackCollection) {
@@ -85,8 +87,14 @@ bool AttackingTower::Upgrade() {
   } else {
     AddSuffix("_twice");
   }
+  return true;
 }
 
+std::ostream& operator<<(std::ostream& os, const AttackingTower& at) {
+  os << "Attacking tower: " << at.ImgPath()  << " in (" << at.m_coords.first << "," << at.m_coords.second
+     << ")\tHP: " << at.m_health << " Pow: " << at.m_basePower << " Buf: " << at.m_buffs << std::endl;
+  return os;
+}
 
 AttackingTower* AttackingTower::Freshman(const std::pair<int32_t, int32_t>& coords, const Map& map) {
   return new AttackingTower(1, 7, 40, 20, coords, map, "freshman");
@@ -110,7 +118,7 @@ AttackingTower* AttackingTower::Doctor(const std::pair<int32_t, int32_t>& coords
 
 void AttackingTower::Priv_UpdateRange(uint32_t newRange) {
   //NOTE: Required by the old overload of Attack
-  auto rIter = m_map.GetPath().crbegin(), rIterEnd = m_map.GetPath().crend();
+  /*auto rIter = m_map.GetPath().crbegin(), rIterEnd = m_map.GetPath().crend();
   for(; rIter != rIterEnd; rIter++) {
     //Check the distance of this coordinate pair from the coordinates of the tower
     auto& c = *rIter;
@@ -119,10 +127,10 @@ void AttackingTower::Priv_UpdateRange(uint32_t newRange) {
       //If the distance is sufficiently small, add this coordinate pair to the possible target coordinates
       m_inRange.push_back(c);
     }
-  }
+  }*/
   //NOTE: For the new overload
   const std::vector<std::pair<int32_t, int32_t>>& path = m_map.GetPath();
-  for(uint32_t i = path.size() - 1; i >= 0; i--) {
+  for(int32_t i = path.size() - 1; i >= 0; i--) {
     auto& c = path[i];
     float d = UtilFunctions::distance(c, m_coords);
     if(d <= newRange) {

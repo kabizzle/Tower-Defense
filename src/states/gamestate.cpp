@@ -35,6 +35,11 @@ void GameState::Priv_RunEnemyPhase() {
       m_gameOver = true;
       return;
     }
+    //Check if the round has ended and continue to buildPhase
+    if(m_gameLogic.RoundIsFinished()) {
+      m_buildPhase = true;
+      return;
+    }
     //draw the movements
     for(i = 0; i < ANIMATION_LENGTH; i++){
       //Enemies have a method MovedLastTick which can be used to determine which ones have moved and must be animated
@@ -45,4 +50,8 @@ void GameState::Priv_RunEnemyPhase() {
 
 void GameState::Priv_RunBuildPhase() {
   //TODO the build stage loop
+
+
+
+  //Returns either by setting m_buildPhase to false or m_gameOver to true
 }
