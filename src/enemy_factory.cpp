@@ -1,4 +1,5 @@
 #include "enemy_factory.hpp"
+#include "degree.hpp"
 
 #define DETAILED_DEBUG_PRINT 0
 
@@ -9,7 +10,7 @@ EnemyFactory::~EnemyFactory() {
   Priv_Free();
 }
 
-void EnemyFactory::NextRoundInit() {
+uint32_t EnemyFactory::NextRoundInit() {
   m_round++;
   //Free previous
   Priv_Free();
@@ -28,7 +29,7 @@ void EnemyFactory::NextRoundInit() {
       }
     }
   }
-  return;
+  return m_round;
 }
 
 std::list<Assignment*> EnemyFactory::NextTick() {
@@ -43,6 +44,8 @@ std::list<Assignment*> EnemyFactory::NextTick() {
   }
   return ret;
 }
+
+bool EnemyFactory::EnemiesLeft() const { return !m_roundEnemies.empty(); }
 
 Assignment* EnemyFactory::CreateEnemy(Enemy e) const {
   float hpScale = static_cast<float>(m_diff + 4) / 4.0f;
@@ -61,7 +64,7 @@ Assignment* EnemyFactory::CreateEnemy(Enemy e) const {
   case D_Thesis:
     return new Assignment(50 * hpScale, 2, "D_thesis");
   case BSc:
-    return new Degree(180 * hpScale, 4, std::string("BSc"), *this, {
+    return new Degree(180 * hpScale, 4, "BSc", *this, {
                       {Enemy::B_Thesis, 1}, {Enemy::Project, 10},
                       {Enemy::Essay, 10}, {Enemy::Homework, 20}
                     });
@@ -83,8 +86,6 @@ Assignment* EnemyFactory::CreateEnemy(Enemy e) const {
     //break;
   }
 }
-
-uint32_t EnemyFactory::GetRound() const { return m_round; }
 
 std::ostream& operator<<(std::ostream& os, const EnemyFactory& ef) {
   os << "Enemy factory initialized for round " << ef.m_round << "; number is " << ef.m_nums[0]

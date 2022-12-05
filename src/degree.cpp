@@ -1,4 +1,5 @@
 #include "degree.hpp"
+#include "enemy_factory.hpp"
 
 Degree::Degree(uint32_t cr, uint32_t timeToMove, const std::string& imageName, const EnemyFactory& ef, const std::list<std::pair<Enemy, uint32_t>>& decendants)
   : Assignment(cr, timeToMove, imageName), m_decendants(decendants), m_ef(ef) { }

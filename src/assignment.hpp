@@ -3,9 +3,9 @@
 #include <cstdint>
 #include <string>
 #include <ostream>
+#include <list>
 
 #include "renderable.hpp"
-#include "enemy_factory.hpp"
 
 enum Enemy {
   Homework,
@@ -39,6 +39,11 @@ public:
   bool Advance();
 
   /**
+   * @brief Tells if the enemy moved during the last tick. For animation purposes
+   */
+  bool MovedLastTick() const;
+
+  /**
    * @brief Tells whether this enemy is still alive or not
    */
   bool IsAlive() const;
@@ -69,4 +74,5 @@ public:
 
 protected:
   uint32_t m_maxCr, m_curCr, m_timeToMove, m_timeRemainder;
+  bool m_movedLastTick;
 };

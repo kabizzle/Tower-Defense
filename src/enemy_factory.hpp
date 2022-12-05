@@ -52,8 +52,9 @@ public:
    * @brief Initializes the enemies of the next round
    * After calling this, the enemies which come each tick can be obtained using NextTick()
    * Also frees the previously allocated enemies if the previous round for some reason did not finnish
+   * @return uint32_t The round number which is starting
    */
-  void NextRoundInit();
+  uint32_t NextRoundInit();
 
   /**
    * @brief Used to get the enemies which appear on the next game tick
@@ -63,6 +64,11 @@ public:
    * where a_n is the element of the sequence used to determine the types present
    */
   std::list<Assignment*> NextTick();
+
+  /**
+   * @brief Tells if there are still enemies left which have not been handed to the Game logic unit
+   */
+  bool EnemiesLeft() const;
 
   /**
    * @brief TODO initializes any round desired
@@ -75,12 +81,6 @@ public:
    * @return A dynamically allocated enemy
    */
   Assignment* CreateEnemy(Enemy e) const;
-
-  /**
-   * @brief Tells which round is currently active (in initialized state)
-   * 0 means that the first round has yet to be initialized
-   */
-  uint32_t GetRound() const;
 
   /**
    * @brief An overload for the stream operator for debugging purposes

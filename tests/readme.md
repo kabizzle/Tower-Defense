@@ -21,10 +21,14 @@ enemy_factory_test.cpp
 An initial check on first few rounds indicates that the logic works and no leaks were spotted using valgrind
 
 
-## Test of MyClass
+## Test of The general logic and interactions between towers and enemies
 
 **Involved Classes:**
+Game, Map, all tower and enemy related classes
 
 **Test File:**
+text_based_test.cpp
 
 **Results:**
+Some bugs were found (mainly with loop conditions) but they were fixed.
+After the fixes no memory leaks were found using valgrind.

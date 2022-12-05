@@ -17,3 +17,5 @@ int main() {
   }
   std::cout << "TEST DONE" <<std::endl;
 }
+
+//g++ -std=c++17 -o testi ../tests/enemy_factory_test.cpp enemy_factory.cpp assignment.cpp renderable.cpp degree.cpp

@@ -33,7 +33,7 @@ protected:
    * @param coords The coordinates of the tower
    * @param imageName The name of the image representing this particular tower, also the name of the tower type
    */
-  Tower(uint32_t range, std::pair<int32_t, int32_t> coords, const std::string& imageName);
+  Tower(uint32_t range, const std::pair<int32_t, int32_t>& coords, const std::string& imageName);
   virtual ~Tower() { }
 
   /**

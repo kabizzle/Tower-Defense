@@ -169,4 +169,4 @@ const std::pair<int, int> Map::GetStart() const { return m_start; }
 
 const std::pair<int, int> Map::GetEnd() const { return m_end; }
 
-const std::map<std::pair<int, int>, int> Map::GetGrid() const { return m_grid; }
+const std::map<std::pair<int, int>, int>& Map::GetGrid() const { return m_grid; }
