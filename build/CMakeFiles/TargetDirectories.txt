@@ -1,3 +1,0 @@
-/home/kabir/tower-defense-2/build/CMakeFiles/rebuild_cache.dir
-/home/kabir/tower-defense-2/build/CMakeFiles/edit_cache.dir
-/home/kabir/tower-defense-2/build/CMakeFiles/tower-defense.dir
