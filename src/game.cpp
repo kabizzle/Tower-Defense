@@ -144,6 +144,20 @@ bool Game::AddTower(Tower* t) {
   return (at || st);
 }
 
+bool Game::BuildAttackingTower(AttackingTower* t, uint32_t cost) {
+  if (m_money < cost) return false;
+  m_money -= cost;
+  m_attakingTowers.push_back(t);
+  return true;
+}
+
+bool Game::BuildSupportTower(SupportTower* t, uint32_t cost) {
+  if (m_money < cost) return false;
+  m_money -= cost;
+  m_supportingTowers.push_back(t);
+  return true;
+}
+
 bool Game::UpgradeTower(const std::pair<int32_t, int32_t>& coords) {
   auto tower = std::find_if(m_attakingTowers.begin(), m_attakingTowers.end(),
     [coords] (const AttackingTower* t) {return (*t).GetCoords() == coords;});

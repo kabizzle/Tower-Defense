@@ -89,6 +89,24 @@ public:
   bool AddTower(Tower* t);
 
   /**
+   * @brief For building attacking tower. Assumes that tower is at suitable location.
+   * 
+   * @param t tower to build
+   * @param cost cost of building tower NOTE: should probably be included in Tower class
+   * @return if building tower was successful
+   */
+  bool BuildAttackingTower(AttackingTower* t, uint32_t cost);
+
+  /**
+   * @brief For building support tower. Assumes that tower is at suitable location.
+   * 
+   * @param t tower to build
+   * @param cost cost of building tower NOTE: should probably be included in Tower class
+   * @return if building tower was successful
+   */
+  bool BuildSupportTower(SupportTower* t, uint32_t cost);
+
+  /**
    * @brief Upgrade tower. Checks if the tower exist and can be upgraded.
    * 
    * @param coords coordinates where tower is
