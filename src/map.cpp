@@ -70,6 +70,49 @@ std::vector<std::pair<int, int>> Map::GetNeighbors(int x, int y) {
   return neighbors;
 }
 
+bool Map::TestTilePos(std::pair<int, int> coordinate, int tile) {
+  std::vector<std::pair<int, int>> neighbors =
+      GetNeighbors(coordinate.first, coordinate.second);
+  int count = 0;
+
+  switch (tile) {
+    case tileType::startTile:
+      if (coordinate.first != 0) {
+        throw std::invalid_argument(
+            "Start tile is not in the leftmost column.");
+        return false;
+      }
+      return true;
+
+    case tileType::endTile:
+      if (coordinate.second != (m_width - 1)) {
+        throw std::invalid_argument("End tile is not in the rightmost column.");
+        return false;
+      }
+      return true;
+
+    case tileType::towerTile:
+      return true;
+
+    case tileType::pathTile:
+      for (auto iter = neighbors.begin(); iter != neighbors.end(); iter++) {
+        if (m_grid[*iter] == tileType::towerTile) {
+          count++;
+        }
+      }
+      if ((neighbors.size() - count) > 2) {
+        throw std::invalid_argument(
+            "Loaded map doesn't follow path rules (no adjacent parts!)");
+        return false;
+      }
+      return true;
+
+    default:
+      throw std::invalid_argument("Faulty tile enumeration.");
+      return false;
+  }
+}
+
 bool Map::ValidateMap() {
   int startFlag = 0;
   int endFlag = 0;
@@ -87,6 +130,7 @@ bool Map::ValidateMap() {
         case tileType::startTile:
           if (startFlag != 0) {
             throw std::invalid_argument("Loaded map has multiple start tiles.");
+            return false;
           } else if (x != 0) {
             throw std::invalid_argument(
                 "Start tile is not in the leftmost column.");
@@ -169,4 +213,27 @@ const std::pair<int, int> Map::GetStart() const { return m_start; }
 
 const std::pair<int, int> Map::GetEnd() const { return m_end; }
 
-const std::map<std::pair<int, int>, int>& Map::GetGrid() const { return m_grid; }
+int Map::GetPos(std::pair<int, int> coordinate) const {
+  return m_grid.at(coordinate);
+}
+
+const std::map<std::pair<int, int>, int>& Map::GetGrid() const {
+  return m_grid;
+}
+
+bool Map::Edit(std::pair<int, int> coordinate, int tile) {
+  if (coordinate.first >= m_width || coordinate.first < 0 ||
+      coordinate.second >= m_height || coordinate.second < 0) {
+    return false;
+  }
+  if (tile < 0 || tile > 3) {
+    return false;
+  }
+
+  if (!TestTilePos(coordinate, tile)) {
+    return false;
+  } else {
+    m_grid[coordinate] = tile;
+    return true;
+  }
+}

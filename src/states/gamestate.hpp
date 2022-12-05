@@ -1,6 +1,6 @@
 #pragma once
 #include "../game.hpp"
-#include "state.hpp"
+#include "./state.hpp"
 
 /**
  * @brief GameState class runs and draws the game part of the software.
@@ -36,7 +36,6 @@ class GameState : public State {
   void Run();
 
  private:
-<<<<<<< HEAD
   // Difficulty m_difficulty;        //These are not needed as they can be
   // passed directly to Game const std::string& m_mapFile;
   bool m_gameOver, m_buildPhase;
@@ -44,25 +43,12 @@ class GameState : public State {
   Game m_gameLogic;
 
   // Private functions
-=======
-  //Difficulty m_difficulty;        //These are not needed as they can be passed directly to Game
-  //const std::string& m_mapFile;
-  bool m_gameOver, m_buildPhase;
-  uint32_t m_roundNum;
-  Game m_gameLogic;
-  
-  //Private functions
->>>>>>> 0e5e64277aefb3b44b9048d1f8014db4b8ac09e6
 
   /**
    * @brief Used by Run to run an enemy phase
    * At the end of the phase it will change the value of m_buildPhase.
-<<<<<<< HEAD
    * If the player looses during the round, it will change the value of
    * m_gameOver
-=======
-   * If the player looses during the round, it will change the value of m_gameOver
->>>>>>> 0e5e64277aefb3b44b9048d1f8014db4b8ac09e6
    */
   void Priv_RunEnemyPhase();
 
@@ -72,9 +58,4 @@ class GameState : public State {
    * If the player quits, it will change the value of m_gameOver
    */
   void Priv_RunBuildPhase();
-<<<<<<< HEAD
 };
-=======
-
-};
->>>>>>> 0e5e64277aefb3b44b9048d1f8014db4b8ac09e6

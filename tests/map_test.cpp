@@ -1,3 +1,7 @@
+/**
+ * @file map_test.cpp
+ * @brief Used to test the Map class.
+ */
 #include "../src/map.hpp"
 
 #include <iostream>
