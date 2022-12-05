@@ -72,6 +72,8 @@ void MenuState::Run() {
 
     std::pair<int, int> selected = std::make_pair(0, 0);
     // Draw level editor background (same as GameState background)
+    // Create sprites:
+    // mapTiles, buttons
 
     while (/* Window is open */) {
       // Draw:
