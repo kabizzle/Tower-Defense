@@ -1,6 +1,7 @@
 #include "attacking_tower.hpp"
+#include "utils.hpp"
 
-AttackingTower::AttackingTower(uint32_t power, uint32_t range, uint32_t health, uint32_t upgCost, std::pair<int32_t, int32_t> coords, const Map& map, const std::string& imageName)
+AttackingTower::AttackingTower(uint32_t power, uint32_t range, uint32_t health, uint32_t upgCost, const std::pair<int32_t, int32_t>& coords, const Map& map, const std::string& imageName)
   : Tower(range, coords, imageName), m_basePower(power), m_maxHealth(health),
     m_health(health), m_upgCost(upgCost), m_level(1),
     m_buffs(1.0f), m_map(map) {
@@ -8,6 +9,7 @@ AttackingTower::AttackingTower(uint32_t power, uint32_t range, uint32_t health, 
   Priv_UpdateRange(range);
 }
 
+/*
 void AttackingTower::Attack(std::map<std::pair<int32_t, int32_t>, std::list<Assignment*>>& enemies) {
   //Start going through the accessible coordinates and find the first non-dead enemy to attack
   for(const auto& c: m_inRange){
@@ -21,14 +23,17 @@ void AttackingTower::Attack(std::map<std::pair<int32_t, int32_t>, std::list<Assi
   }
   //After the attack, reset the buffs to 0.0
   m_buffs = 1.0f;
-}
+}*/
 
-void AttackingTower::Attack(std::vector<std::list<Assignment*>>& enemies) {
+void AttackingTower::Attack(std::vector<std::list<Assignment*>>& enemies,
+                            std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>>& attackCollection) {
   //Start going through the accessible indices and find the first non-dead enemy to attack
   uint32_t dmgToGiveOut = m_basePower * m_buffs;
   for(uint32_t i: m_inRangeInd) {
     for(auto e: enemies[i]){
       if(e->IsAlive()){
+        //Tower will attack this enemy, add the action to attackCollection
+        attackCollection.emplace_back(this->m_coords, this->m_map.GetPath()[i]);
         if(dmgToGiveOut <= e->CrLeft()) {
           //The last bit of dmg the tower has left
           uint32_t dmgToTower = e->TakeDmg(dmgToGiveOut, enemies[i]);
@@ -82,16 +87,38 @@ bool AttackingTower::Upgrade() {
   } else {
     AddSuffix("_twice");
   }
+  return true;
 }
 
+std::ostream& operator<<(std::ostream& os, const AttackingTower& at) {
+  os << "Attacking tower: " << at.ImgPath()  << " in (" << at.m_coords.first << "," << at.m_coords.second
+     << ")\tHP: " << at.m_health << " Pow: " << at.m_basePower << " Buf: " << at.m_buffs << std::endl;
+  return os;
+}
 
-AttackingTower* AttackingTower::Freshman(std::pair<int32_t, int32_t> coords, const Map& map) {
+AttackingTower* AttackingTower::Freshman(const std::pair<int32_t, int32_t>& coords, const Map& map) {
   return new AttackingTower(1, 7, 40, 20, coords, map, "freshman");
+}
+
+AttackingTower* AttackingTower::Teekkari(const std::pair<int32_t, int32_t>& coords, const Map& map) {
+  return new AttackingTower(5, 7, 80, 40, coords, map, "teekkari");
+}
+
+AttackingTower* AttackingTower::Bachelor(const std::pair<int32_t, int32_t>& coords, const Map& map) {
+  return new AttackingTower(20, 8, 120, 60, coords, map, "bachelor");
+}
+
+AttackingTower* AttackingTower::Master(const std::pair<int32_t, int32_t>& coords, const Map& map) {
+  return new AttackingTower(50, 8, 160, 80, coords, map, "master");
+}
+
+AttackingTower* AttackingTower::Doctor(const std::pair<int32_t, int32_t>& coords, const Map& map) {
+  return new AttackingTower(100, 9, 200, 100, coords, map, "doctor");
 }
 
 void AttackingTower::Priv_UpdateRange(uint32_t newRange) {
   //NOTE: Required by the old overload of Attack
-  auto rIter = m_map.GetPath().crbegin(), rIterEnd = m_map.GetPath().crend();
+  /*auto rIter = m_map.GetPath().crbegin(), rIterEnd = m_map.GetPath().crend();
   for(; rIter != rIterEnd; rIter++) {
     //Check the distance of this coordinate pair from the coordinates of the tower
     auto& c = *rIter;
@@ -100,10 +127,10 @@ void AttackingTower::Priv_UpdateRange(uint32_t newRange) {
       //If the distance is sufficiently small, add this coordinate pair to the possible target coordinates
       m_inRange.push_back(c);
     }
-  }
+  }*/
   //NOTE: For the new overload
   const std::vector<std::pair<int32_t, int32_t>>& path = m_map.GetPath();
-  for(uint32_t i = path.size() - 1; i >= 0; i--) {
+  for(int32_t i = path.size() - 1; i >= 0; i--) {
     auto& c = path[i];
     float d = UtilFunctions::distance(c, m_coords);
     if(d <= newRange) {

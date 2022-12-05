@@ -10,35 +10,122 @@
 #include "map.hpp"
 #include "support_towers.hpp"
 
+/**
+ * @brief An enumeration for creating the towers
+ * 
+ 
+enum TowerType {
+  Freshman,
+  Teekkari,
+  Bachelor,
+  Master,
+  Doctor,
+  Calculator,
+  CoffeeTable
+};
+*/
+
 class Game
 {
 public:
-    Game(uint32_t mapWidth,
-         uint32_t mapLength,
-         const std::string& filename,
-         Difficulty difficulty,
-         uint32_t playerHealth);
+  Game(uint32_t mapWidth,
+        uint32_t mapLength,
+        const std::string& filename,
+        Difficulty difficulty);
 
-    bool EnemyTurn();
+  /**
+   * @brief Destroy the Game object
+   * In case of a game over / quit the enemies and towers present must be freed
+   */
+  ~Game();
 
-    void TowerTurn();
+  /**
+   * @brief Used to start the next round
+   * Calls the enemyfactory to initialize its own state such that the round can start
+   * @return uint32_t The number of the round starting
+   */
+  uint32_t StartNextRound();
 
-    // Method for getting enemies and their coordinates for GUI to draw
-    std::list<std::pair<std::pair<int32_t, int32_t>, Renderable*>> GetEnemies();
+  /**
+   * @brief Advances the enemies
+   * @return true: No game over
+   * @return false: Game over
+   */
+  bool EnemyTurn();
+
+  /**
+   * @brief Makes the towers attack the enemies
+   */
+  void TowerTurn();
+
+  /**
+   * @brief Used to check if the round is still ongoing. SHOULD be called only AFTER StartNextRound()!
+   */
+  bool RoundIsFinished();
+
+  // Method for getting enemies and their coordinates for GUI to draw
+  std::list<std::pair<std::pair<int32_t, int32_t>, Assignment*>> GetEnemies();
+
+  /**
+   * @brief Gives information about which attacks happened during the turn
+   * @return const std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>>& 
+   */
+  const std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>>& GetAttacks();
+
+  /**
+   * @brief Gets a const ref version of the map used, to get for example the path 
+   * 
+   * @return const Map& 
+   */
+  const Map& GetMap() const;
+
+  /**
+   * @brief For adding a tower to the Game. NOTE: not ideal implementation, just for the text-based test
+   * 
+   * @param t A pointer to the dynamically allocated tower
+   * Will fail if the Tower is not an instance of Attacking or supporting Tower
+   * @return bool Whether the adding was successfull
+   */
+  bool AddTower(Tower* t);
+
+  /**
+   * @brief Get a ref to the Attacking Towers for drawing them
+   * 
+   * @return const std::list<AttackingTower*>& 
+   */
+  const std::list<AttackingTower*>& GetAttackingTowers() const;
+
+  /**
+   * @brief Get a ref to the Support Towers for drawing them
+   * 
+   * @return const std::list<SupportTower*>& 
+   */
+  const std::list<SupportTower*>& GetSupportTowers() const;
+
+  /**
+   * @brief Overload for the stream output operator
+   */
+  friend std::ostream& operator<<(std::ostream& os, const Game& game);
 
 private:
-    uint32_t m_playerHealth;
-    uint32_t m_score;
-    Map m_map;
-    EnemyFactory m_enemyFactory;
-    std::list<AttackingTower*> m_attakingTowers;
-    std::list<SupportTower*> m_supportingTowers;
+  uint32_t m_playerHealth;
+  uint32_t m_score;
+  Map m_map;
+  EnemyFactory m_enemyFactory;
+  std::list<AttackingTower*> m_attakingTowers;
+  std::list<SupportTower*> m_supportingTowers;
 
-    /*  Enemies are strored in lists which are stored in vector
-        where indices corresponds to indices of Map::GetPath
-    */
-    std::vector<std::list<Assignment*>> m_enemies;
+  /*  Enemies are strored in lists which are stored in vector
+      where indices corresponds to indices of Map::GetPath
+  */
+  std::vector<std::list<Assignment*>> m_enemies;
 
-    // Method for getting enemies and their coordinates for towers to attack
-    std::map<std::pair<int32_t, int32_t>, std::list<Assignment*>> Priv_GetEnemyMap();
+  /**
+   * @brief Stores the attack performed during towerturn so that they can be rendered
+   * They are stored as pairs of coordinate pairs, in the order "from, to"
+   */
+  std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>> m_tickAttacks;
+
+  // Method for getting enemies and their coordinates for towers to attack
+  std::map<std::pair<int32_t, int32_t>, std::list<Assignment*>> Priv_GetEnemyMap();
 };

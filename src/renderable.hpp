@@ -16,7 +16,7 @@ public:
    * 
    * @return Path to the image for rendering purposes
    */
-  const std::string& ImgPath() const;
+  const std::string ImgPath() const;
 
 protected:
   Renderable(const std::string& imageName);
