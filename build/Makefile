@@ -177,6 +177,60 @@ src/attacking_tower.cpp.s:
 	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/attacking_tower.cpp.s
 .PHONY : src/attacking_tower.cpp.s
 
+src/degree.o: src/degree.cpp.o
+
+.PHONY : src/degree.o
+
+# target to build an object file
+src/degree.cpp.o:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/degree.cpp.o
+.PHONY : src/degree.cpp.o
+
+src/degree.i: src/degree.cpp.i
+
+.PHONY : src/degree.i
+
+# target to preprocess a source file
+src/degree.cpp.i:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/degree.cpp.i
+.PHONY : src/degree.cpp.i
+
+src/degree.s: src/degree.cpp.s
+
+.PHONY : src/degree.s
+
+# target to generate assembly for a file
+src/degree.cpp.s:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/degree.cpp.s
+.PHONY : src/degree.cpp.s
+
+src/enemy_factory.o: src/enemy_factory.cpp.o
+
+.PHONY : src/enemy_factory.o
+
+# target to build an object file
+src/enemy_factory.cpp.o:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/enemy_factory.cpp.o
+.PHONY : src/enemy_factory.cpp.o
+
+src/enemy_factory.i: src/enemy_factory.cpp.i
+
+.PHONY : src/enemy_factory.i
+
+# target to preprocess a source file
+src/enemy_factory.cpp.i:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/enemy_factory.cpp.i
+.PHONY : src/enemy_factory.cpp.i
+
+src/enemy_factory.s: src/enemy_factory.cpp.s
+
+.PHONY : src/enemy_factory.s
+
+# target to generate assembly for a file
+src/enemy_factory.cpp.s:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/enemy_factory.cpp.s
+.PHONY : src/enemy_factory.cpp.s
+
 src/game.o: src/game.cpp.o
 
 .PHONY : src/game.o
@@ -354,6 +408,12 @@ help:
 	@echo "... src/attacking_tower.o"
 	@echo "... src/attacking_tower.i"
 	@echo "... src/attacking_tower.s"
+	@echo "... src/degree.o"
+	@echo "... src/degree.i"
+	@echo "... src/degree.s"
+	@echo "... src/enemy_factory.o"
+	@echo "... src/enemy_factory.i"
+	@echo "... src/enemy_factory.s"
 	@echo "... src/game.o"
 	@echo "... src/game.i"
 	@echo "... src/game.s"

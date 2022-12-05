@@ -16,6 +16,16 @@
 },
 {
   "directory": "/home/kabir/tower-defense-2/build",
+  "command": "/usr/bin/g++   -I/home/kabir/tower-defense-2/src  -g   -Wall -Wextra -pedantic -Wno-missing-field-initializers -std=gnu++17 -o CMakeFiles/tower-defense.dir/src/degree.cpp.o -c /home/kabir/tower-defense-2/src/degree.cpp",
+  "file": "/home/kabir/tower-defense-2/src/degree.cpp"
+},
+{
+  "directory": "/home/kabir/tower-defense-2/build",
+  "command": "/usr/bin/g++   -I/home/kabir/tower-defense-2/src  -g   -Wall -Wextra -pedantic -Wno-missing-field-initializers -std=gnu++17 -o CMakeFiles/tower-defense.dir/src/enemy_factory.cpp.o -c /home/kabir/tower-defense-2/src/enemy_factory.cpp",
+  "file": "/home/kabir/tower-defense-2/src/enemy_factory.cpp"
+},
+{
+  "directory": "/home/kabir/tower-defense-2/build",
   "command": "/usr/bin/g++   -I/home/kabir/tower-defense-2/src  -g   -Wall -Wextra -pedantic -Wno-missing-field-initializers -std=gnu++17 -o CMakeFiles/tower-defense.dir/src/game.cpp.o -c /home/kabir/tower-defense-2/src/game.cpp",
   "file": "/home/kabir/tower-defense-2/src/game.cpp"
 },
