@@ -9,22 +9,6 @@ AttackingTower::AttackingTower(uint32_t power, uint32_t range, uint32_t health, 
   Priv_UpdateRange(range);
 }
 
-/*
-void AttackingTower::Attack(std::map<std::pair<int32_t, int32_t>, std::list<Assignment*>>& enemies) {
-  //Start going through the accessible coordinates and find the first non-dead enemy to attack
-  for(const auto& c: m_inRange){
-    for(auto e: enemies[c]){
-      if(e->IsAlive()){
-        uint32_t dmgToTower = e->TakeDmg(m_basePower * m_buffs, enemies[c]);
-        m_health = dmgToTower < m_health ? m_health - dmgToTower : 0;
-        return;
-      }
-    }
-  }
-  //After the attack, reset the buffs to 0.0
-  m_buffs = 1.0f;
-}*/
-
 void AttackingTower::Attack(std::vector<std::list<Assignment*>>& enemies,
                             std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>>& attackCollection) {
   //Start going through the accessible indices and find the first non-dead enemy to attack
@@ -69,14 +53,11 @@ void AttackingTower::Heal(uint32_t h) {
 }
 
 bool AttackingTower::IsUpgradeable(uint32_t money) const {
-  return money >= (m_level * m_upgCost);
+  return money >= (m_level * m_upgCost) && m_level < 3;
 }
 
-bool AttackingTower::Upgrade() {
-  if(m_level == 3) {
-    //Cannot upgrade level 3 towers
-    return false;
-  }
+uint32_t AttackingTower::Upgrade() {
+  uint32_t upgradeCost = m_level * m_upgCost;
   m_basePower += m_basePower;
   m_maxHealth += m_maxHealth / 2;
   m_level++;
@@ -87,7 +68,7 @@ bool AttackingTower::Upgrade() {
   } else {
     AddSuffix("_twice");
   }
-  return true;
+  return upgradeCost;
 }
 
 std::ostream& operator<<(std::ostream& os, const AttackingTower& at) {

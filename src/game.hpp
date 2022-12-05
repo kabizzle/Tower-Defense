@@ -89,6 +89,14 @@ public:
   bool AddTower(Tower* t);
 
   /**
+   * @brief Upgrade tower. Checks if the tower exist and can be upgraded.
+   * 
+   * @param coords coordinates where tower is
+   * @return if upgrade was successful
+   */
+  bool UpgradeTower(const std::pair<int32_t, int32_t>& coords);
+
+  /**
    * @brief Get a ref to the Attacking Towers for drawing them
    * 
    * @return const std::list<AttackingTower*>& 
@@ -110,6 +118,7 @@ public:
 private:
   uint32_t m_playerHealth;
   uint32_t m_score;
+  uint32_t m_money;
   Map m_map;
   EnemyFactory m_enemyFactory;
   std::list<AttackingTower*> m_attakingTowers;
@@ -125,7 +134,4 @@ private:
    * They are stored as pairs of coordinate pairs, in the order "from, to"
    */
   std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>> m_tickAttacks;
-
-  // Method for getting enemies and their coordinates for towers to attack
-  std::map<std::pair<int32_t, int32_t>, std::list<Assignment*>> Priv_GetEnemyMap();
 };

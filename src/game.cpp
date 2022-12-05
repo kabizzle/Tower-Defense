@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "game.hpp"
 
 Game::Game(uint32_t mapWidth,
@@ -6,7 +8,8 @@ Game::Game(uint32_t mapWidth,
            Difficulty difficulty)
     : m_map(Map(mapWidth, mapLength)),
     m_enemyFactory(EnemyFactory(difficulty)),
-    m_playerHealth(10000000 - difficulty * 20)
+    m_playerHealth(10000000 - difficulty * 20),
+    m_money(100) // TODO: change to some meaningful value
 {
         m_map.InitializeMap(filename);
         // Create empty list for enemies for each path tile
@@ -85,7 +88,9 @@ Game::Game(uint32_t mapWidth,
       for (auto enemyIt = m_enemies[i].begin(); enemyIt != m_enemies[i].end();) {
           Assignment *e = *enemyIt;
           if (!e->IsAlive()) {
-              enemyIt = m_enemies[i].erase(enemyIt);    //NOTE We can update the score/money of the player here using e->GetCredits()
+              enemyIt = m_enemies[i].erase(enemyIt);
+              m_score += e->GetCredits(); // Score is currently just total money earned
+              m_money += e->GetCredits();
               delete e;
           } else {
               enemyIt++;
@@ -108,8 +113,6 @@ bool Game::RoundIsFinished() {
   }
 }
 
-
-//Probably need references instead of copies here
  std::list<std::pair<std::pair<int32_t, int32_t>, Assignment*>> Game::GetEnemies() {
     std::list<std::pair<std::pair<int32_t, int32_t>, Assignment*>> enemies;
     for (uint32_t i = 0; i < m_enemies.size(); i++) {
@@ -125,15 +128,6 @@ const std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t
   return m_tickAttacks;
 }
 
-//Probably need references instead of copies here
- std::map<std::pair<int32_t, int32_t>, std::list<Assignment*>> Game::Priv_GetEnemyMap() {
-    std::map<std::pair<int32_t, int32_t>, std::list<Assignment*>> enemyMap;
-    for (uint32_t i = 0; i < m_enemies.size(); i++) {
-        enemyMap[m_map.GetPath()[i]] = m_enemies[i];
-    }
-    return enemyMap;
- }
-
 const Map& Game::GetMap() const { return m_map; }
 
 bool Game::AddTower(Tower* t) {
@@ -148,6 +142,18 @@ bool Game::AddTower(Tower* t) {
     }
   }
   return (at || st);
+}
+
+bool Game::UpgradeTower(const std::pair<int32_t, int32_t>& coords) {
+  auto tower = std::find_if(m_attakingTowers.begin(), m_attakingTowers.end(),
+    [coords] (const AttackingTower* t) {return (*t).GetCoords() == coords;});
+  // Check that the tower at given coordinates exists
+  if (tower == m_attakingTowers.end()) return false;
+  // Check that the tower can be upgraded
+  if (!(*tower)->IsUpgradeable(m_money)) return false;
+  // Upgrade the tower and subtract cost fo upgrade from player's money
+  m_money -= (*tower)->Upgrade();
+  return true;
 }
 
 const std::list<AttackingTower*>& Game::GetAttackingTowers() const { return m_attakingTowers; }

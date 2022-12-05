@@ -25,15 +25,6 @@ public:
   AttackingTower(uint32_t power, uint32_t range, uint32_t health, uint32_t upgCost, const std::pair<int32_t, int32_t>& coords, const Map& map, const std::string& imageName);
 
   /**
-   * @brief Performs an attack against one enemy
-   * The tower goes through the possible targetable locations in m_inRange, starting from the one closest to end
-   * and when it finds a living enemy in one of the locations, it attacks that.
-   * After performing an attack, it clears the buffs
-   * @param enemies A reference to the map of enemies in different coordinates
-   */
-  void Attack(std::map<std::pair<int32_t, int32_t>, std::list<Assignment*>>& enemies);
-
-  /**
    * @brief Performs an attack against one enemy NOTE: migrate to using this overload
    * The tower goes through the possible targetable locations in m_inRangeInd, starting from the one closest to end
    * and when it finds a living enemy in one of the locations, it attacks that.
@@ -66,15 +57,16 @@ public:
 
   /**
    * @brief Tells whether or not this tower can be upgraded with the corrent amount of money
-   * The cost of upgrading 1 -> 2 is the base cost m_upgCost and 2 -> 3 is twice that
+   * The cost of upgrading 1 -> 2 is the base cost m_upgCost and 2 -> 3 is twice that.
+   * Also checks that this tower is not already max level.
    */
   bool IsUpgradeable(uint32_t money) const;
 
   /**
-   * @brief Can be used to upgrade the tower to the next level
-   * @return Whether the upgrade is possible
+   * @brief Can be used to upgrade the tower to the next level. Assumes that tower is upgradeable.
+   * @return Cost of the upgrade
    */
-  bool Upgrade();
+  uint32_t Upgrade();
 
   friend std::ostream& operator<<(std::ostream& os, const AttackingTower& at);
 
