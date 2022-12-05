@@ -1,4 +1,9 @@
 #pragma once
+#include <iostream>
+
+#include "../enemy_factory.hpp"
+#include "../level_editor.hpp"
+#include "../map.hpp"
 #include "state.hpp"
 
 class MenuState : public State {
@@ -9,7 +14,10 @@ class MenuState : public State {
    * @param gui
    * @param window
    */
-  MenuState(Gui gui, sf::RenderWindow& window) : State(gui, window) {}
+  MenuState(Gui gui, sf::RenderWindow& window)
+      : State(gui, window),
+        m_difficulty(Difficulty::Easy),
+        m_selectedMap("1") {}
 
   /**
    * @brief Destroy the Menu State object
@@ -28,4 +36,9 @@ class MenuState : public State {
   void Run();
 
  private:
+  void RunLevelEditor(int width, int height, const std::string& map);
+  Difficulty m_difficulty;
+  std::string& m_selectedMap;
+  int m_width = 30;
+  int m_height = 20;
 };

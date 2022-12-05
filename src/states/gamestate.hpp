@@ -1,6 +1,6 @@
 #pragma once
 #include "../game.hpp"
-#include "./state.hpp"
+#include "state.hpp"
 
 /**
  * @brief GameState class runs and draws the game part of the software.

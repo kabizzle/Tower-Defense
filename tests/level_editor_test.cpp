@@ -53,7 +53,7 @@ int main(void) {
   std::cout << "Testing custom editor with testmap1." << std::endl;
 
   try {
-    editor = LevelEditor(30, 20), "./testmap1.txt";
+    editor = LevelEditor(30, 20, "testmap1");
   } catch (std::exception &e) {
     std::cout << "Error: " << e.what() << std::endl;
     return 0;

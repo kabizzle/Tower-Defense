@@ -1,8 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class Gui{    //DUMMY class to get rid of errors
-
+class Gui {  // DUMMY class to get rid of errors
 };
 /**
  * @brief Abstract State class represents the classes that run and draw the

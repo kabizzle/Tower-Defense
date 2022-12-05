@@ -2,12 +2,12 @@
 
 LevelEditor::LevelEditor(int width, int height)
     : m_width(width), m_height(height), m_map(Map(width, height)) {
-  m_map.InitializeMap("./maps/editor_default_map.txt");
+  m_map.InitializeMap("./maps/internal/editor_default_map.txt");
 }
 
-LevelEditor::LevelEditor(int width, int height, const std::string& filename)
+LevelEditor::LevelEditor(int width, int height, const std::string& mapname)
     : m_width(width), m_height(height), m_map(Map(width, height)) {
-  m_map.InitializeMap(filename);
+  m_map.InitializeMap("./maps/TD/" + mapname + ".txt");
 }
 
 bool LevelEditor::Edit(std::pair<int, int> coordinate, int tile) {
@@ -27,7 +27,7 @@ bool LevelEditor::Save(const std::string& name) {
     return false;
   }
 
-  std::ofstream os("./maps/custom_maps/" + name + ".txt", std::ofstream::trunc);
+  std::ofstream os("./maps/TD/" + name + ".txt", std::ofstream::trunc);
   if (os.rdstate() && (os.failbit | os.badbit)) {
     throw std::invalid_argument("File selecting failed.");
   }
