@@ -13,15 +13,28 @@ CMakeFiles/tower-defense.dir/src/attacking_tower.cpp.o: ../src/renderable.hpp
 CMakeFiles/tower-defense.dir/src/attacking_tower.cpp.o: ../src/tower.hpp
 CMakeFiles/tower-defense.dir/src/attacking_tower.cpp.o: ../src/utils.hpp
 
+CMakeFiles/tower-defense.dir/src/degree.cpp.o: ../src/assignment.hpp
+CMakeFiles/tower-defense.dir/src/degree.cpp.o: ../src/degree.cpp
+CMakeFiles/tower-defense.dir/src/degree.cpp.o: ../src/degree.hpp
+CMakeFiles/tower-defense.dir/src/degree.cpp.o: ../src/enemy_factory.hpp
+CMakeFiles/tower-defense.dir/src/degree.cpp.o: ../src/renderable.hpp
+
+CMakeFiles/tower-defense.dir/src/enemy_factory.cpp.o: ../src/assignment.hpp
+CMakeFiles/tower-defense.dir/src/enemy_factory.cpp.o: ../src/degree.hpp
+CMakeFiles/tower-defense.dir/src/enemy_factory.cpp.o: ../src/enemy_factory.cpp
+CMakeFiles/tower-defense.dir/src/enemy_factory.cpp.o: ../src/enemy_factory.hpp
+CMakeFiles/tower-defense.dir/src/enemy_factory.cpp.o: ../src/renderable.hpp
+
 CMakeFiles/tower-defense.dir/src/game.cpp.o: ../src/assignment.hpp
 CMakeFiles/tower-defense.dir/src/game.cpp.o: ../src/attacking_tower.hpp
+CMakeFiles/tower-defense.dir/src/game.cpp.o: ../src/degree.hpp
+CMakeFiles/tower-defense.dir/src/game.cpp.o: ../src/enemy_factory.hpp
 CMakeFiles/tower-defense.dir/src/game.cpp.o: ../src/game.cpp
 CMakeFiles/tower-defense.dir/src/game.cpp.o: ../src/game.hpp
 CMakeFiles/tower-defense.dir/src/game.cpp.o: ../src/map.hpp
 CMakeFiles/tower-defense.dir/src/game.cpp.o: ../src/renderable.hpp
 CMakeFiles/tower-defense.dir/src/game.cpp.o: ../src/support_towers.hpp
 CMakeFiles/tower-defense.dir/src/game.cpp.o: ../src/tower.hpp
-CMakeFiles/tower-defense.dir/src/game.cpp.o: ../src/utils.hpp
 
 CMakeFiles/tower-defense.dir/src/gui.cpp.o: ../src/gui.cpp
 CMakeFiles/tower-defense.dir/src/gui.cpp.o: ../src/gui.hpp
