@@ -10,7 +10,7 @@ class EndState : public State {
    * @param window
    * @param score
    */
-  EndState(Gui gui, sf::RenderWindow& window, int score)
+  EndState(GUI gui, sf::RenderWindow& window, int score)
       : State(gui, window), m_score(score) {}
 
   /**
