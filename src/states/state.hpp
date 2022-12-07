@@ -31,4 +31,5 @@ class State {
  protected:
   GUI& m_gui;
   sf::RenderWindow& m_window;
+  sf::Event m_event;
 };

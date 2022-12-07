@@ -31,13 +31,13 @@ void GameState::Priv_RunEnemyPhase() {
   }
   //The game logic is advanced only once per second
   if(m_frameInTick == 0){
-    // call tower turn
-    m_gameLogic.TowerTurn();
     // call enemyturn and check if game is over
     if (!m_gameLogic.EnemyTurn()) {
       m_gameOver = true;
       return;
     }
+    // call tower turn
+    m_gameLogic.TowerTurn();
     if (m_gameLogic.RoundIsFinished()) {
       m_buildPhase = true;
       return;
@@ -71,15 +71,12 @@ void GameState::Priv_RunEnemyPhase() {
         //x_1-t*x_1 + t*x_2    t = f/AL
         //x_1-f*x_1/Al + f*x_2/Al
         //x_1+f*(-x_1 + x_2)/Al
-        int32_t xDraw = xP + m_frameInTick * (x - xP) / ANIMATION_LENGTH;
-        int32_t yDraw = yP + m_frameInTick * (y - yP) / ANIMATION_LENGTH;
-        //DRAW HERE
-
-      } else {
-        //Stationary at its coordinates, draw just at (x, y)
-
-        //DO SOMETHING TO DRAW
+        x = xP + m_frameInTick * (x - xP) / ANIMATION_LENGTH;
+        y = yP + m_frameInTick * (y - yP) / ANIMATION_LENGTH;
       }
+      auto& sprite = e->GetSprite();
+      sprite.setPosition(x, y);
+      m_window.draw(sprite);
     }
   }
 
