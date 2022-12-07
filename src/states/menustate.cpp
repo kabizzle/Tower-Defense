@@ -50,37 +50,47 @@ void MenuState::PollEvents() {
                 m_buttons[0]->addHighlight();
                 m_buttons[1]->removeHighlight();
                 m_buttons[2]->removeHighlight();
+                break;
               case 1:
                 m_difficulty = Difficulty::Medium;
                 m_buttons[1]->addHighlight();
                 m_buttons[0]->removeHighlight();
                 m_buttons[2]->removeHighlight();
+                break;
               case 2:
                 m_difficulty = Difficulty::Hard;
                 m_buttons[2]->addHighlight();
                 m_buttons[1]->removeHighlight();
                 m_buttons[0]->removeHighlight();
+                break;
               case 3:
                 m_selectedMap = "Map1";
                 m_buttons[3]->addHighlight();
                 m_buttons[4]->removeHighlight();
                 m_buttons[5]->removeHighlight();
+                break;
               case 4:
                 m_selectedMap = "Map2";
                 m_buttons[4]->addHighlight();
                 m_buttons[3]->removeHighlight();
                 m_buttons[5]->removeHighlight();
+                break;
               case 5:
                 m_selectedMap = "Map3";
                 m_buttons[5]->addHighlight();
                 m_buttons[3]->removeHighlight();
                 m_buttons[4]->removeHighlight();
+                break;
               case 6:
                 // SHOULD THIS BE ANOTHER STATE?
                 m_editing = true;
-              case 7:
+                break;
+              //case 7:
                 // gui.currentState = GameState(diff, map);
                 // return; ???
+                //break;
+              //default:
+                //break;
             }
           }
         }

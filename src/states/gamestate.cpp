@@ -29,6 +29,10 @@ void GameState::Priv_RunEnemyPhase() {
   while (m_window.pollEvent(m_event)) {
     if (m_event.type == sf::Event::Closed) m_window.close();
   }
+  //Clear the window
+  m_window.clear();
+
+
   //The game logic is advanced only once per second
   if(m_frameInTick == 0){
     // call enemyturn and check if game is over
@@ -80,6 +84,8 @@ void GameState::Priv_RunEnemyPhase() {
     }
   }
 
+  //Display
+  m_window.display();
 }
 
 void GameState::Priv_RunBuildPhase() {
