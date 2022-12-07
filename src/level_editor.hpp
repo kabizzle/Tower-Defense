@@ -4,15 +4,16 @@
 
 class LevelEditor {
  public:
-  LevelEditor(int width, int height);
-  LevelEditor(int width, int height, const std::string& name);
+  LevelEditor(int width, int height, int mapNumber;
 
   bool Edit(std::pair<int, int> coordinate, int tile);
 
-  bool Save(const std::string& mapname);
+  bool Save();
 
  private:
   Map m_map;
   int m_width;
   int m_height;
+  int m_mapNumber;
+  std::string m_mapPath;
 };
