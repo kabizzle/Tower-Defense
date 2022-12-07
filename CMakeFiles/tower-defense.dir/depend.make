@@ -38,6 +38,7 @@ CMakeFiles/tower-defense.dir/src/game.cpp.o: src/tower.hpp
 
 CMakeFiles/tower-defense.dir/src/gui.cpp.o: src/gui.cpp
 CMakeFiles/tower-defense.dir/src/gui.cpp.o: src/gui.hpp
+CMakeFiles/tower-defense.dir/src/gui.cpp.o: src/renderables.hpp
 
 CMakeFiles/tower-defense.dir/src/level_editor.cpp.o: src/level_editor.cpp
 CMakeFiles/tower-defense.dir/src/level_editor.cpp.o: src/level_editor.hpp
@@ -45,12 +46,16 @@ CMakeFiles/tower-defense.dir/src/level_editor.cpp.o: src/map.hpp
 
 CMakeFiles/tower-defense.dir/src/main.cpp.o: src/gui.hpp
 CMakeFiles/tower-defense.dir/src/main.cpp.o: src/main.cpp
+CMakeFiles/tower-defense.dir/src/main.cpp.o: src/renderables.hpp
 
 CMakeFiles/tower-defense.dir/src/map.cpp.o: src/map.cpp
 CMakeFiles/tower-defense.dir/src/map.cpp.o: src/map.hpp
 
 CMakeFiles/tower-defense.dir/src/renderable.cpp.o: src/renderable.cpp
 CMakeFiles/tower-defense.dir/src/renderable.cpp.o: src/renderable.hpp
+
+CMakeFiles/tower-defense.dir/src/renderables.cpp.o: src/renderables.cpp
+CMakeFiles/tower-defense.dir/src/renderables.cpp.o: src/renderables.hpp
 
 CMakeFiles/tower-defense.dir/src/support_towers.cpp.o: src/assignment.hpp
 CMakeFiles/tower-defense.dir/src/support_towers.cpp.o: src/attacking_tower.hpp

@@ -9,7 +9,7 @@ public:
 
     sf::Sprite& getBachelor1Sprite();
     sf::Sprite& getBachelor2Sprite();
-    sf::Sprite& getBachelor2Sprite();
+    sf::Sprite& getBachelor3Sprite();
     sf::Sprite& getBachelorsThesisSprite();
     sf::Sprite& getBackgroundSprite();
     sf::Sprite& getBscSprite();
@@ -28,7 +28,7 @@ public:
     sf::Sprite& getHomeworkSprite();
     sf::Sprite& getMaster1Sprite();
     sf::Sprite& getMaster2Sprite();
-    sf::Sprite& getMaster3Sprite()
+    sf::Sprite& getMaster3Sprite();
     sf::Sprite& getMastersThesisSprite();
     sf::Sprite& getMscSprite();
     sf::Sprite& getPathtileSprite();

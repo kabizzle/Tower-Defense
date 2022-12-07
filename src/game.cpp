@@ -7,7 +7,7 @@ Game::Game(uint32_t mapWidth,
            const std::string& filename,
            Difficulty difficulty)
     : m_map(Map(mapWidth, mapLength)),
-    m_enemyFactory(EnemyFactory(difficulty)),
+    m_enemyFactory(difficulty),
     m_playerHealth(10000000 - difficulty * 20),
     m_money(100) // TODO: change to some meaningful value
 {

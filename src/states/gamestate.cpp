@@ -21,8 +21,8 @@ void GameState::Run() {
 }
 
 void GameState::Priv_RunEnemyPhase() {
-  m_roundNum = m_gameLogic.StartNextRound()
-  while (/* window is open */) {
+  m_roundNum = m_gameLogic.StartNextRound();
+  while (/* window is open */)GIT  {
     //call tower turn
     m_gameLogic.TowerTurn();
     //draw the attacks

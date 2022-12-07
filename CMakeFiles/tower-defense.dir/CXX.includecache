@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/kabir/tower-defense-2/src/assignment.cpp
-assignment.hpp
-/home/kabir/tower-defense-2/src/assignment.hpp
-
 /home/kabir/tower-defense-2/src/assignment.hpp
 cstdint
 -
@@ -21,12 +17,6 @@ list
 -
 renderable.hpp
 /home/kabir/tower-defense-2/src/renderable.hpp
-
-/home/kabir/tower-defense-2/src/attacking_tower.cpp
-attacking_tower.hpp
-/home/kabir/tower-defense-2/src/attacking_tower.hpp
-utils.hpp
-/home/kabir/tower-defense-2/src/utils.hpp
 
 /home/kabir/tower-defense-2/src/attacking_tower.hpp
 tower.hpp
@@ -84,40 +74,6 @@ map.hpp
 support_towers.hpp
 /home/kabir/tower-defense-2/src/support_towers.hpp
 
-/home/kabir/tower-defense-2/src/gui.cpp
-iostream
--
-gui.hpp
-/home/kabir/tower-defense-2/src/gui.hpp
-
-/home/kabir/tower-defense-2/src/gui.hpp
-SFML/Graphics.hpp
--
-vector
--
-map
--
-
-/home/kabir/tower-defense-2/src/level_editor.cpp
-level_editor.hpp
-/home/kabir/tower-defense-2/src/level_editor.hpp
-
-/home/kabir/tower-defense-2/src/level_editor.hpp
-map.hpp
-/home/kabir/tower-defense-2/src/map.hpp
-
-/home/kabir/tower-defense-2/src/main.cpp
-iostream
--
-gui.hpp
-/home/kabir/tower-defense-2/src/gui.hpp
-
-/home/kabir/tower-defense-2/src/map.cpp
-map.hpp
-/home/kabir/tower-defense-2/src/map.hpp
-iostream
--
-
 /home/kabir/tower-defense-2/src/map.hpp
 exception
 -
@@ -130,27 +86,23 @@ string
 vector
 -
 
-/home/kabir/tower-defense-2/src/renderable.cpp
-renderable.hpp
-/home/kabir/tower-defense-2/src/renderable.hpp
-
 /home/kabir/tower-defense-2/src/renderable.hpp
 string
 -
 
-/home/kabir/tower-defense-2/src/support_towers.cpp
-support_towers.hpp
-/home/kabir/tower-defense-2/src/support_towers.hpp
-utils.hpp
-/home/kabir/tower-defense-2/src/utils.hpp
+/home/kabir/tower-defense-2/src/renderables.cpp
+renderables.hpp
+/home/kabir/tower-defense-2/src/renderables.hpp
+
+/home/kabir/tower-defense-2/src/renderables.hpp
+iostream
+-
+SFML/Graphics.hpp
+/home/kabir/tower-defense-2/src/SFML/Graphics.hpp
 
 /home/kabir/tower-defense-2/src/support_towers.hpp
 attacking_tower.hpp
 /home/kabir/tower-defense-2/src/attacking_tower.hpp
-
-/home/kabir/tower-defense-2/src/tower.cpp
-tower.hpp
-/home/kabir/tower-defense-2/src/tower.hpp
 
 /home/kabir/tower-defense-2/src/tower.hpp
 cstdint
@@ -165,16 +117,4 @@ renderable.hpp
 /home/kabir/tower-defense-2/src/renderable.hpp
 map.hpp
 /home/kabir/tower-defense-2/src/map.hpp
-
-/home/kabir/tower-defense-2/src/utils.cpp
-utils.hpp
-/home/kabir/tower-defense-2/src/utils.hpp
-
-/home/kabir/tower-defense-2/src/utils.hpp
-cmath
--
-cstdint
--
-utility
--
 

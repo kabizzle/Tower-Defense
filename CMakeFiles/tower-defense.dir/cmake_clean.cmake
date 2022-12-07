@@ -9,6 +9,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/tower-defense.dir/src/main.cpp.o"
   "CMakeFiles/tower-defense.dir/src/map.cpp.o"
   "CMakeFiles/tower-defense.dir/src/renderable.cpp.o"
+  "CMakeFiles/tower-defense.dir/src/renderables.cpp.o"
   "CMakeFiles/tower-defense.dir/src/support_towers.cpp.o"
   "CMakeFiles/tower-defense.dir/src/tower.cpp.o"
   "CMakeFiles/tower-defense.dir/src/utils.cpp.o"

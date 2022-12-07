@@ -187,9 +187,22 @@ CMakeFiles/tower-defense.dir/src/renderable.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/tower-defense.dir/src/renderable.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kabir/tower-defense-2/src/renderable.cpp -o CMakeFiles/tower-defense.dir/src/renderable.cpp.s
 
+CMakeFiles/tower-defense.dir/src/renderables.cpp.o: CMakeFiles/tower-defense.dir/flags.make
+CMakeFiles/tower-defense.dir/src/renderables.cpp.o: src/renderables.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kabir/tower-defense-2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/tower-defense.dir/src/renderables.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tower-defense.dir/src/renderables.cpp.o -c /home/kabir/tower-defense-2/src/renderables.cpp
+
+CMakeFiles/tower-defense.dir/src/renderables.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/tower-defense.dir/src/renderables.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kabir/tower-defense-2/src/renderables.cpp > CMakeFiles/tower-defense.dir/src/renderables.cpp.i
+
+CMakeFiles/tower-defense.dir/src/renderables.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/tower-defense.dir/src/renderables.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kabir/tower-defense-2/src/renderables.cpp -o CMakeFiles/tower-defense.dir/src/renderables.cpp.s
+
 CMakeFiles/tower-defense.dir/src/support_towers.cpp.o: CMakeFiles/tower-defense.dir/flags.make
 CMakeFiles/tower-defense.dir/src/support_towers.cpp.o: src/support_towers.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kabir/tower-defense-2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/tower-defense.dir/src/support_towers.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kabir/tower-defense-2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/tower-defense.dir/src/support_towers.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tower-defense.dir/src/support_towers.cpp.o -c /home/kabir/tower-defense-2/src/support_towers.cpp
 
 CMakeFiles/tower-defense.dir/src/support_towers.cpp.i: cmake_force
@@ -202,7 +215,7 @@ CMakeFiles/tower-defense.dir/src/support_towers.cpp.s: cmake_force
 
 CMakeFiles/tower-defense.dir/src/tower.cpp.o: CMakeFiles/tower-defense.dir/flags.make
 CMakeFiles/tower-defense.dir/src/tower.cpp.o: src/tower.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kabir/tower-defense-2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/tower-defense.dir/src/tower.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kabir/tower-defense-2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/tower-defense.dir/src/tower.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tower-defense.dir/src/tower.cpp.o -c /home/kabir/tower-defense-2/src/tower.cpp
 
 CMakeFiles/tower-defense.dir/src/tower.cpp.i: cmake_force
@@ -215,7 +228,7 @@ CMakeFiles/tower-defense.dir/src/tower.cpp.s: cmake_force
 
 CMakeFiles/tower-defense.dir/src/utils.cpp.o: CMakeFiles/tower-defense.dir/flags.make
 CMakeFiles/tower-defense.dir/src/utils.cpp.o: src/utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kabir/tower-defense-2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/tower-defense.dir/src/utils.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kabir/tower-defense-2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/tower-defense.dir/src/utils.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tower-defense.dir/src/utils.cpp.o -c /home/kabir/tower-defense-2/src/utils.cpp
 
 CMakeFiles/tower-defense.dir/src/utils.cpp.i: cmake_force
@@ -238,6 +251,7 @@ tower__defense_OBJECTS = \
 "CMakeFiles/tower-defense.dir/src/level_editor.cpp.o" \
 "CMakeFiles/tower-defense.dir/src/map.cpp.o" \
 "CMakeFiles/tower-defense.dir/src/renderable.cpp.o" \
+"CMakeFiles/tower-defense.dir/src/renderables.cpp.o" \
 "CMakeFiles/tower-defense.dir/src/support_towers.cpp.o" \
 "CMakeFiles/tower-defense.dir/src/tower.cpp.o" \
 "CMakeFiles/tower-defense.dir/src/utils.cpp.o"
@@ -255,6 +269,7 @@ tower-defense: CMakeFiles/tower-defense.dir/src/gui.cpp.o
 tower-defense: CMakeFiles/tower-defense.dir/src/level_editor.cpp.o
 tower-defense: CMakeFiles/tower-defense.dir/src/map.cpp.o
 tower-defense: CMakeFiles/tower-defense.dir/src/renderable.cpp.o
+tower-defense: CMakeFiles/tower-defense.dir/src/renderables.cpp.o
 tower-defense: CMakeFiles/tower-defense.dir/src/support_towers.cpp.o
 tower-defense: CMakeFiles/tower-defense.dir/src/tower.cpp.o
 tower-defense: CMakeFiles/tower-defense.dir/src/utils.cpp.o
@@ -264,7 +279,7 @@ tower-defense: /usr/lib/x86_64-linux-gnu/libsfml-audio.so.2.5.1
 tower-defense: /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1
 tower-defense: /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.5.1
 tower-defense: CMakeFiles/tower-defense.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/kabir/tower-defense-2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable tower-defense"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/kabir/tower-defense-2/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable tower-defense"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/tower-defense.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

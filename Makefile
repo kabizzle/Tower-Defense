@@ -393,6 +393,33 @@ src/renderable.cpp.s:
 	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/renderable.cpp.s
 .PHONY : src/renderable.cpp.s
 
+src/renderables.o: src/renderables.cpp.o
+
+.PHONY : src/renderables.o
+
+# target to build an object file
+src/renderables.cpp.o:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/renderables.cpp.o
+.PHONY : src/renderables.cpp.o
+
+src/renderables.i: src/renderables.cpp.i
+
+.PHONY : src/renderables.i
+
+# target to preprocess a source file
+src/renderables.cpp.i:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/renderables.cpp.i
+.PHONY : src/renderables.cpp.i
+
+src/renderables.s: src/renderables.cpp.s
+
+.PHONY : src/renderables.s
+
+# target to generate assembly for a file
+src/renderables.cpp.s:
+	$(MAKE) -f CMakeFiles/tower-defense.dir/build.make CMakeFiles/tower-defense.dir/src/renderables.cpp.s
+.PHONY : src/renderables.cpp.s
+
 src/support_towers.o: src/support_towers.cpp.o
 
 .PHONY : src/support_towers.o
@@ -513,6 +540,9 @@ help:
 	@echo "... src/renderable.o"
 	@echo "... src/renderable.i"
 	@echo "... src/renderable.s"
+	@echo "... src/renderables.o"
+	@echo "... src/renderables.i"
+	@echo "... src/renderables.s"
 	@echo "... src/support_towers.o"
 	@echo "... src/support_towers.i"
 	@echo "... src/support_towers.s"
