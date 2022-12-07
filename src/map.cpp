@@ -70,7 +70,7 @@ std::vector<std::pair<int, int>> Map::GetNeighbors(int x, int y) {
   return neighbors;
 }
 
-bool Map::TestTilePos(std::pair<int, int> coordinate, int tile) {
+bool Map::TestTilePos(std::pair<int, int> coordinate, tileType tile) {
   std::vector<std::pair<int, int>> neighbors =
       GetNeighbors(coordinate.first, coordinate.second);
   int count = 0;
@@ -213,15 +213,15 @@ const std::pair<int, int> Map::GetStart() const { return m_start; }
 
 const std::pair<int, int> Map::GetEnd() const { return m_end; }
 
-int Map::GetPos(std::pair<int, int> coordinate) const {
+tileType Map::GetPos(std::pair<int, int> coordinate) const {
   return m_grid.at(coordinate);
 }
 
-const std::map<std::pair<int, int>, int>& Map::GetGrid() const {
+const std::map<std::pair<int, int>, tileType>& Map::GetGrid() const {
   return m_grid;
 }
 
-bool Map::Edit(std::pair<int, int> coordinate, int tile) {
+bool Map::Edit(std::pair<int, int> coordinate, tileType tile) {
   if (coordinate.first >= m_width || coordinate.first < 0 ||
       coordinate.second >= m_height || coordinate.second < 0) {
     return false;

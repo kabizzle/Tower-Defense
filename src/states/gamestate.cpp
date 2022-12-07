@@ -10,7 +10,30 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
       m_buildPhase(true),
       m_roundNum(0),
       m_frameInTick(0),
-      m_gameLogic(Game(30, 20, filename, difficulty)) {}
+      m_gameLogic(Game(30, 20, filename, difficulty)) {
+
+        //Initialize the map tiles
+        for(auto& [coords, tile]: m_gameLogic.GetMap().GetGrid()){
+          sf::Sprite sprite;
+          switch (tile)
+          {
+          case towerTile:
+            sprite = Renderables::getTowertileSprite();
+            break;
+          case startTile:
+            sprite = Renderables::getStarttileSprite();
+            break;
+          case pathTile:
+            sprite = Renderables::getPathtileSprite();
+            break;
+          case endTile:
+            sprite = Renderables::getEndtileSprite();
+            break;
+          }
+          sprite.setPosition(coords.first, coords.second);
+          m_mapTileSprites.push_back(sprite);
+        }
+      }
 
 void GameState::Run() {
   //We check which phase is active
@@ -95,4 +118,13 @@ void GameState::Priv_RunBuildPhase() {
   //At the end of build phase, get the next enemy phase ready
   m_roundNum = m_gameLogic.StartNextRound();
   m_frameInTick = 0;
+}
+
+
+void GameState::Priv_DrawBCG() {
+  const auto& bcg = Renderables::getBackgroundSprite();
+  m_window.draw(bcg);
+  for(const auto& s: m_mapTileSprites) {
+    m_window.draw(s);
+  }
 }

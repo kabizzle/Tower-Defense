@@ -41,6 +41,7 @@ class GameState : public State {
   bool m_gameOver, m_buildPhase;
   uint32_t m_roundNum, m_frameInTick;
   Game m_gameLogic;
+  std::vector<sf::Sprite> m_mapTileSprites;
 
   // Private functions
 
@@ -58,4 +59,10 @@ class GameState : public State {
    * If the player quits, it will change the value of m_gameOver
    */
   void Priv_RunBuildPhase();
+
+  /**
+   * @brief Draws the background and map to the window
+   * Assumes that the window has been properly cleared
+   */
+  void Priv_DrawBCG();
 };

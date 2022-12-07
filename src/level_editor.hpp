@@ -6,7 +6,7 @@ class LevelEditor {
  public:
   LevelEditor(int width, int height, std::string& mapPath);
 
-  bool Edit(std::pair<int, int> coordinate, int tile);
+  bool Edit(std::pair<int, int> coordinate, tileType tile);
 
   bool Save();
 

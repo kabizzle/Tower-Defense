@@ -56,14 +56,14 @@ class Map {
    * @param coordinate
    * @return int (tile enumeration 0-3)
    */
-  int GetPos(std::pair<int, int> coordinate) const;
+  tileType GetPos(std::pair<int, int> coordinate) const;
 
   /**
    * @brief Get the Grid object
    *
    * @return const std::map<std::pair<int, int>, int>
    */
-  const std::map<std::pair<int, int>, int>& GetGrid() const;
+  const std::map<std::pair<int, int>, tileType>& GetGrid() const;
 
   /**
    * @brief Get the Path object
@@ -80,7 +80,7 @@ class Map {
    * @return true if editing was successful
    * @return false if editing was not successful.
    */
-  bool Edit(std::pair<int, int> coordinate, int tile);
+  bool Edit(std::pair<int, int> coordinate, tileType tile);
 
   /**
    * @brief Validate the current m_grid. (Called by InitializeMap).
@@ -115,11 +115,11 @@ class Map {
    * @return true if position is valid
    * @return false if position is invalid
    */
-  bool TestTilePos(std::pair<int, int> coordinate, int tile);
+  bool TestTilePos(std::pair<int, int> coordinate, tileType tile);
 
  private:
   int m_width, m_height;
-  std::map<std::pair<int, int>, int> m_grid;
+  std::map<std::pair<int, int>, tileType> m_grid;
   std::pair<int, int> m_start, m_end;
   std::vector<std::pair<int, int>> m_path;
 };

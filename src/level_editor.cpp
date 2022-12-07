@@ -8,7 +8,7 @@ LevelEditor::LevelEditor(int width, int height, std::string& mapPath)
   m_map.InitializeMap(m_mapPath);
 }
 
-bool LevelEditor::Edit(std::pair<int, int> coordinate, int tile) {
+bool LevelEditor::Edit(std::pair<int, int> coordinate, tileType tile) {
   return m_map.Edit(coordinate, tile);
 }
 
