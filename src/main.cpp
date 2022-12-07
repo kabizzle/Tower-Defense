@@ -3,9 +3,7 @@
 
 int main() {
   GUI gui;
-
   gui.init();
-  gui.render();
 
   // gui.run();
 

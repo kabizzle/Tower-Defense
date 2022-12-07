@@ -4,18 +4,25 @@
 
 #include "button.hpp"
 
+#include "states/state.hpp"
+#include "states/menustate.hpp"
+
 GUI::GUI() : m_renderables(new Renderables()) {}
 
 GUI::~GUI() {
   delete this->m_window;
   delete this->m_renderables;
+  delete this->m_state;
+
 }
 
 void GUI::init() {
-  this->m_window = nullptr;
+  this->m_window = new sf::RenderWindow(this->m_videoMode, "test window", sf::Style::Close);
+  this->m_window->setFramerateLimit(60);
   this->m_videoMode.height = 720;
   this->m_videoMode.width = 1280;
   this->start = sf::Vector2f(100, 200);
+  this->m_state = new MenuState(*this, *this->m_window);
 }
 
 bool GUI::running() { return this->m_window->isOpen(); }
@@ -32,16 +39,6 @@ void GUI::pollEvents() {
       }
     }
   }
-}
-
-void GUI::render() {
-  this->m_window =
-      new sf::RenderWindow(this->m_videoMode, "test window", sf::Style::Close);
-  this->m_window->setFramerateLimit(60);
-  // this->addEnemy("bachelor_2", this->start);
-  // sf::Vector2f pos = this->start;
-  // pos.x += 200;
-  // this->addEnemy("doctor", pos);
 }
 
 // void GUI::addEnemy(std::string type, sf::Vector2f pos) {
@@ -81,19 +78,20 @@ Button* GUI::createButton(std::string text, int x, int y) {
 }
 
 void GUI::update() {
-  this->pollEvents();
+  // this->pollEvents();
 
-  // clear window
-  this->m_window->clear();
+  // // clear window
+  // this->m_window->clear();
 
-  // draw changes
-  this->m_window->draw(m_renderables->getBackgroundSprite());
-  // this->moveEnemies();
-  for (auto enemy = this->enemies.begin(); enemy != this->enemies.end();
-       enemy++) {
-    this->m_window->draw(*enemy);
-  }
+  // // draw changes
+  // this->m_window->draw(Renderables::getDoctor1Sprite());
+  // // this->moveEnemies();
+  // for (auto enemy = this->enemies.begin(); enemy != this->enemies.end();
+  //      enemy++) {
+  //   this->m_window->draw(*enemy);
+  // }
 
-  // display window
-  this->m_window->display();
+  // // display window
+  // this->m_window->display();
+  this->m_state->Run();
 }

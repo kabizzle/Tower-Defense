@@ -118,6 +118,11 @@ Renderables::Renderables() {
         return;
     }
 
+    if (!menu_background.loadFromFile("images/menu_background.png")) {
+        std::cout << "Error: Image not found" << std::endl; 
+        return;
+    }
+
     if (!msc.loadFromFile("images/msc.png")) {
         std::cout << "Error: Image not found" << std::endl; 
         return;
@@ -181,6 +186,7 @@ Renderables::Renderables() {
     master_2_sprite.setTexture(master_2);
     master_3_sprite.setTexture(master_3);
     masters_thesis_sprite.setTexture(masters_thesis);
+    menu_background_sprite.setTexture(menu_background);
     msc_sprite.setTexture(msc);
     pathTile_sprite.setTexture(pathTile);
     project_sprite.setTexture(project);
@@ -282,6 +288,10 @@ sf::Sprite& Renderables::getMaster3Sprite() {
 
 sf::Sprite& Renderables::getMastersThesisSprite() {
     return s_instance->masters_thesis_sprite;
+}
+
+sf::Sprite& Renderables::getMenuBackgroundSprite() {
+    return s_instance->menu_background_sprite;
 }
 
 sf::Sprite& Renderables::getMscSprite() {

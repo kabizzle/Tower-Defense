@@ -96,9 +96,14 @@ void MenuState::PollEvents() {
 void MenuState::Draw() {
     // Draw menu background
 
+    this->m_window.clear();
+    this->m_window.draw(Renderables::getMenuBackgroundSprite());
+
     for (auto b : m_buttons) {
       b.second->drawButton(m_window);
     }
+
+    this->m_window.display();
 }
 
 void MenuState::Run() {

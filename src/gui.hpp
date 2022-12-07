@@ -46,6 +46,10 @@ public:
     void init_textures();
 
     Button* createButton(std::string text, int x, int y);
+    
+protected:
+    State* m_state;
+    Renderables* m_renderables;
 
 private:
     sf::RenderWindow* m_window; // window that displays game
@@ -56,8 +60,6 @@ private:
     float y_velo = 4.f;
     sf::Vector2f start;
 
-    Renderables* m_renderables;
-    State* m_state;
 
 };
 
