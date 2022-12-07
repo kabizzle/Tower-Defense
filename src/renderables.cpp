@@ -1,5 +1,7 @@
 #include "renderables.hpp"
 
+Renderables* Renderables::s_instance = nullptr;   //Initialization of the statica pointer
+
 Renderables::Renderables() {
     if (!bachelor_1.loadFromFile("images/bachelor.png")) {
         std::cout << "Error: Image not found" << std::endl; 

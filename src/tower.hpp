@@ -21,10 +21,17 @@ public:
    */
   const std::pair<int32_t, int32_t>& GetCoords() const;
 
+  inline static const std::map<std::string, uint32_t> towerPrices = {
+    {"freshman", 20}, {"teekkari", 40},
+    {"bachelor", 60}, {"master", 80},
+    {"doctor", 100}, {"calculator", 50},
+    {"coffee_table", 50}
+  };
+
 protected:
   uint32_t m_range;
   std::pair<int32_t, int32_t> m_coords;
-  std::vector<sf::Sprite&> m_allSprites;
+  std::vector<sf::Sprite> m_allSprites;
 
   //Private functions
   /**
@@ -35,7 +42,7 @@ protected:
    * @param imageName The name of the image representing this particular tower, also the name of the tower type
    */
   Tower(uint32_t range, const std::pair<int32_t, int32_t>& coords,
-        const std::string& imageName, const std::vector<const sf::Sprite&>& sprites);
+        const std::string& imageName, const std::vector<sf::Sprite>& sprites);
   virtual ~Tower() { }
 
   /**
