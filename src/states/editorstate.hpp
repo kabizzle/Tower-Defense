@@ -15,7 +15,8 @@ class EditorState : public State {
    * @param gui
    * @param window
    */
-  EditorState(GUI& gui, sf::RenderWindow& window);
+  EditorState(GUI& gui, sf::RenderWindow& window, std::string& mapPath)
+      : State(gui, window), m_mapPath(mapPath) {}
 
   /**
    * @brief Destroy the Menu State object
@@ -37,8 +38,8 @@ class EditorState : public State {
   int m_width = 30;
   int m_height = 20;
   std::map<int, Button*> m_buttons;
-  void PollEvents();
-  std::string m_selectedMap;
+  std::string m_mapPath;
 
+  void PollEvents();
   void Draw();
 };
