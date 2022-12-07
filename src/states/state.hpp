@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../gui.hpp"
-
 /**
  * @brief Abstract State class represents the classes that run and draw the
  * different software states.
@@ -15,7 +14,7 @@ class State {
    * @param gui
    * @param window
    */
-  State(GUI gui, sf::RenderWindow& window) : m_gui(gui), m_window(window) {}
+  State(GUI& gui, sf::RenderWindow& window) : m_gui(gui), m_window(window) {}
   /**
    * @brief Destroy the State object
    *

@@ -5,6 +5,9 @@
 #include <map>
 #include "renderables.hpp"
 #include "states/state.hpp"
+#include "button.hpp"
+
+class State;
 
 /**
  * @brief A class to add elements to the Graphical User Interface

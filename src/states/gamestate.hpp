@@ -16,7 +16,7 @@ class GameState : public State {
    * @param difficulty
    * @param filename
    */
-  GameState(GUI gui, sf::RenderWindow& window, Difficulty difficulty,
+  GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
             const std::string& filename);
 
   /**
@@ -39,7 +39,7 @@ class GameState : public State {
   // Difficulty m_difficulty;        //These are not needed as they can be
   // passed directly to Game const std::string& m_mapFile;
   bool m_gameOver, m_buildPhase;
-  uint32_t m_roundNum;
+  uint32_t m_roundNum, m_frameInTick;
   Game m_gameLogic;
 
   // Private functions

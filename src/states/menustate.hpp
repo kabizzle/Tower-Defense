@@ -15,7 +15,7 @@ class MenuState : public State {
    * @param gui
    * @param window
    */
-  MenuState(GUI gui, sf::RenderWindow& window);
+  MenuState(GUI& gui, sf::RenderWindow& window);
 
   /**
    * @brief Destroy the Menu State object
