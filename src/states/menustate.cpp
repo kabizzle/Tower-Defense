@@ -76,8 +76,8 @@ void MenuState::PollEvents() {
                 m_buttons[3]->removeHighlight();
                 m_buttons[4]->removeHighlight();
               case 6:
-                // SHOULD THIS BE ANOTHER STATE?
-                m_editing = true;
+                // gui.currentState = EditorState(m_gui, m_window,
+                // m_selectedMap)
               case 7:
                 // gui.currentState = GameState(m_gui, m_window, m_difficulty,
                 // m_selectedMap); return; ???
@@ -107,23 +107,11 @@ void MenuState::Draw() {
     // EndTile button
     // Clear button
     // Save button
-  }
-}
 
-void MenuState::Run() {
-  this->PollEvents();
-  this->Draw();
-}
-
-void MenuState::RunLevelEditor(const std::string& map) {
-  LevelEditor editor;
-
-  std::pair<int, int> selected = std::make_pair(0, 0);
-  // Draw level editor background (same as GameState background)
-  // Create sprites:
-  // mapTiles, buttons
-
-  while (/* Window is open */) {
+    std::pair<int, int> selected = std::make_pair(0, 0);
+    // Draw level editor background (same as GameState background)
+    // Create sprites:
+    // mapTiles, buttons
     // Draw:
     // Current mapTiles
     // Clear tile button
@@ -133,40 +121,13 @@ void MenuState::RunLevelEditor(const std::string& map) {
     // Save and Exit button
     // Cancel editing button
     // Highlight (0, 0) tile as selected
-
-    if (/* Map tile is pressed */) {
-      // remove highlight from selected tile
-      //  selected = pressed maptile coordinates.
-      //  add highlight to selected maptile
-    } else if (/* Clear tile button is pressed */) {
-      editor.Edit(selected, tileType::towerTile);
-    } else if (/* PathTile button is pressed */) {
-      editor.Edit(selected, tileType::pathTile);
-    } else if (/* StartTile button is pressed */) {
-      editor.Edit(selected, tileType::startTile);
-    } else if (/* EndTile button is pressed */) {
-      editor.Edit(selected, tileType::endTile);
-    } else if (/* Cancel editing button is pressed */) {
-      return;
-    } else if (/* Save and Exit button is pressed */) {
-      bool success = false;
-      if (map != "DEFAULT") {
-        success = editor.Save(map);
-      } else {
-        std::string& mapName = "";
-        // Draw things that request name from user
-        success = editor.Save(mapName);
-      }
-      if (success) {
-        return;
-      } else {
-        // Display some error thing about saving failed (invalid map).
-      }
-    }
   }
 }
+
+void MenuState::Run() {
+  this->PollEvents();
+  this->Draw();
 }
-;
 
 MenuState::~MenuState() {
   for (auto b : m_buttons) {
