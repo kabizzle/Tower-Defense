@@ -9,7 +9,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_BUILD_TYPE Debug)
 
 file(GLOB SOURCES_HPP "src/*.hpp")
+file(GLOB SOURCES_HPP "src/states/*.hpp")
 file(GLOB SOURCES_CPP "src/*.cpp")
+file(GLOB SOURCES_CPP "src/states/*.cpp")
 set(SOURCES ${SOURCES_HPP} ${SOURCES_CPP})
 
 add_executable(tower-defense src/main.cpp)

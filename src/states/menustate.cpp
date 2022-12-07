@@ -1,14 +1,54 @@
 #include "menustate.hpp"
 
-void MenuState::Run() {
-  // Create sprites:
-  // Easy button (Default highlighted)
-  // Medium button
-  // Hard button
+void MenuState::PollEvents() {
+  while (m_window.pollEvent(this->m_event)) {
+    if (this->m_event.type == sf::Event::Closed) this->m_window->close();
 
-  // Draw: Menu Background
+    if (this->m_event.type == sf::Event::MouseButtonPressed) {
+      if (this->m_event.mouseButton.button == sf::Mouse::Left) {
+        std::cout << "the left button was pressed" << std::endl;
+        sf::Vector2f mouse =
+            m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
 
-  while (/* Window is open */) {
+        for (auto b : m_buttons) {
+          if (!b.second.getGlobalBounds().contains(mouse)) continue;
+          switch (b.first) {
+            case "Easy":
+              m_difficulty = Difficulty::Easy;
+              // Remove highlight from medium and hard sprite
+              // Add highlight to easy sprite
+            case "Medium":
+              m_difficulty = Difficulty::Medium;
+              // Remove highlight from easy and hard sprite
+              // Add highlight to medium sprite
+            case "Hard":
+              m_difficulty = Difficulty::Hard;
+              // Remove highlight from easy and medium sprite
+              // Add highlight to hard sprite
+            case "Create":
+              // SHOULD THIS BE ANOTHER STATE?
+              MenuState::RunLevelEditor(m_selectedMap);
+            case "Edit":
+              // SHOULD THIS BE ANOTHER STATE?
+              MenuState::RunLevelEditor("DEFAULT");
+            case "Delete":
+              if (m_selectedMap != "1" && m_selectedMap != "2") {
+                remove("./maps/TD/" + m_selectedMap + ".txt");
+              }
+          }
+        }
+      }
+    }
+  };
+
+  void MenuState::Run() {
+    // Create sprites:
+    // Easy button (Default highlighted)
+    // Medium button
+    // Hard button
+
+    // Draw: Menu Background
+
     // Draw:
     // Difficulty buttons:
     // Easy
@@ -116,4 +156,5 @@ void MenuState::Run() {
         }
       }
     }
-  };
+  }
+};

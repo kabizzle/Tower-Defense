@@ -160,3 +160,28 @@ Next focusing on piecing the puzzle together and adding the rest of the features
 
 ## Project status
 Backend is close to complete, GUI and the game loops have been designed and need to be implemented.
+
+# Week 5 Meeting 1 07.12.2022 11:00
+
+**Participants**: 
+1. Elias Peltokangas
+2. Kabir Bissessar
+3. Juho Poteri
+4. Antti Pekkanen
+
+## Summary of works
+1. **Elias**: LevelEditor, pseudo code for MenuState.
+2. **Kabir**: Renderabls, planning the GameState
+3. **Juho**: Text based test to fix the game backend.
+4. **Antti**: Building towers, money logic.
+
+
+## Actions
+1. **Elias**: 
+2. **Kabir**: 
+3. **Juho**: 
+4. **Antti**:
+
+
+## Project status
+Let's finish this before the deadline!

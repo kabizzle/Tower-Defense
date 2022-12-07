@@ -38,7 +38,10 @@ class MenuState : public State {
  private:
   void RunLevelEditor(int width, int height, const std::string& map);
   Difficulty m_difficulty;
-  std::string& m_selectedMap;
+  std::string m_selectedMap;
   int m_width = 30;
   int m_height = 20;
+  std::map<std::string, sf::Sprite&> m_buttons;
+
+  void PollEvents();
 };
