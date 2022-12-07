@@ -26,3 +26,7 @@ void Button::drawButton(sf::RenderWindow& window) {
     window.draw(m_button);
     window.draw(m_text);
 }
+
+sf::FloatRect Button::getGlobalBounds() {
+    return sf::FloatRect(m_button.getPosition(), m_button.getSize());
+}

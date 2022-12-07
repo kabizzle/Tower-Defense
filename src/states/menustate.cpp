@@ -5,108 +5,99 @@ MenuState::MenuState(Gui gui, sf::RenderWindow& window)
       m_difficulty(Difficulty::Easy),
       m_selectedMap("1"),
       m_editing(false) {
-  auto easyButton = m_gui.createButton("Easy", 0, 10);
-  m_buttons["Easy"] = easyButton;
+  auto easyButton = m_gui.createButton("Easy", 60, 260);
+  m_buttons[0] = easyButton;
 
-  auto mediumButton = m_gui.createButton("Easy", 60, 915);
-  m_buttons["Medium"] = mediumButton;
+  auto mediumButton = m_gui.createButton("Easy", 465, 260);
+  m_buttons[1] = mediumButton;
 
-  auto hardButton = m_gui.createButton("Easy", 105, 915);
-  m_buttons["Hard"] = hardButton;
+  auto hardButton = m_gui.createButton("Easy", 870, 260);
+  m_buttons[2] = hardButton;
 
-  auto map1Button = m_gui.createButton("Map 1", 465, 450);
-  m_buttons["Map1"] = map1Button;
+  auto map1Button = m_gui.createButton("Map 1", 60, 420);
+  m_buttons[3] = map1Button;
 
-  auto map2Button = m_gui.createButton("Change map", 465, 450);
-  m_buttons["Map1"] = map2Button;
+  auto map2Button = m_gui.createButton("Map 2", 465, 420);
+  m_buttons[4] = map2Button;
 
-  auto map3Button = m_gui.createButton("Change map", 465, 450);
-  m_buttons["Map1"] = map3Button;
+  auto map3Button = m_gui.createButton("Map 3", 870, 420);
+  m_buttons[5] = map3Button;
 
-  auto createMapButton = m_gui.createButton("Easy", 150, 915);
-  m_buttons["Create"] = createMapButton;
+  auto editButton = m_gui.createButton("Edit level", 465, 580);
+  m_buttons[6] = editButton;
 
-  auto editButton = m_gui.createButton("Easy", 195, 915);
-  m_buttons["Edit"] = editButton;
-
-  auto deleteButton = m_gui.createButton("Easy", 240, 915);
-  m_buttons["Delete"] = deleteButton;
-
-  auto playButton = m_gui.createButton("Easy", 285, 915);
-  m_buttons["Play"] = playButton;
+  auto playButton = m_gui.createButton("Play now", 465, 740);
+  m_buttons[7] = playButton;
 }
 
 void MenuState::PollEvents() {
-  while (m_window.pollEvent(m_event)) {
-    if (m_event.type == sf::Event::Closed) m_window.close();
+  if (!m_editing) {
+    while (m_window.pollEvent(m_event)) {
+      if (m_event.type == sf::Event::Closed) m_window.close();
 
-    if (this->m_event.type == sf::Event::MouseButtonPressed) {
-      if (this->m_event.mouseButton.button == sf::Mouse::Left) {
-        std::cout << "the left button was pressed" << std::endl;
-        sf::Vector2f mouse =
-            m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
+      if (this->m_event.type == sf::Event::MouseButtonPressed) {
+        if (this->m_event.mouseButton.button == sf::Mouse::Left) {
+          std::cout << "the left button was pressed" << std::endl;
+          sf::Vector2f mouse =
+              m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
 
-        for (auto b : m_buttons) {
-          if (!b.second.getGlobalBounds().contains(mouse)) continue;
+          for (auto b : m_buttons) {
+            if (!b.second->getGlobalBounds().contains(mouse)) continue;
 
-          switch (b.first) {
-            case "Easy":
-              m_difficulty = Difficulty::Easy;
-              m_buttons["Easy"].addHighlight();
-              m_buttons["Medium"].removeHighlight();
-              m_buttons["Hard"].removeHighlight();
-            case 'Medium':
-              m_difficulty = Difficulty::Medium;
-              m_buttons["Medium"].addHighlight();
-              m_buttons["Easy"].removeHighlight();
-              m_buttons["Hard"].removeHighlight();
-            case "Hard":
-              m_difficulty = Difficulty::Hard;
-              m_buttons["Hard"].addHighlight();
-              m_buttons["Medium"].removeHighlight();
-              m_buttons["Easy"].removeHighlight();
-            case "Map1":
-              m_selectedMap = "Map1";
-              m_buttons["Map1"].addHighlight();
-              m_buttons["Map2"].removeHighlight();
-              m_buttons["Map3"].removeHighlight();
-            case "Map2":
-              m_selectedMap = "Map2";
-              m_buttons["Map2"].addHighlight();
-              m_buttons["Map1"].removeHighlight();
-              m_buttons["Map3"].removeHighlight();
-            case "Map3":
-              m_selectedMap = "Map3";
-              m_buttons["Map3"].addHighlight();
-              m_buttons["Map1"].removeHighlight();
-              m_buttons["Map2"].removeHighlight();
-            case "Edit":
-              // SHOULD THIS BE ANOTHER STATE?
-              MenuState::RunLevelEditor(m_width, m_height, "DEFAULT");
-            case "Play":
-              // gui.currentState = GameState(diff, map);
-              // return; ???
+            switch (b.first) {
+              case 0:
+                m_difficulty = Difficulty::Easy;
+                m_buttons[0]->addHighlight();
+                m_buttons[1]->removeHighlight();
+                m_buttons[2]->removeHighlight();
+              case 1:
+                m_difficulty = Difficulty::Medium;
+                m_buttons[1]->addHighlight();
+                m_buttons[0]->removeHighlight();
+                m_buttons[2]->removeHighlight();
+              case 2:
+                m_difficulty = Difficulty::Hard;
+                m_buttons[2]->addHighlight();
+                m_buttons[1]->removeHighlight();
+                m_buttons[0]->removeHighlight();
+              case 3:
+                m_selectedMap = "Map1";
+                m_buttons[3]->addHighlight();
+                m_buttons[4]->removeHighlight();
+                m_buttons[5]->removeHighlight();
+              case 4:
+                m_selectedMap = "Map2";
+                m_buttons[4]->addHighlight();
+                m_buttons[3]->removeHighlight();
+                m_buttons[5]->removeHighlight();
+              case 5:
+                m_selectedMap = "Map3";
+                m_buttons[5]->addHighlight();
+                m_buttons[3]->removeHighlight();
+                m_buttons[4]->removeHighlight();
+              case 6:
+                // SHOULD THIS BE ANOTHER STATE?
+                m_editing = true;
+              case 7:
+                // gui.currentState = GameState(diff, map);
+                // return; ???
+            }
           }
         }
       }
     }
+  } else {
+    // another poll events thing for editing mode.
   }
-};
+}
 
 void MenuState::Draw() {
   if (!m_editing) {
-    // Draw: Menu Background
+    // Draw menu background
 
-    // Draw:
-    // Difficulty buttons:
-    // Easy
-    // Medium
-    // Hard
-    // Map list: new Gui::DropDownList(./maps/default_maps + ./maps/custom_maps)
-    // Edit selected map -button Gui::Button()
-    // Delete selected map -button Gui::Button()
-    // Create new map -button
-    // Play now button
+    for (auto b : m_buttons) {
+      b.second->drawButton(m_window);
+    }
   } else {
     // Draw Game/Map background
 
@@ -126,20 +117,6 @@ void MenuState::Run() {
 
 void MenuState::RunLevelEditor(const std::string& map) {
   LevelEditor editor;
-
-  if (map == "DEFAULT") {
-    try {
-      editor = LevelEditor(m_width, m_height);
-    } catch (std::exception& e) {
-      return;
-    }
-  } else {
-    try {
-      editor = LevelEditor(m_width, m_height, map);
-    } catch (std::exception& e) {
-      return;
-    }
-  }
 
   std::pair<int, int> selected = std::make_pair(0, 0);
   // Draw level editor background (same as GameState background)
@@ -191,8 +168,8 @@ void MenuState::RunLevelEditor(const std::string& map) {
 }
 ;
 
-~MenuState::MenuState() {
-  for (b : m_buttons) {
+MenuState::~MenuState() {
+  for (auto b : m_buttons) {
     delete b.second;
   }
 }

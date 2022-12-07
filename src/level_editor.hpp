@@ -4,7 +4,7 @@
 
 class LevelEditor {
  public:
-  LevelEditor(int width, int height, int mapNumber;
+  LevelEditor(int width, int height, int mapNumber);
 
   bool Edit(std::pair<int, int> coordinate, int tile);
 
