@@ -3,7 +3,7 @@
 MenuState::MenuState(GUI& gui, sf::RenderWindow& window)
     : State(gui, window),
       m_difficulty(Difficulty::Easy),
-      m_selectedMap("1"),
+      m_selectedMap("./maps/map1.txt"),
       m_editing(false) {
   auto easyButton = m_gui.createButton("Easy", 60, 260);
   m_buttons[0] = easyButton;
@@ -61,17 +61,17 @@ void MenuState::PollEvents() {
                 m_buttons[1]->removeHighlight();
                 m_buttons[0]->removeHighlight();
               case 3:
-                m_selectedMap = "Map1";
+                m_selectedMap = "./maps/map1.txt";
                 m_buttons[3]->addHighlight();
                 m_buttons[4]->removeHighlight();
                 m_buttons[5]->removeHighlight();
               case 4:
-                m_selectedMap = "Map2";
+                m_selectedMap = "./maps/map2.txt";
                 m_buttons[4]->addHighlight();
                 m_buttons[3]->removeHighlight();
                 m_buttons[5]->removeHighlight();
               case 5:
-                m_selectedMap = "Map3";
+                m_selectedMap = "./maps/map3.txt";
                 m_buttons[5]->addHighlight();
                 m_buttons[3]->removeHighlight();
                 m_buttons[4]->removeHighlight();
@@ -79,8 +79,8 @@ void MenuState::PollEvents() {
                 // SHOULD THIS BE ANOTHER STATE?
                 m_editing = true;
               case 7:
-                // gui.currentState = GameState(diff, map);
-                // return; ???
+                // gui.currentState = GameState(m_gui, m_window, m_difficulty,
+                // m_selectedMap); return; ???
             }
           }
         }

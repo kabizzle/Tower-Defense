@@ -1,21 +1,10 @@
 #include "level_editor.hpp"
 
-LevelEditor::LevelEditor(int width, int height, int mapNumber)
+LevelEditor::LevelEditor(int width, int height, std::string& mapPath)
     : m_width(width),
       m_height(height),
       m_map(Map(width, height)),
-      m_mapNumber(mapNumber) {
-  switch (mapNumber) {
-    case 1:
-      m_mapPath = "./maps/map1.txt";
-    case 2:
-      m_mapPath = "./maps/map2.txt";
-    case 3:
-      m_mapPath = "./maps/map3.txt";
-    default:
-      m_mapPath = "./maps/map1.txt";
-      m_mapNumber = 1;
-  }
+      m_mapPath(mapPath) {
   m_map.InitializeMap(m_mapPath);
 }
 

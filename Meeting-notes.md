@@ -177,11 +177,7 @@ Backend is close to complete, GUI and the game loops have been designed and need
 
 
 ## Actions
-1. **Elias**: 
-2. **Kabir**: 
-3. **Juho**: 
-4. **Antti**:
-
+1. Working face to face together through wednesday to friday to finish the project.
 
 ## Project status
 Let's finish this before the deadline!

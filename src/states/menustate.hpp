@@ -39,7 +39,7 @@ class MenuState : public State {
   std::string m_selectedMap;
   int m_width = 30;
   int m_height = 20;
-  std::map<const std::string, Button*> m_buttons;
+  std::map<int, Button*> m_buttons;
   bool m_editing;
 
   sf::Event m_event;
