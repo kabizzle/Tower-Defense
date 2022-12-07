@@ -11,7 +11,7 @@ public:
      * 
      * @param filename name of the file containing high scores.
      */
-    Highscores(const std::string& filename = "../highscores.txt");
+    Highscores(const std::string& filename = "highscores.txt");
 
     /**
      * @brief Get the top 10 of high scores.
@@ -19,6 +19,13 @@ public:
      * @return vector of strings in format "<ranking>. <name> <score>"
      */
     std::vector<std::string> GetTop10();
+
+    /**
+     * @brief Get the top 10 of high scores as string.
+     * 
+     * @return string with all scores in format "<ranking>. <name> <score>" seperated by newline
+     */
+    std::string GetTop10asString();
 
     /**
      * @brief Saves new score to highscores. Can be only done once.
