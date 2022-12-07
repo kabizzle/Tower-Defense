@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
 
+#include "../button.hpp"
 #include "../enemy_factory.hpp"
 #include "../level_editor.hpp"
 #include "../map.hpp"
-#include "../button.hpp"
 #include "state.hpp"
 
 class MenuState : public State {
@@ -39,7 +39,7 @@ class MenuState : public State {
   std::string m_selectedMap;
   int m_width = 30;
   int m_height = 20;
-  std::map<std::string, Button> m_buttons;
+  std::map<const std::string, Button*> m_buttons;
   bool m_editing;
 
   sf::Event m_event;
