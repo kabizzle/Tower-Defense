@@ -44,6 +44,8 @@ class EndState : public State {
   sf::Text m_text_name;
   sf::Text m_text_highscores;
 
+  sf::Font m_font;
+
   void Priv_PollEvents();
   void Priv_Draw();
 };

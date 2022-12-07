@@ -7,10 +7,13 @@ EndState::EndState(GUI& gui, sf::RenderWindow& window, uint32_t score)
     m_buttons[1] = m_gui.createButton("Save score", 30, 70);
 
     // Create Text objects
+    m_text_score.setFont(m_gui.GetFont());
     m_text_score.setString("Your score: " + std::to_string(m_score));
     m_text_score.setPosition(30, 110);
+    m_text_name.setFont(m_gui.GetFont());
     m_text_name.setString("Your name: ");
     m_text_name.setPosition(30, 150);
+    m_text_highscores.setFont(m_gui.GetFont());
     m_text_highscores.setString(m_highscores.GetTop10asString());
     m_text_highscores.setPosition(30, 190);
 }
@@ -54,6 +57,7 @@ void EndState::Priv_PollEvents() {
         // Check if text has been entered
         if (m_event.type == sf::Event::TextEntered) {
             char c = static_cast<char>(m_event.text.unicode);
+            std::cout << "You pressed: " << c << std::endl; // TODO: Remove
             if (isalpha(c) || c == ' ') {
                 m_input += c;
                 m_text_name.setString("Your name: " + m_input);
@@ -63,7 +67,10 @@ void EndState::Priv_PollEvents() {
         // Check if backspace has been pressed
         if (m_event.type == sf::Event::KeyPressed) {
             if (m_event.key.code == sf::Keyboard::Backspace) {
-                m_input.pop_back();
+                if (!m_input.empty()) {
+                    m_input.pop_back();
+                    m_text_name.setString("Your name: " + m_input);
+                }
             }
         }
     }
@@ -71,8 +78,9 @@ void EndState::Priv_PollEvents() {
 }
 
 void EndState::Priv_Draw() {
-    // Clear background to white
-    m_window.clear(sf::Color::White);
+    // Clear window and draw background
+    m_window.clear();
+    m_window.draw(Renderables::getMenuBackgroundSprite());
 
     // Draw buttons
     for (auto b : m_buttons) b.second->drawButton(m_window);
@@ -81,6 +89,8 @@ void EndState::Priv_Draw() {
     m_window.draw(m_text_name);
     m_window.draw(m_text_score);
     m_window.draw(m_text_highscores);
+
+    m_window.display();
 }
 
 void EndState::Run() {

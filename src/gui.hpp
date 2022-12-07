@@ -46,6 +46,8 @@ public:
     void init_textures();
 
     Button* createButton(std::string text, int x, int y);
+
+    sf::Font& GetFont();
     
 protected:
     State* m_state;
@@ -59,7 +61,7 @@ private:
     float x_velo = 3.f;
     float y_velo = 4.f;
     sf::Vector2f start;
-
+    sf::Font m_font;
 
 };
 

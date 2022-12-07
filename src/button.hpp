@@ -7,7 +7,7 @@
 
 class Button {
 public: 
-    Button(std::string text, int x, int y);
+    Button(std::string text, int x, int y, sf::Font& font);
     
     ~Button() = default;
     
@@ -19,4 +19,5 @@ public:
 private:
     sf::RectangleShape m_button;
     sf::Text m_text;
+    sf::Font& m_font;
 };

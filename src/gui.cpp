@@ -6,6 +6,7 @@
 
 #include "states/state.hpp"
 #include "states/menustate.hpp"
+#include "states/endstate.hpp"
 
 GUI::GUI() : m_renderables(new Renderables()) {}
 
@@ -23,6 +24,7 @@ void GUI::init() {
   this->m_window->setFramerateLimit(60);
   this->start = sf::Vector2f(100, 200);
   this->m_state = new MenuState(*this, *this->m_window);
+  this->m_font.loadFromFile("arial.ttf");
 }
 
 bool GUI::running() { return this->m_window->isOpen(); }
@@ -73,7 +75,7 @@ void GUI::moveEnemies() {
 }
 
 Button* GUI::createButton(std::string text, int x, int y) {
-  Button* button = new Button(text, x, y);
+  Button* button = new Button(text, x, y, m_font);
   return button;
 }
 
@@ -94,4 +96,8 @@ void GUI::update() {
   // // display window
   // this->m_window->display();
   this->m_state->Run();
+}
+
+sf::Font& GUI::GetFont() {
+  return m_font;
 }
