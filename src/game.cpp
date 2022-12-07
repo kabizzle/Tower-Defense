@@ -113,15 +113,8 @@ bool Game::RoundIsFinished() {
   }
 }
 
- std::list<std::pair<std::pair<int32_t, int32_t>, Assignment*>> Game::GetEnemies() {
-    std::list<std::pair<std::pair<int32_t, int32_t>, Assignment*>> enemies;
-    for (uint32_t i = 0; i < m_enemies.size(); i++) {
-        std::pair<int32_t, int32_t> coordinates = m_map.GetPath()[i];
-        for (auto enemy : m_enemies[i]) {
-            enemies.push_back(std::make_pair(coordinates, enemy));
-        }
-    }
-    return enemies;
+ std::vector<std::list<Assignment*>>& Game::GetEnemies() {
+    return m_enemies;
  }
 
 const std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>>& Game::GetAttacks() {

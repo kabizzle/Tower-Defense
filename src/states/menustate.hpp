@@ -41,8 +41,6 @@ class MenuState : public State {
   int m_height = 20;
   std::map<int, Button*> m_buttons;
   bool m_editing;
-
-  sf::Event m_event;
   void PollEvents();
 
   void Draw();
