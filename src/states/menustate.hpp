@@ -14,7 +14,7 @@ class MenuState : public State {
    * @param gui
    * @param window
    */
-  MenuState(Gui gui, sf::RenderWindow& window)
+  MenuState(GUI& gui, sf::RenderWindow& window)
       : State(gui, window),
         m_difficulty(Difficulty::Easy),
         m_selectedMap("1") {}

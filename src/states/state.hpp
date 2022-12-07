@@ -1,8 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
-class Gui {  // DUMMY class to get rid of errors
-};
+#include "../gui.hpp"
 /**
  * @brief Abstract State class represents the classes that run and draw the
  * different software states.
@@ -16,7 +14,7 @@ class State {
    * @param gui
    * @param window
    */
-  State(Gui gui, sf::RenderWindow& window) : m_gui(gui), m_window(window) {}
+  State(GUI& gui, sf::RenderWindow& window) : m_gui(gui), m_window(window) {}
   /**
    * @brief Destroy the State object
    *
@@ -31,6 +29,6 @@ class State {
   virtual void Run() = 0;
 
  private:
-  Gui& m_gui;
+  GUI& m_gui;
   sf::RenderWindow& m_window;
 };
