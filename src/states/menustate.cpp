@@ -1,6 +1,6 @@
 #include "menustate.hpp"
 
-MenuState::MenuState(Gui gui, sf::RenderWindow& window)
+MenuState::MenuState(GUI gui, sf::RenderWindow& window)
     : State(gui, window),
       m_difficulty(Difficulty::Easy),
       m_selectedMap("1"),

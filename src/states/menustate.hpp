@@ -4,7 +4,7 @@
 #include "../enemy_factory.hpp"
 #include "../level_editor.hpp"
 #include "../map.hpp"
-#include "button.hpp"
+#include "../button.hpp"
 #include "state.hpp"
 
 class MenuState : public State {
@@ -15,7 +15,7 @@ class MenuState : public State {
    * @param gui
    * @param window
    */
-  MenuState(Gui gui, sf::RenderWindow& window);
+  MenuState(GUI gui, sf::RenderWindow& window);
 
   /**
    * @brief Destroy the Menu State object

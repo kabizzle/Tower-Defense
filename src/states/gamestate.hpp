@@ -16,7 +16,7 @@ class GameState : public State {
    * @param difficulty
    * @param filename
    */
-  GameState(Gui gui, sf::RenderWindow& window, Difficulty difficulty,
+  GameState(GUI gui, sf::RenderWindow& window, Difficulty difficulty,
             const std::string& filename);
 
   /**

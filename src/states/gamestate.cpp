@@ -2,7 +2,7 @@
 
 #define ANIMATION_LENGTH 30  // 30 frames is 1/2 second
 
-GameState::GameState(Gui gui, sf::RenderWindow& window, Difficulty difficulty,
+GameState::GameState(GUI gui, sf::RenderWindow& window, Difficulty difficulty,
                      const std::string& filename)
     : State(gui, window),
       m_gameOver(false),
