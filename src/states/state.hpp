@@ -19,7 +19,7 @@ class State {
    * @brief Destroy the State object
    *
    */
-  virtual ~State();
+  virtual ~State() = default;
 
   /**
    * @brief Run the state. (Hosts the loop that Polls GUI events, calls the
@@ -28,7 +28,7 @@ class State {
    */
   virtual void Run() = 0;
 
- protected:
+protected:
   GUI& m_gui;
   sf::RenderWindow& m_window;
   sf::Event m_event;

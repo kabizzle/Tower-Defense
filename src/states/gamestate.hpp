@@ -23,7 +23,7 @@ class GameState : public State {
    * @brief Destroy the Game State object
    *
    */
-  ~GameState();
+  ~GameState() = default;
 
   /**
    * @brief Run and draw the game state. (Hosts the loop that Polls GUI events,

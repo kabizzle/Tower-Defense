@@ -14,11 +14,11 @@ void EditorState::PollEvents() {
           if (!b.second->getGlobalBounds().contains(mouse)) continue;
 
           switch (b.first) {
-            case 0:
-
-            case 1:
-
-            case 2:
+            //case 0:
+//
+            //case 1:
+//
+            //case 2:
           }
         }
       }
