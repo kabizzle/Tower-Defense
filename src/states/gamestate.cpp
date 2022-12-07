@@ -72,7 +72,16 @@ void GameState::Priv_RunEnemyPhase() {
   }
   //Draw everything
   
-  //Background and towers
+  //Background
+  Priv_DrawBCG();
+
+  //Towers
+  for(auto* at: m_gameLogic.GetAttackingTowers()){
+    m_window.draw(at->GetSprite());
+  }
+  for(auto* st: m_gameLogic.GetSupportTowers()){
+    m_window.draw(st->GetSprite());
+  }
 
   //Draw attacks? A sprite for these?
   //m_gameLogic.GetAttacks()
@@ -106,7 +115,8 @@ void GameState::Priv_RunEnemyPhase() {
       m_window.draw(sprite);
     }
   }
-
+  //Increment / reset the frame counter
+  m_frameInTick = (m_frameInTick >= ANIMATION_LENGTH) ? 0 : m_frameInTick + 1;
   //Display
   m_window.display();
 }
