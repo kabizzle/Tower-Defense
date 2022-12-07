@@ -22,7 +22,7 @@ class Degree : public Assignment {
   * @param ef The enemyfactory used for creating this enemy. Is used to spawn the descendants when this dies
   * @param decendants The types and amounts of descendants
   */
-  Degree(uint32_t cr, uint32_t timeToMove, const std::string& imageName, const EnemyFactory& ef,
+  Degree(uint32_t cr, uint32_t timeToMove, const std::string& imageName, const sf::Sprite& sprite, const EnemyFactory& ef,
          const std::list<std::pair<Enemy, uint32_t>>& decendants);
 
   uint32_t TakeDmg(uint32_t dmg, std::list<Assignment*>& location) override;

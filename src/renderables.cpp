@@ -187,129 +187,129 @@ Renderables::Renderables() {
     teekkari_2_sprite.setTexture(teekkari_2);
     teekkari_3_sprite.setTexture(teekkari_3);
     towerTile_sprite.setTexture(towerTile);
-    
+    s_instance = this;
 }
 
 sf::Sprite& Renderables::getBachelor1Sprite() {
-    return bachelor_1_sprite;
+    return s_instance->bachelor_1_sprite;
 }
 
 sf::Sprite& Renderables::getBachelor2Sprite() {
-    return bachelor_2_sprite;
+    return s_instance->bachelor_2_sprite;
 }
 
 sf::Sprite& Renderables::getBachelor3Sprite() {
-    return bachelor_3_sprite;
+    return s_instance->bachelor_3_sprite;
 }
 
 sf::Sprite& Renderables::getBachelorsThesisSprite() {
-    return bachelors_thesis_sprite;
+    return s_instance->bachelors_thesis_sprite;
 }
 
 sf::Sprite& Renderables::getBackgroundSprite() {
-    return background_sprite;
+    return s_instance->background_sprite;
 }
 
 sf::Sprite& Renderables::getBscSprite() {
-    return bsc_sprite;
+    return s_instance->bsc_sprite;
 }
 
 sf::Sprite& Renderables::getCalculatorSprite() {
-    return calculator_sprite;
+    return s_instance->calculator_sprite;
 }
 
 sf::Sprite& Renderables::getCoffeeTableSprite() {
-    return coffee_table_sprite;
+    return s_instance->coffee_table_sprite;
 }
 
 sf::Sprite& Renderables::getDoctor1Sprite() {
-    return doctor_1_sprite;
+    return s_instance->doctor_1_sprite;
 }
 
 sf::Sprite& Renderables::getDoctor2Sprite() {
-    return doctor_2_sprite;
+    return s_instance->doctor_2_sprite;
 }
 
 sf::Sprite& Renderables::getDoctor3Sprite() {
-    return doctor_3_sprite;
+    return s_instance->doctor_3_sprite;
 }
 
 sf::Sprite& Renderables::getDoctoralThesisSprite() {
-    return doctoral_thesis_sprite;
+    return s_instance->doctoral_thesis_sprite;
 }
 
 sf::Sprite& Renderables::getDscSprite() {
-    return dsc_sprite;
+    return s_instance->dsc_sprite;
 }
 
 sf::Sprite& Renderables::getEndtileSprite() {
-    return endTile_sprite;
+    return s_instance->endTile_sprite;
 }
 
 sf::Sprite& Renderables::getEssaySprite() {
-    return essay_sprite;
+    return s_instance->essay_sprite;
 }
 
 sf::Sprite& Renderables::getFreshman1Sprite() {
-    return freshman_1_sprite;
+    return s_instance->freshman_1_sprite;
 }
 
 sf::Sprite& Renderables::getFreshman2Sprite() {
-    return freshman_2_sprite;
+    return s_instance->freshman_2_sprite;
 }
 
 sf::Sprite& Renderables::getFreshman3Sprite() {
-    return freshman_3_sprite;
+    return s_instance->freshman_3_sprite;
 }
 
 sf::Sprite& Renderables::getHomeworkSprite() {
-    return homework_sprite;
+    return s_instance->homework_sprite;
 }
 
 sf::Sprite& Renderables::getMaster1Sprite() {
-    return master_1_sprite;
+    return s_instance->master_1_sprite;
 }
 
 sf::Sprite& Renderables::getMaster2Sprite() {
-    return master_2_sprite;
+    return s_instance->master_2_sprite;
 }
 
 sf::Sprite& Renderables::getMaster3Sprite() {
-    return master_3_sprite;
+    return s_instance->master_3_sprite;
 }
 
 sf::Sprite& Renderables::getMastersThesisSprite() {
-    return masters_thesis_sprite;
+    return s_instance->masters_thesis_sprite;
 }
 
 sf::Sprite& Renderables::getMscSprite() {
-    return msc_sprite;
+    return s_instance->msc_sprite;
 }
 
 sf::Sprite& Renderables::getPathtileSprite() {
-    return pathTile_sprite;
+    return s_instance->pathTile_sprite;
 }
 
 sf::Sprite& Renderables::getProjectSprite() {
-    return project_sprite;
+    return s_instance->project_sprite;
 }
 
 sf::Sprite& Renderables::getStarttileSprite() {
-    return startTile_sprite;
+    return s_instance->startTile_sprite;
 }
 
 sf::Sprite& Renderables::getTeekkari1Sprite() {
-    return teekkari_1_sprite;
+    return s_instance->teekkari_1_sprite;
 }
 
 sf::Sprite& Renderables::getTeekkari2Sprite() {
-    return teekkari_2_sprite;
+    return s_instance->teekkari_2_sprite;
 }
 
-sf::Sprite& Renderables::getTeekari3Sprite() {
-    return teekkari_3_sprite;
+sf::Sprite& Renderables::getTeekkari3Sprite() {
+    return s_instance->teekkari_3_sprite;
 }
 
 sf::Sprite& Renderables::getTowertileSprite() {
-    return towerTile_sprite;
+    return s_instance->towerTile_sprite;
 }

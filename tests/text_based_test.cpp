@@ -11,7 +11,7 @@
 int main(void) {
   Game* g;
   try {
-    g = new Game(30, 20, "./testmap1.txt", Difficulty::Easy);
+    g = new Game(30, 20, "../tests/testmap1.txt", Difficulty::Easy);
   } catch (const std::exception& e) {
     std::cerr << "ERROR: " << e.what() << std::endl;
     return 1;
@@ -94,6 +94,4 @@ int main(void) {
   return 0;
 }
 
-// g++ -std=c++17 -o texttest ../tests/text_based_test.cpp game.cpp
-// enemy_factory.cpp map.cpp assignment.cpp attacking_tower.cpp degree.cpp
-// renderable.cpp tower.cpp support_towers.cpp utils.cpp
+// g++ -std=c++17 -o texttest ../tests/text_based_test.cpp game.cpp enemy_factory.cpp map.cpp assignment.cpp attacking_tower.cpp degree.cpp renderable.cpp tower.cpp support_towers.cpp utils.cpp

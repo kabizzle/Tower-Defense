@@ -9,7 +9,8 @@
 class SupportTower : public Tower
 {
 protected:
-  SupportTower(uint32_t range, const std::pair<int32_t, int32_t>& coords, const std::string& imageName);
+  SupportTower(uint32_t range, const std::pair<int32_t, int32_t>& coords,
+               const std::string& imageName, const std::vector<const sf::Sprite&>& sprites);
 
 public:
   virtual ~SupportTower() { }
@@ -48,7 +49,8 @@ public:
    * @param buffStrength The amount of buff the tower gives, for example 20% buff is 0.2f
    * @param imageName The name of the image representing this particular tower, also the name of the tower type
    */
-  BuffTower(uint32_t range, const std::pair<int32_t, int32_t>& coords, float buffStrength, const std::string& imageName);
+  BuffTower(uint32_t range, const std::pair<int32_t, int32_t>& coords, float buffStrength,
+            const std::string& imageName, const std::vector<const sf::Sprite&>& sprites);
   //~BuffTower();
   /**
    * @brief Goes trough the attacking towers in the game and applies buff to them
@@ -74,7 +76,8 @@ public:
    * @param healStrength The amount this tower can heal each tower during each tick
    * @param imageName The name of the image representing this particular tower, also the name of the tower type
    */
-  HealTower(uint32_t range, const std::pair<int32_t, int32_t>& coords, uint32_t healStrength, const std::string& imageName);
+  HealTower(uint32_t range, const std::pair<int32_t, int32_t>& coords, uint32_t healStrength,
+            const std::string& imageName, const std::vector<const sf::Sprite&>& sprites);
   //~HealTower();
   /**
    * @brief Goes through the attacking towers and heals them if in range and not in full health already
