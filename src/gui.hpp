@@ -4,7 +4,6 @@
 #include <vector>
 #include <map>
 #include "renderables.hpp"
-#include "states/state.hpp"
 #include "button.hpp"
 
 class State;
