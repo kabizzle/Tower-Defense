@@ -1,20 +1,29 @@
 #include "level_editor.hpp"
 
-LevelEditor::LevelEditor(int width, int height)
-    : m_width(width), m_height(height), m_map(Map(width, height)) {
-  m_map.InitializeMap("./maps/internal/editor_default_map.txt");
-}
-
-LevelEditor::LevelEditor(int width, int height, const std::string& mapname)
-    : m_width(width), m_height(height), m_map(Map(width, height)) {
-  m_map.InitializeMap("./maps/TD/" + mapname + ".txt");
+LevelEditor::LevelEditor(int width, int height, int mapNumber)
+    : m_width(width),
+      m_height(height),
+      m_map(Map(width, height)),
+      m_mapNumber(mapNumber) {
+  switch (mapNumber) {
+    case 1:
+      m_mapPath = "./maps/map1.txt";
+    case 2:
+      m_mapPath = "./maps/map2.txt";
+    case 3:
+      m_mapPath = "./maps/map3.txt";
+    default:
+      m_mapPath = "./maps/map1.txt";
+      m_mapNumber = 1;
+  }
+  m_map.InitializeMap(m_mapPath);
 }
 
 bool LevelEditor::Edit(std::pair<int, int> coordinate, int tile) {
   return m_map.Edit(coordinate, tile);
 }
 
-bool LevelEditor::Save(const std::string& name) {
+bool LevelEditor::Save() {
   bool validate = false;
   try {
     validate = m_map.ValidateMap() && m_map.BuildPath();
@@ -27,7 +36,7 @@ bool LevelEditor::Save(const std::string& name) {
     return false;
   }
 
-  std::ofstream os("./maps/TD/" + name + ".txt", std::ofstream::trunc);
+  std::ofstream os(m_mapPath, std::ofstream::trunc);
   if (os.rdstate() && (os.failbit | os.badbit)) {
     throw std::invalid_argument("File selecting failed.");
   }

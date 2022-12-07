@@ -28,7 +28,7 @@ class State {
    */
   virtual void Run() = 0;
 
- private:
+ protected:
   GUI& m_gui;
   sf::RenderWindow& m_window;
 };
