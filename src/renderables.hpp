@@ -31,6 +31,7 @@ public:
     static sf::Sprite& getMaster2Sprite();
     static sf::Sprite& getMaster3Sprite();
     static sf::Sprite& getMastersThesisSprite();
+    static sf::Sprite& getMenuBackgroundSprite();
     static sf::Sprite& getMscSprite();
     static sf::Sprite& getPathtileSprite();
     static sf::Sprite& getProjectSprite();
@@ -64,6 +65,7 @@ private:
     sf::Texture master_2;
     sf::Texture master_3;
     sf::Texture masters_thesis;
+    sf::Texture menu_background;
     sf::Texture msc;
     sf::Texture pathTile;
     sf::Texture project;
@@ -96,6 +98,7 @@ private:
     sf::Sprite master_2_sprite;
     sf::Sprite master_3_sprite;
     sf::Sprite masters_thesis_sprite;
+    sf::Sprite menu_background_sprite;
     sf::Sprite msc_sprite;
     sf::Sprite pathTile_sprite;
     sf::Sprite project_sprite;
