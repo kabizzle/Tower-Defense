@@ -64,7 +64,7 @@ public:
   bool RoundIsFinished();
 
   // Method for getting enemies and their coordinates for GUI to draw
-  std::list<std::pair<std::pair<int32_t, int32_t>, Assignment*>> GetEnemies();
+  std::vector<std::list<Assignment*>>& GetEnemies();
 
   /**
    * @brief Gives information about which attacks happened during the turn

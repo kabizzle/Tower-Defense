@@ -1,6 +1,7 @@
 #include "gamestate.hpp"
 
 #define ANIMATION_LENGTH 30  // 30 frames is 1/2 second
+#define TILE_SIZE 30
 
 GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
                      const std::string& filename)
@@ -25,6 +26,9 @@ void GameState::Run() {
 }
 
 void GameState::Priv_RunEnemyPhase() {
+  while (m_window.pollEvent(m_event)) {
+    if (m_event.type == sf::Event::Closed) m_window.close();
+  }
   //The game logic is advanced only once per second
   if(m_frameInTick == 0){
     // call tower turn
@@ -34,33 +38,51 @@ void GameState::Priv_RunEnemyPhase() {
       m_gameOver = true;
       return;
     }
+    if (m_gameLogic.RoundIsFinished()) {
+      m_buildPhase = true;
+      return;
+    }
   }
   //Draw everything
   
   //Background and towers
 
+  //Draw attacks? A sprite for these?
   //m_gameLogic.GetAttacks()
 
+  //Enemies
+  auto& enemyVec = m_gameLogic.GetEnemies();
+  const auto& path = m_gameLogic.GetMap().GetPath();
+  for(size_t i = 0; i < enemyVec.size(); i++){
+    for(auto* e: enemyVec[i]) {
+      //Check if the enemy has moved or if it is stationary now
+      auto& coords = path[i];
+      int32_t x = coords.first * TILE_SIZE, y = coords.second * TILE_SIZE;
+      if(e->MovedLastTick()) {
+        //Must be drawn between the last and current positions
+        if(i == 0) {
+          std::cerr << "Tried to animate enemies before start" << std::endl;
+          continue;
+        }
+        //Previous coordinate
+        auto& prev = path[i];
+        int32_t xP = prev.first * TILE_SIZE, yP = prev.second * TILE_SIZE;
+        //(1-t)*x_1 + t*x_2
+        //x_1-t*x_1 + t*x_2    t = f/AL
+        //x_1-f*x_1/Al + f*x_2/Al
+        //x_1+f*(-x_1 + x_2)/Al
+        int32_t xDraw = xP + m_frameInTick * (x - xP) / ANIMATION_LENGTH;
+        int32_t yDraw = yP + m_frameInTick * (y - yP) / ANIMATION_LENGTH;
+        //DRAW HERE
 
-  while (/* window is open */) {
-    // draw the attacks
-    uint32_t i;
-    for (i = 0; i < ANIMATION_LENGTH; i++) {
-      // Maybe currently just a line from tower to enemy or something like that
-    }
-    // Check if the round has ended and continue to buildPhase
-    if (m_gameLogic.RoundIsFinished()) {
-      m_buildPhase = true;
-      return;
-    }
-    // draw the movements
-    for (i = 0; i < ANIMATION_LENGTH; i++) {
-      // Enemies have a method MovedLastTick which can be used to determine
-      // which ones have moved and must be animated somewhere between the last
-      // grid cell and the current one. The other ones can be just draw to their
-      // current location
+      } else {
+        //Stationary at its coordinates, draw just at (x, y)
+
+        //DO SOMETHING TO DRAW
+      }
     }
   }
+
 }
 
 void GameState::Priv_RunBuildPhase() {
