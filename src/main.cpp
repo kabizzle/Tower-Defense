@@ -5,8 +5,6 @@ int main() {
   GUI gui;
   gui.init();
 
-  // gui.run();
-
   while (gui.running()) {
     gui.update();
   }
