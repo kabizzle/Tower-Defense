@@ -1,6 +1,7 @@
 #pragma once 
 
 #include <iostream>
+#include <string>
 #include "SFML/Graphics.hpp"
 
 class Renderables {
@@ -103,4 +104,13 @@ private:
     sf::Sprite teekkari_2_sprite;
     sf::Sprite teekkari_3_sprite;
     sf::Sprite towerTile_sprite;
+};
+
+
+class Button {
+public: 
+    Button(std::string text, int x, int y);
+
+private:
+    sf::Sprite m_button;
 };
