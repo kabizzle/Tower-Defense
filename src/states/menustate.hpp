@@ -40,7 +40,7 @@ class MenuState : public State {
   int m_width = 30;
   int m_height = 20;
   std::map<int, Button*> m_buttons;
-
+  bool m_editing;
   void PollEvents();
 
   void Draw();
