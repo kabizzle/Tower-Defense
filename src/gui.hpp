@@ -43,6 +43,8 @@ public:
     // creates textures for enemies and towers
     void init_textures();
 
+    Button* createButton(std::string text, int x, int y);
+
 private:
     sf::RenderWindow* m_window; // window that displays game
     sf::VideoMode m_videoMode; // dimensions of window

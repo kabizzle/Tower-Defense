@@ -109,10 +109,3 @@ private:
 };
 
 
-class Button {
-public: 
-    Button(std::string text, int x, int y);
-
-private:
-    sf::Sprite m_button;
-};

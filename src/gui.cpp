@@ -1,5 +1,6 @@
 #include <iostream>
 #include "gui.hpp"
+#include "button.hpp"
 
 
 GUI::GUI() :
@@ -81,6 +82,12 @@ void GUI::moveEnemies() {
 
     enemy->setPosition(position);
   }
+}
+
+
+Button* createButton(std::string text, int x, int y) {
+  Button* button = new Button(text, x, y);
+  return button;
 }
 
 
