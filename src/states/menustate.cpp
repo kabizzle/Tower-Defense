@@ -5,34 +5,34 @@ MenuState::MenuState(GUI gui, sf::RenderWindow& window)
       m_difficulty(Difficulty::Easy),
       m_selectedMap("1"),
       m_editing(false) {
-  auto easyButton = m_gui.createButton("Easy", 0, 10);
+  auto easyButton = m_gui.createButton("Easy", 60, 260);
   m_buttons["Easy"] = easyButton;
 
-  auto mediumButton = m_gui.createButton("Easy", 60, 915);
+  auto mediumButton = m_gui.createButton("Easy", 465, 260);
   m_buttons["Medium"] = mediumButton;
 
-  auto hardButton = m_gui.createButton("Easy", 105, 915);
+  auto hardButton = m_gui.createButton("Easy", 870, 260);
   m_buttons["Hard"] = hardButton;
 
-  auto map1Button = m_gui.createButton("Map 1", 465, 450);
+  auto map1Button = m_gui.createButton("Map 1", 60, 420);
   m_buttons["Map1"] = map1Button;
 
-  auto map2Button = m_gui.createButton("Change map", 465, 450);
+  auto map2Button = m_gui.createButton("Change map", 465, 420);
   m_buttons["Map1"] = map2Button;
 
-  auto map3Button = m_gui.createButton("Change map", 465, 450);
+  auto map3Button = m_gui.createButton("Change map", 870, 420);
   m_buttons["Map1"] = map3Button;
 
-  auto createMapButton = m_gui.createButton("Easy", 150, 915);
+  auto createMapButton = m_gui.createButton("Easy", 60, 580);
   m_buttons["Create"] = createMapButton;
 
-  auto editButton = m_gui.createButton("Easy", 195, 915);
+  auto editButton = m_gui.createButton("Easy", 465, 580);
   m_buttons["Edit"] = editButton;
 
-  auto deleteButton = m_gui.createButton("Easy", 240, 915);
+  auto deleteButton = m_gui.createButton("Easy", 870, 580);
   m_buttons["Delete"] = deleteButton;
 
-  auto playButton = m_gui.createButton("Easy", 285, 915);
+  auto playButton = m_gui.createButton("Easy", 465, 740);
   m_buttons["Play"] = playButton;
 }
 
@@ -97,16 +97,9 @@ void MenuState::Draw() {
   if (!m_editing) {
     // Draw: Menu Background
 
-    // Draw:
-    // Difficulty buttons:
-    // Easy
-    // Medium
-    // Hard
-    // Map list: new Gui::DropDownList(./maps/default_maps + ./maps/custom_maps)
-    // Edit selected map -button Gui::Button()
-    // Delete selected map -button Gui::Button()
-    // Create new map -button
-    // Play now button
+    for (b : m_buttons) {
+      b.second.drawButton(m_window);
+    }
   } else {
     // Draw Game/Map background
 
