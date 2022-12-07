@@ -1,5 +1,6 @@
 #include "enemy_factory.hpp"
 #include "degree.hpp"
+#include "renderables.hpp"
 
 #define DETAILED_DEBUG_PRINT 0
 
@@ -52,36 +53,36 @@ Assignment* EnemyFactory::CreateEnemy(Enemy e) const {
   switch (e)
   {
   case Homework:
-    return new Assignment(1 * hpScale, 1, "homework");
+    return new Assignment(1 * hpScale, 1, "homework", Renderables::getHomeworkSprite());
   case Essay:
-    return new Assignment(3 * hpScale, 1, "essay");
+    return new Assignment(3 * hpScale, 1, "essay", Renderables::getEssaySprite());
   case Project:
-    return new Assignment(5 * hpScale, 1, "project");
+    return new Assignment(5 * hpScale, 1, "project", Renderables::getProjectSprite());
   case B_Thesis:
-    return new Assignment(10 * hpScale, 2, "B_thesis");
+    return new Assignment(10 * hpScale, 2, "B_thesis", Renderables::getBachelorsThesisSprite());
   case M_Thesis:
-    return new Assignment(30 * hpScale, 2, "M_thesis");
+    return new Assignment(30 * hpScale, 2, "M_thesis", Renderables::getMastersThesisSprite());
   case D_Thesis:
-    return new Assignment(50 * hpScale, 2, "D_thesis");
+    return new Assignment(50 * hpScale, 2, "D_thesis", Renderables::getDoctoralThesisSprite());
   case BSc:
-    return new Degree(180 * hpScale, 4, "BSc", *this, {
+    return new Degree(180 * hpScale, 4, "BSc", Renderables::getBscSprite(), *this, {
                       {Enemy::B_Thesis, 1}, {Enemy::Project, 10},
                       {Enemy::Essay, 10}, {Enemy::Homework, 20}
                     });
   case MSc:
-    return new Degree(300 * hpScale, 4, std::string("MSc"), *this,  {
+    return new Degree(300 * hpScale, 4, "MSc", Renderables::getMscSprite(), *this,  {
                       {Enemy::BSc, 1}, {Enemy::M_Thesis, 1},
                       {Enemy::Project, 20}, {Enemy::Essay, 25},
                       {Enemy::Homework, 40}
                     });
   case DSc:
-    return new Degree(500 * hpScale, 4, std::string("DSc"), *this,  {
+    return new Degree(500 * hpScale, 4, "DSc", Renderables::getDscSprite(), *this,  {
                       {Enemy::MSc, 1}, {Enemy::BSc, 1},
                       {Enemy::D_Thesis, 1}, {Enemy::Project, 50},
                       {Enemy::Essay, 70}, {Enemy::Homework, 100}
                     });
   default:
-    return new Assignment(1, 1, "ERROR");
+    return new Assignment(1, 1, "ERROR", Renderables::getHomeworkSprite());
     //TODO - maybe an exeption here
     //break;
   }

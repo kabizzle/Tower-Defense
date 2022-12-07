@@ -1,8 +1,10 @@
 #include "attacking_tower.hpp"
 #include "utils.hpp"
 
-AttackingTower::AttackingTower(uint32_t power, uint32_t range, uint32_t health, uint32_t upgCost, const std::pair<int32_t, int32_t>& coords, const Map& map, const std::string& imageName)
-  : Tower(range, coords, imageName), m_basePower(power), m_maxHealth(health),
+AttackingTower::AttackingTower(uint32_t power, uint32_t range, uint32_t health, uint32_t upgCost,
+                               const std::pair<int32_t, int32_t>& coords, const Map& map,
+                               const std::string& imageName, const std::vector<const sf::Sprite&>& sprites)
+  : Tower(range, coords, imageName, sprites), m_basePower(power), m_maxHealth(health),
     m_health(health), m_upgCost(upgCost), m_level(1),
     m_buffs(1.0f), m_map(map) {
   //Check the path from map to see which coordinated are accessible
@@ -60,14 +62,10 @@ uint32_t AttackingTower::Upgrade() {
   uint32_t upgradeCost = m_level * m_upgCost;
   m_basePower += m_basePower;
   m_maxHealth += m_maxHealth / 2;
-  m_level++;
   m_range += 2;
   Priv_UpdateRange(m_range);
-  if(m_level == 2) {
-    AddSuffix("_upgraded");
-  } else {
-    AddSuffix("_twice");
-  }
+  SetSprite(m_allSprites[m_level]);
+  m_level++;
   return upgradeCost;
 }
 
@@ -78,23 +76,43 @@ std::ostream& operator<<(std::ostream& os, const AttackingTower& at) {
 }
 
 AttackingTower* AttackingTower::Freshman(const std::pair<int32_t, int32_t>& coords, const Map& map) {
-  return new AttackingTower(1, 7, 40, 20, coords, map, "freshman");
+  std::vector<const sf::Sprite&> sprites;
+  sprites.emplace_back(Renderables::getFreshman1Sprite());
+  sprites.emplace_back(Renderables::getFreshman2Sprite());
+  sprites.emplace_back(Renderables::getFreshman3Sprite());
+  return new AttackingTower(1, 7, 40, 20, coords, map, "freshman", sprites);
 }
 
 AttackingTower* AttackingTower::Teekkari(const std::pair<int32_t, int32_t>& coords, const Map& map) {
-  return new AttackingTower(5, 7, 80, 40, coords, map, "teekkari");
+  std::vector<const sf::Sprite&> sprites;
+  sprites.emplace_back(Renderables::getTeekkari1Sprite());
+  sprites.emplace_back(Renderables::getTeekkari2Sprite());
+  sprites.emplace_back(Renderables::getTeekkari3Sprite());
+  return new AttackingTower(5, 7, 80, 40, coords, map, "teekkari", sprites);
 }
 
 AttackingTower* AttackingTower::Bachelor(const std::pair<int32_t, int32_t>& coords, const Map& map) {
-  return new AttackingTower(20, 8, 120, 60, coords, map, "bachelor");
+  std::vector<const sf::Sprite&> sprites;
+  sprites.emplace_back(Renderables::getBachelor1Sprite());
+  sprites.emplace_back(Renderables::getBachelor2Sprite());
+  sprites.emplace_back(Renderables::getBachelor3Sprite());
+  return new AttackingTower(20, 8, 120, 60, coords, map, "bachelor", sprites);
 }
 
 AttackingTower* AttackingTower::Master(const std::pair<int32_t, int32_t>& coords, const Map& map) {
-  return new AttackingTower(50, 8, 160, 80, coords, map, "master");
+  std::vector<const sf::Sprite&> sprites;
+  sprites.emplace_back(Renderables::getMaster1Sprite());
+  sprites.emplace_back(Renderables::getMaster2Sprite());
+  sprites.emplace_back(Renderables::getMaster3Sprite());
+  return new AttackingTower(50, 8, 160, 80, coords, map, "master", sprites);
 }
 
 AttackingTower* AttackingTower::Doctor(const std::pair<int32_t, int32_t>& coords, const Map& map) {
-  return new AttackingTower(100, 9, 200, 100, coords, map, "doctor");
+  std::vector<const sf::Sprite&> sprites;
+  sprites.emplace_back(Renderables::getDoctor1Sprite());
+  sprites.emplace_back(Renderables::getDoctor2Sprite());
+  sprites.emplace_back(Renderables::getDoctor3Sprite());
+  return new AttackingTower(100, 9, 200, 100, coords, map, "doctor", sprites);
 }
 
 void AttackingTower::Priv_UpdateRange(uint32_t newRange) {

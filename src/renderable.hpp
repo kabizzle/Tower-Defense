@@ -1,8 +1,7 @@
 #pragma once
 
 #include <string>
-
-#define IMGDIR "/placeholder"
+#include "renderables.hpp"
 
 /**
  * @brief A class which encapsulates the renderable objects (enemies and towers)
@@ -18,14 +17,19 @@ public:
    */
   const std::string ImgPath() const;
 
+
+  sf::Sprite& GetSprite();
+
 protected:
-  Renderable(const std::string& imageName);
+  Renderable(const std::string& imageName, const sf::Sprite& sprite);
 
   /**
-   * @brief Is used by the towers to alter the image name to update the look of upgraded towers
+   * @brief Is used by the towers to alter the image name to update the look of upgraded towers NOTE not needed anymore
    */
   void AddSuffix(const std::string& suffix);
 
+  void SetSprite(const sf::Sprite& newSprite);
 private:
   std::string m_imageName;
+  sf::Sprite m_sprite;
 };

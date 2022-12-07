@@ -22,7 +22,9 @@ public:
    * @param map A reference to the map used for the game, this is needed to know the enemy path and find attackable locations
    * @param imageName The name of the image representing this particular tower, also the name of the tower type
    */
-  AttackingTower(uint32_t power, uint32_t range, uint32_t health, uint32_t upgCost, const std::pair<int32_t, int32_t>& coords, const Map& map, const std::string& imageName);
+  AttackingTower(uint32_t power, uint32_t range, uint32_t health, uint32_t upgCost,
+                 const std::pair<int32_t, int32_t>& coords, const Map& map,
+                 const std::string& imageName, const std::vector<const sf::Sprite&>& sprites);
 
   /**
    * @brief Performs an attack against one enemy NOTE: migrate to using this overload

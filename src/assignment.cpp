@@ -1,7 +1,7 @@
 #include "assignment.hpp"
 
-Assignment::Assignment(uint32_t cr, uint32_t timeToMove, const std::string& imageName)
-  : Renderable(imageName), m_maxCr(cr), m_curCr(cr), m_timeToMove(timeToMove), m_timeRemainder(0), m_movedLastTick(false) { }
+Assignment::Assignment(uint32_t cr, uint32_t timeToMove, const std::string& imageName, const sf::Sprite& sprite)
+  : Renderable(imageName, sprite), m_maxCr(cr), m_curCr(cr), m_timeToMove(timeToMove), m_timeRemainder(0), m_movedLastTick(false) { }
 
 bool Assignment::Advance() {
   m_timeRemainder++;

@@ -28,7 +28,7 @@ enum Enemy {
 class Assignment : public Renderable
 {
 public:
-  Assignment(uint32_t cr, uint32_t timeToMove, const std::string& imageName);
+  Assignment(uint32_t cr, uint32_t timeToMove, const std::string& imageName, const sf::Sprite& sprite);
 
   virtual ~Assignment() { }
 

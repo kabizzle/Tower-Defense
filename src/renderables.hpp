@@ -7,37 +7,37 @@ class Renderables {
 public:
     Renderables();
 
-    sf::Sprite& getBachelor1Sprite();
-    sf::Sprite& getBachelor2Sprite();
-    sf::Sprite& getBachelor3Sprite();
-    sf::Sprite& getBachelorsThesisSprite();
-    sf::Sprite& getBackgroundSprite();
-    sf::Sprite& getBscSprite();
-    sf::Sprite& getCalculatorSprite();
-    sf::Sprite& getCoffeeTableSprite();
-    sf::Sprite& getDoctor1Sprite();
-    sf::Sprite& getDoctor2Sprite();
-    sf::Sprite& getDoctor3Sprite();
-    sf::Sprite& getDoctoralThesisSprite();
-    sf::Sprite& getDscSprite();
-    sf::Sprite& getEndtileSprite();
-    sf::Sprite& getEssaySprite();
-    sf::Sprite& getFreshman1Sprite();
-    sf::Sprite& getFreshman2Sprite();
-    sf::Sprite& getFreshman3Sprite();
-    sf::Sprite& getHomeworkSprite();
-    sf::Sprite& getMaster1Sprite();
-    sf::Sprite& getMaster2Sprite();
-    sf::Sprite& getMaster3Sprite();
-    sf::Sprite& getMastersThesisSprite();
-    sf::Sprite& getMscSprite();
-    sf::Sprite& getPathtileSprite();
-    sf::Sprite& getProjectSprite();
-    sf::Sprite& getStarttileSprite();
-    sf::Sprite& getTeekkari1Sprite();
-    sf::Sprite& getTeekkari2Sprite();
-    sf::Sprite& getTeekari3Sprite();
-    sf::Sprite& getTowertileSprite();
+    static sf::Sprite& getBachelor1Sprite();
+    static sf::Sprite& getBachelor2Sprite();
+    static sf::Sprite& getBachelor3Sprite();
+    static sf::Sprite& getBachelorsThesisSprite();
+    static sf::Sprite& getBackgroundSprite();
+    static sf::Sprite& getBscSprite();
+    static sf::Sprite& getCalculatorSprite();
+    static sf::Sprite& getCoffeeTableSprite();
+    static sf::Sprite& getDoctor1Sprite();
+    static sf::Sprite& getDoctor2Sprite();
+    static sf::Sprite& getDoctor3Sprite();
+    static sf::Sprite& getDoctoralThesisSprite();
+    static sf::Sprite& getDscSprite();
+    static sf::Sprite& getEndtileSprite();
+    static sf::Sprite& getEssaySprite();
+    static sf::Sprite& getFreshman1Sprite();
+    static sf::Sprite& getFreshman2Sprite();
+    static sf::Sprite& getFreshman3Sprite();
+    static sf::Sprite& getHomeworkSprite();
+    static sf::Sprite& getMaster1Sprite();
+    static sf::Sprite& getMaster2Sprite();
+    static sf::Sprite& getMaster3Sprite();
+    static sf::Sprite& getMastersThesisSprite();
+    static sf::Sprite& getMscSprite();
+    static sf::Sprite& getPathtileSprite();
+    static sf::Sprite& getProjectSprite();
+    static sf::Sprite& getStarttileSprite();
+    static sf::Sprite& getTeekkari1Sprite();
+    static sf::Sprite& getTeekkari2Sprite();
+    static sf::Sprite& getTeekkari3Sprite();
+    static sf::Sprite& getTowertileSprite();
 
 private:
     sf::Texture bachelor_1;
@@ -103,4 +103,6 @@ private:
     sf::Sprite teekkari_2_sprite;
     sf::Sprite teekkari_3_sprite;
     sf::Sprite towerTile_sprite;
+
+    static Renderables* s_instance;
 };
