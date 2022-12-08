@@ -23,9 +23,6 @@ public:
     // Initialise variables
     void init();
 
-    // create window
-    void render();
-
     // determine if gui is open
     bool running();
 
@@ -35,22 +32,19 @@ public:
     // Renders changed to gui window
     void update();
 
-    // Adds enemy object to gui window
-    //TODO: configure with Enemy class
-    // void addEnemy(std::string type, sf::Vector2f pos);
-
     // move enemy
     void moveEnemies();
 
-    // creates textures for enemies and towers
-    void init_textures();
 
     Button* createButton(std::string text, int x, int y);
 
     sf::Font& GetFont();
+
+    void changeState(State* state);
+
+    void deleteState();
     
 protected:
-    State* m_state;
     Renderables* m_renderables;
 
 private:
@@ -62,6 +56,8 @@ private:
     float y_velo = 4.f;
     sf::Vector2f start;
     sf::Font m_font;
+    State* m_state;
+    State* m_new_state;
 
 };
 

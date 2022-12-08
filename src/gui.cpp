@@ -13,8 +13,7 @@ GUI::GUI() : m_renderables(new Renderables()) {}
 GUI::~GUI() {
   delete this->m_window;
   delete this->m_renderables;
-  delete this->m_state;
-
+  this->deleteState();
 }
 
 void GUI::init() {
@@ -24,6 +23,7 @@ void GUI::init() {
   this->m_window->setFramerateLimit(60);
   this->start = sf::Vector2f(100, 200);
   this->m_state = new MenuState(*this, *this->m_window);
+  this->m_new_state = nullptr;
   this->m_font.loadFromFile("arial.ttf");
 }
 
@@ -80,24 +80,26 @@ Button* GUI::createButton(std::string text, int x, int y) {
 }
 
 void GUI::update() {
-  // this->pollEvents();
+  if (this->m_new_state){
+    this->deleteState();
+    this->m_state = this->m_new_state;
+    this->m_new_state = nullptr;
+  }
 
-  // // clear window
-  // this->m_window->clear();
-
-  // // draw changes
-  // this->m_window->draw(Renderables::getDoctor1Sprite());
-  // // this->moveEnemies();
-  // for (auto enemy = this->enemies.begin(); enemy != this->enemies.end();
-  //      enemy++) {
-  //   this->m_window->draw(*enemy);
-  // }
-
-  // // display window
-  // this->m_window->display();
   this->m_state->Run();
 }
 
 sf::Font& GUI::GetFont() {
   return m_font;
+}
+
+void GUI::changeState(State* state) {
+  this->m_new_state = state;
+}
+
+
+void GUI::deleteState() {
+  if (this->m_state) {
+    delete this->m_state;
+  }
 }

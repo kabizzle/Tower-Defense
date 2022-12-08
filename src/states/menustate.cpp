@@ -1,12 +1,16 @@
 #include "menustate.hpp"
 
+#include "editorstate.hpp"
+#include "gamestate.hpp"
+
 MenuState::MenuState(GUI& gui, sf::RenderWindow& window)
     : State(gui, window),
       m_difficulty(Difficulty::Easy),
-      m_selectedMap("./maps/map1.txt"),
+      m_selectedMap("src/maps/map1.txt"),
       m_editing(false) {
   auto easyButton = m_gui.createButton("Easy", 60, 260);
   m_buttons[0] = easyButton;
+  m_buttons[0]->addHighlight();
 
   auto mediumButton = m_gui.createButton("Easy", 465, 260);
   m_buttons[1] = mediumButton;
@@ -14,19 +18,20 @@ MenuState::MenuState(GUI& gui, sf::RenderWindow& window)
   auto hardButton = m_gui.createButton("Easy", 870, 260);
   m_buttons[2] = hardButton;
 
-  auto map1Button = m_gui.createButton("Map 1", 60, 420);
+  auto map1Button = m_gui.createButton("Map 1", 60, 360);
   m_buttons[3] = map1Button;
+  m_buttons[3]->addHighlight();
 
-  auto map2Button = m_gui.createButton("Map 2", 465, 420);
+  auto map2Button = m_gui.createButton("Map 2", 465, 360);
   m_buttons[4] = map2Button;
 
-  auto map3Button = m_gui.createButton("Map 3", 870, 420);
+  auto map3Button = m_gui.createButton("Map 3", 870, 360);
   m_buttons[5] = map3Button;
 
-  auto editButton = m_gui.createButton("Edit level", 465, 580);
+  auto editButton = m_gui.createButton("Edit level", 465, 460);
   m_buttons[6] = editButton;
 
-  auto playButton = m_gui.createButton("Play now", 465, 740);
+  auto playButton = m_gui.createButton("Play now", 465, 560);
   m_buttons[7] = playButton;
 }
 
@@ -63,29 +68,33 @@ void MenuState::PollEvents() {
               m_buttons[0]->removeHighlight();
               break;
             case 3:
-              m_selectedMap = "./maps/map1.txt";
+              m_selectedMap = "src/maps/map1.txt";
               m_buttons[3]->addHighlight();
               m_buttons[4]->removeHighlight();
               m_buttons[5]->removeHighlight();
               break;
             case 4:
-              m_selectedMap = "./maps/map2.txt";
+              m_selectedMap = "src/maps/map2.txt";
               m_buttons[4]->addHighlight();
               m_buttons[3]->removeHighlight();
               m_buttons[5]->removeHighlight();
               break;
             case 5:
-              m_selectedMap = "./maps/map3.txt";
+              m_selectedMap = "src/maps/map3.txt";
               m_buttons[5]->addHighlight();
               m_buttons[3]->removeHighlight();
               m_buttons[4]->removeHighlight();
               break;
-            //case 6:
-              // gui.currentState = EditorState(m_gui, m_window,
-              // m_selectedMap)
-            //case 7:
-              // gui.currentState = GameState(m_gui, m_window, m_difficulty,
-              // m_selectedMap); return; ???
+            case 6:
+              m_gui.changeState(
+                  new EditorState(m_gui, m_window, m_selectedMap));
+              m_buttons[6]->addHighlight();
+              return;
+            case 7:
+              m_gui.changeState(
+                  new GameState(m_gui, m_window, m_difficulty, m_selectedMap));
+              m_buttons[7]->addHighlight();
+              return;
           }
         }
       }
@@ -94,16 +103,14 @@ void MenuState::PollEvents() {
 }
 
 void MenuState::Draw() {
-    // Draw menu background
+  this->m_window.clear();
+  this->m_window.draw(Renderables::getMenuBackgroundSprite());
 
-    this->m_window.clear();
-    this->m_window.draw(Renderables::getMenuBackgroundSprite());
+  for (auto b : m_buttons) {
+    b.second->drawButton(m_window);
+  }
 
-    for (auto b : m_buttons) {
-      b.second->drawButton(m_window);
-    }
-
-    this->m_window.display();
+  this->m_window.display();
 }
 
 void MenuState::Run() {
