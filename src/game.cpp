@@ -1,6 +1,7 @@
 #include <algorithm>
 
 #include "game.hpp"
+#include "tower.hpp"
 
 Game::Game(uint32_t mapWidth,
            uint32_t mapLength,
@@ -137,6 +138,7 @@ bool Game::AddTower(Tower* t) {
   return (at || st);
 }
 
+/*
 bool Game::BuildAttackingTower(AttackingTower* t, uint32_t cost) {
   if (m_money < cost) return false;
   m_money -= cost;
@@ -162,10 +164,88 @@ bool Game::UpgradeTower(const std::pair<int32_t, int32_t>& coords) {
   m_money -= (*tower)->Upgrade();
   return true;
 }
+*/
+
+bool Game::IsActionPossible(const std::pair<int32_t, int32_t>& coords, Action a) const {
+  tileType tile = m_map.GetPos(coords);
+  //Actions are only possible on towerTiles
+  if(tile != tileType::towerTile) {
+    return false;
+  }
+  //Check if there is a tower at the location
+  Tower* tower;
+  for(auto* at: m_attakingTowers) {
+    if(at->GetCoords() == coords) {
+      tower = at;
+      break;
+    }
+  }
+  for(auto* st: m_supportingTowers) {
+    if(tower) {
+      break;
+    } else if(st->GetCoords() == coords) {
+      tower = st;
+    }
+  }
+  bool destroy = (a == Action::DestroyTower);
+  bool upg = (a == Action::UpgradeTower);
+  //If there is a tower, it is always destroyable, upgradeability must be checked from the tower
+  if(tower) {
+    return destroy || (upg && tower->IsUpgradeable(m_money));
+  }
+  //No tower, destroying or upgrading is not possible
+  return !(destroy || upg);
+}
+
+void Game::CreateTower(const std::pair<int32_t, int32_t>& coords, TowerType t) {
+  if(!IsActionPossible(coords, static_cast<Action>(t))) {
+    std::cerr << "Tower creation is not possible" << std::endl;
+    return;
+  }
+  switch (t)
+  {
+  case Freshman:
+    m_attakingTowers.emplace_back(AttackingTower::Freshman(coords, m_map));
+    break;
+  case Teekkari:
+    m_attakingTowers.emplace_back(AttackingTower::Teekkari(coords, m_map));
+    break;
+  case Bachelor:
+    m_attakingTowers.emplace_back(AttackingTower::Bachelor(coords, m_map));
+    break;
+  case Master:
+    m_attakingTowers.emplace_back(AttackingTower::Master(coords, m_map));
+    break;
+  case Doctor:
+    m_attakingTowers.emplace_back(AttackingTower::Doctor(coords, m_map));
+    break;
+  case Calculator:
+    m_attakingTowers.emplace_back(SupportTower::Calculator(coords));
+    break;
+  case CoffeeTable:
+    m_attakingTowers.emplace_back(SupportTower::CoffeeTable(coords));
+    break;
+  default:
+    std::cerr << "Invalid tower type" << std::endl;
+    break;
+  }
+  //Substrack money
+  try {
+    m_money -= Tower::towerPrices.at(t);
+  } catch (...) {
+    std::cerr << "Wasn't able to determine the cost of a tower" << std::endl;
+  }
+}
 
 const std::list<AttackingTower*>& Game::GetAttackingTowers() const { return m_attakingTowers; }
 
 const std::list<SupportTower*>& Game::GetSupportTowers() const { return m_supportingTowers; }
+
+uint32_t Game::GetScore() const { return m_score; }
+
+uint32_t Game::GetMoney() const { return m_money; }
+
+uint32_t Game::GetHealth() const { return m_playerHealth; }
 
 std::ostream& operator<<(std::ostream& os, const Game& game) {
   os << "*** GAME INFO ***\n";

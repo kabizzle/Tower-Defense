@@ -11,6 +11,8 @@ std::ostream& operator<<(std::ostream& os, const SupportTower& st) {
   return os;
 }
 
+bool SupportTower::IsUpgradeable(uint32_t money) const { return false; }
+
 SupportTower* SupportTower::Calculator(const std::pair<int32_t, int32_t>& coords) {
   std::vector<sf::Sprite> sprites;
   sprites.emplace_back(Renderables::getCalculatorSprite());
