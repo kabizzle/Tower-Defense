@@ -67,3 +67,5 @@ bool LevelEditor::Save() {
 
   return true;
 }
+
+Map LevelEditor::GetMap() { return m_map; }

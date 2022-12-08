@@ -124,7 +124,7 @@ void GameState::PollEvents() {
                   break;
                 case 9:
                   m_gui.changeState(new EndState(m_gui, m_window, m_roundNum));
-                  m_buttons[0]->addHighlight();
+                  m_buttons[9]->addHighlight();
                   break;
                 case 10:
                   // Advance to the next wave
@@ -211,7 +211,6 @@ void GameState::Draw() {
         return;
       }
     }
-    // Draw everything
 
     // Quit button
     m_buttons[9]->drawButton(m_window);

@@ -15,8 +15,7 @@ class EditorState : public State {
    * @param gui
    * @param window
    */
-  EditorState(GUI& gui, sf::RenderWindow& window, std::string& mapPath)
-      : State(gui, window), m_mapPath(mapPath) {}
+  EditorState(GUI& gui, sf::RenderWindow& window, std::string& mapPath);
 
   /**
    * @brief Destroy the Menu State object
@@ -35,10 +34,16 @@ class EditorState : public State {
   void Run();
 
  private:
+  LevelEditor m_editor;
   int m_width = 30;
   int m_height = 20;
+  std::vector<sf::Sprite> m_mapTileSprites;
   std::map<int, Button*> m_buttons;
+  sf::RectangleShape m_selectedShape;
   std::string m_mapPath;
+
+  int32_t m_selX,
+      m_selY;  // The selected tile on the map, -1, -1 means nothing selected
 
   void PollEvents();
   void Draw();

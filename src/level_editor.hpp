@@ -10,6 +10,8 @@ class LevelEditor {
 
   bool Save();
 
+  Map GetMap();
+
  private:
   Map m_map;
   int m_width;
