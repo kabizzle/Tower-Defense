@@ -12,10 +12,10 @@ MenuState::MenuState(GUI& gui, sf::RenderWindow& window)
   m_buttons[0] = easyButton;
   m_buttons[0]->addHighlight();
 
-  auto mediumButton = m_gui.createButton("Easy", 465, 260);
+  auto mediumButton = m_gui.createButton("Medium", 465, 260);
   m_buttons[1] = mediumButton;
 
-  auto hardButton = m_gui.createButton("Easy", 870, 260);
+  auto hardButton = m_gui.createButton("Hard", 870, 260);
   m_buttons[2] = hardButton;
 
   auto map1Button = m_gui.createButton("Map 1", 60, 360);
@@ -89,12 +89,12 @@ void MenuState::PollEvents() {
               m_gui.changeState(
                   new EditorState(m_gui, m_window, m_selectedMap));
               m_buttons[6]->addHighlight();
-              return;
+              break;
             case 7:
               m_gui.changeState(
                   new GameState(m_gui, m_window, m_difficulty, m_selectedMap));
               m_buttons[7]->addHighlight();
-              return;
+              break;
           }
         }
       }
