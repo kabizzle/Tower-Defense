@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <fstream>
+#include <sstream>
 
 #include "highscores.hpp"
 
@@ -17,6 +18,14 @@ std::vector<std::string> Highscores::GetTop10() {
         top10.push_back(line);
     }
     return top10;
+}
+
+std::string Highscores::GetTop10asString() {
+    std::stringstream ss;
+    for (auto line : GetTop10()) {
+        ss << line << std::endl;
+    }
+    return ss.str();
 }
 
 bool Highscores::AddScore(const std::string& name, uint32_t score) {

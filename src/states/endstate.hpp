@@ -1,4 +1,9 @@
 #pragma once
+
+#include <map>
+
+#include "../button.hpp"
+#include "../highscores.hpp"
 #include "state.hpp"
 
 class EndState : public State {
@@ -10,8 +15,7 @@ class EndState : public State {
    * @param window
    * @param score
    */
-  EndState(GUI gui, sf::RenderWindow& window, int score)
-      : State(gui, window), m_score(score) {}
+  EndState(GUI& gui, sf::RenderWindow& window, uint32_t score);
 
   /**
    * @brief Destroy the End State object
@@ -31,5 +35,17 @@ class EndState : public State {
   void Run();
 
  private:
-  int m_score;
+  uint32_t m_score;
+  std::map<int32_t, Button*> m_buttons;
+  Highscores m_highscores;
+  std::string m_input;
+
+  sf::Text m_text_score;
+  sf::Text m_text_name;
+  sf::Text m_text_highscores;
+
+  sf::Font m_font;
+
+  void Priv_PollEvents();
+  void Priv_Draw();
 };
