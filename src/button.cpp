@@ -68,6 +68,7 @@ TowerButton::TowerButton(TowerType tower, std::string text, int x, int y, sf::Fo
 
     m_sprite.setPosition(sf::Vector2f(x, y));
     
+    m_button.setSize(sf::Vector2f(130, 30));
     m_button.setPosition(sf::Vector2f(x + TILE_SIZE, y));
     m_button.setFillColor(sf::Color::Cyan);
     m_button.setOutlineThickness(4);
