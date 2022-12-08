@@ -200,6 +200,10 @@ const std::list<AttackingTower*>& Game::GetAttackingTowers() const { return m_at
 
 const std::list<SupportTower*>& Game::GetSupportTowers() const { return m_supportingTowers; }
 
+uint32_t Game::GetScore() const { return m_score; }
+
+uint32_t Game::GetMoney() const { return m_money; }
+
 std::ostream& operator<<(std::ostream& os, const Game& game) {
   os << "*** GAME INFO ***\n";
   os << "Player health: " << game.m_playerHealth << "\t\tScore: " << game.m_score << std::endl;

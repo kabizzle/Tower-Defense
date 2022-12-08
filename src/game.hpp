@@ -141,6 +141,10 @@ public:
    */
   const std::list<SupportTower*>& GetSupportTowers() const;
 
+  uint32_t GetScore() const;
+
+  uint32_t GetMoney() const;
+
   /**
    * @brief Overload for the stream output operator
    */
