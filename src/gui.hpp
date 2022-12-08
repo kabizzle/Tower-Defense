@@ -32,10 +32,6 @@ public:
     // Renders changed to gui window
     void update();
 
-    // Adds enemy object to gui window
-    //TODO: configure with Enemy class
-    // void addEnemy(std::string type, sf::Vector2f pos);
-
     // move enemy
     void moveEnemies();
 
@@ -49,7 +45,6 @@ public:
     void deleteState();
     
 protected:
-    State* m_state;
     Renderables* m_renderables;
 
 private:
@@ -61,6 +56,8 @@ private:
     float y_velo = 4.f;
     sf::Vector2f start;
     sf::Font m_font;
+    State* m_state;
+    State* m_new_state;
 
 };
 
