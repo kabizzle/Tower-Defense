@@ -14,6 +14,12 @@ protected:
 
 public:
   virtual ~SupportTower() { }
+
+  /**
+   * @brief No SupportTower can be upgraded
+   * @return false
+   */
+  bool IsUpgradeable(uint32_t money) const;
   /**
    * @brief Used by the supporting towers to buff/heal the attacking towers
    * The towers go through the attacking towers present on the game board and apply buffs/heal those that are
@@ -51,7 +57,8 @@ public:
    */
   BuffTower(uint32_t range, const std::pair<int32_t, int32_t>& coords, float buffStrength,
             const std::string& imageName, const std::vector<sf::Sprite>& sprites);
-  //~BuffTower();
+  
+
   /**
    * @brief Goes trough the attacking towers in the game and applies buff to them
    * 
