@@ -12,6 +12,10 @@ public:
     
     void addHighlight();
     void removeHighlight();
+
+    void disableButton();
+    void enableButton();
+
     void drawButton(sf::RenderWindow& window);
     sf::FloatRect getGlobalBounds();
 
@@ -26,7 +30,8 @@ class TowerButton : public Button{
 public:
     TowerButton(TowerType tower, std::string text, int x, int y, sf::Font& font);
     void drawButton(sf::RenderWindow& window);
-
+    void disableButton();
+    void enableButton();
 
 private:
     sf::Sprite m_sprite;
