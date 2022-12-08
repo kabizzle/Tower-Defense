@@ -39,7 +39,8 @@ class GameState : public State {
   // Difficulty m_difficulty;        //These are not needed as they can be
   // passed directly to Game const std::string& m_mapFile;
   bool m_gameOver, m_buildPhase;
-  uint32_t m_roundNum, m_frameInTick;
+  uint32_t m_roundNum;
+  int32_t m_frameInTick;
   Game m_gameLogic;
   std::vector<sf::Sprite> m_mapTileSprites;
 
