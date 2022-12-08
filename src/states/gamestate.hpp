@@ -44,6 +44,7 @@ class GameState : public State {
   Game m_gameLogic;
   std::vector<sf::Sprite> m_mapTileSprites;
   std::map<int, Button*> m_buttons;
+  sf::RectangleShape m_selectedShape;
 
   // For the build phase
   int32_t m_selX,

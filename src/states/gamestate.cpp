@@ -52,8 +52,14 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
   m_buttons[Action::DestroyTower] =
       m_gui.createButton("Destroy selected tower", 915, 335);
   m_buttons[9 /* The next int after last enum */] =
-      m_gui.createButton("Quit", 915, 670);
+      m_gui.createButton("Give up", 915, 670);
   m_buttons[10] = m_gui.createButton("Advance to the next round", 915, 620);
+
+  // Initialize the selected tile square shape
+  m_selectedShape = sf::RectangleShape(sf::Vector2f(30, 30));
+  m_selectedShape.setFillColor(sf::Color(0, 255, 255, 64));
+  m_selectedShape.setOutlineThickness(4);
+  m_selectedShape.setOutlineColor(sf::Color::Cyan);
 }
 
 void GameState::Run() {
@@ -61,8 +67,7 @@ void GameState::Run() {
   this->Draw();
   // If the game is over, we change the state to endstate
   if (m_gameOver) {
-    m_gui.changeState(
-        new EndState(m_gui, m_window, 15 /* m_gameLogic.GetScore()*/));
+    m_gui.changeState(new EndState(m_gui, m_window, m_roundNum));
   }
 }
 
@@ -82,8 +87,9 @@ void GameState::PollEvents() {
           int32_t yInt = static_cast<int32_t>(mouse.y);
           if (xInt < 900 && yInt < 600) {
             // Find which tile is selected
-            int32_t gridX = xInt / TILE_SIZE;
-            int32_t gridY = yInt / TILE_SIZE;
+            m_selX = xInt / TILE_SIZE;
+            m_selY = yInt / TILE_SIZE;
+
           } else {
             for (auto b : m_buttons) {
               if (!b.second->getGlobalBounds().contains(mouse)) continue;
@@ -117,8 +123,7 @@ void GameState::PollEvents() {
 
                   break;
                 case 9:
-                  m_gui.changeState(new EndState(
-                      m_gui, m_window, 15 /* m_gameLogic.GetScore()*/));
+                  m_gui.changeState(new EndState(m_gui, m_window, m_roundNum));
                   m_buttons[0]->addHighlight();
                   break;
                 case 10:
@@ -148,8 +153,8 @@ void GameState::PollEvents() {
 
             switch (b.first) {
               case 9:
-                m_gui.changeState(new EndState(m_gui, m_window,
-                                               15 /* m_gameLogic.GetScore()*/));
+                m_gui.changeState(
+                    new EndState(m_gui, m_window, m_roundNum - 1));
                 m_buttons[0]->addHighlight();
                 break;
             }
@@ -175,6 +180,13 @@ void GameState::Draw() {
     }
     for (auto* st : m_gameLogic.GetSupportTowers()) {
       m_window.draw(st->GetSprite());
+    }
+
+    // Draw the selected tile square
+    if (m_selX >= 0 || m_selY >= 0) {
+      m_selectedShape.setPosition(
+          sf::Vector2f(m_selX * TILE_SIZE, m_selY * TILE_SIZE));
+      m_window.draw(m_selectedShape);
     }
 
     // Draw the buttons

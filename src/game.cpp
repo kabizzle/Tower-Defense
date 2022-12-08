@@ -1,113 +1,114 @@
+#include "game.hpp"
+
 #include <algorithm>
 
-#include "game.hpp"
 #include "tower.hpp"
 
-Game::Game(uint32_t mapWidth,
-           uint32_t mapLength,
-           const std::string& filename,
+Game::Game(uint32_t mapWidth, uint32_t mapLength, const std::string& filename,
            Difficulty difficulty)
-  : m_playerHealth(100 - difficulty * 20),
-    m_score(0),
-    m_money(100), // TODO: change to some meaningful value
-    m_map(Map(mapWidth, mapLength)),
-    m_enemyFactory(difficulty)
-{
-        m_map.InitializeMap(filename);
-        // Create empty list for enemies for each path tile
-        for (uint32_t i = 0; i < m_map.GetPath().size(); i++) {
-            m_enemies.push_back(std::list<Assignment*>());
-        }
- }
+    : m_playerHealth(100 - difficulty * 20),
+      m_score(0),
+      m_money(100),  // TODO: change to some meaningful value
+      m_map(Map(mapWidth, mapLength)),
+      m_enemyFactory(difficulty) {
+  m_map.InitializeMap(filename);
+  // Create empty list for enemies for each path tile
+  for (uint32_t i = 0; i < m_map.GetPath().size(); i++) {
+    m_enemies.push_back(std::list<Assignment*>());
+  }
+}
 
- Game::~Game() {
-  for(auto* at: m_attakingTowers) {
+Game::~Game() {
+  for (auto* at : m_attakingTowers) {
     delete at;
   }
-  for(auto* st: m_supportingTowers) {
+  for (auto* st : m_supportingTowers) {
     delete st;
   }
-  for(const auto& list: m_enemies) {
-    for(auto* e: list) {
+  for (const auto& list : m_enemies) {
+    for (auto* e : list) {
       delete e;
     }
   }
- }
+}
 
- uint32_t Game::StartNextRound() {
-  return m_enemyFactory.NextRoundInit();
- }
+uint32_t Game::StartNextRound() { return m_enemyFactory.NextRoundInit(); }
 
- bool Game::EnemyTurn() {
-    // Start advancing enemies from the last path tile to avoid advancing moving enemies twice
-    for (int32_t i = m_enemies.size() - 1; i >= 0; i--) {
-        for (auto enemyIt = m_enemies[i].begin(); enemyIt != m_enemies[i].end();) {
-            Assignment *e = *enemyIt;
-            if (e->Advance()) {
-                // Remove moving enemy from the current tile and advance iterator
-                enemyIt = m_enemies[i].erase(enemyIt);
-                // If enemy moves from the last tile decrease player's health and check if the game ends
-                if (i == m_enemies.size() - 1) {
-                    m_playerHealth -= 1;
-                    delete e;
-                    if (m_playerHealth == 0) {
-                        return false;
-                    }
-                } else {
-                    // Move enemy to the next tile
-                    m_enemies[i + 1].push_back(e);
-                }
-            } else {
-                // Advance iterator if enemy didn't move
-                enemyIt++;
-            }
+bool Game::EnemyTurn() {
+  // Start advancing enemies from the last path tile to avoid advancing moving
+  // enemies twice
+  for (int32_t i = m_enemies.size() - 1; i >= 0; i--) {
+    for (auto enemyIt = m_enemies[i].begin(); enemyIt != m_enemies[i].end();) {
+      Assignment* e = *enemyIt;
+      if (e->Advance()) {
+        // Remove moving enemy from the current tile and advance iterator
+        enemyIt = m_enemies[i].erase(enemyIt);
+        // If enemy moves from the last tile decrease player's health and check
+        // if the game ends
+        if (i == m_enemies.size() - 1) {
+          m_playerHealth -= 1;
+          delete e;
+          if (m_playerHealth == 0) {
+            return false;
+          }
+        } else {
+          // Move enemy to the next tile
+          m_enemies[i + 1].push_back(e);
         }
+      } else {
+        // Advance iterator if enemy didn't move
+        enemyIt++;
+      }
     }
+  }
 
-    // Add new enemies to the first path tile
-    for (auto e : m_enemyFactory.NextTick()) {
-        m_enemies.front().push_back(e);
-    }
+  // Add new enemies to the first path tile
+  for (auto e : m_enemyFactory.NextTick()) {
+    m_enemies.front().push_back(e);
+  }
 
-    return true;
- }
+  return true;
+}
 
- void Game::TowerTurn() {
-  //Reset the m_tickattacks collection
+void Game::TowerTurn() {
+  // Reset the m_tickattacks collection
   m_tickAttacks.clear();
   // Supporting towers act first because they affect attacking towers
-  for (auto t : m_supportingTowers){
+  for (auto t : m_supportingTowers) {
     t->Act(m_attakingTowers);
   }
-  //auto enemies = Priv_GetEnemyMap();
+  // auto enemies = Priv_GetEnemyMap();
   for (auto t : m_attakingTowers) {
-    if(t->IsFunctional()){
-      t->Attack(m_enemies, m_tickAttacks);   //Refactored to used the vector m_enemies directly
+    if (t->IsFunctional()) {
+      t->Attack(
+          m_enemies,
+          m_tickAttacks);  // Refactored to used the vector m_enemies directly
     }
   }
   // Remove and free dead enemies
   for (uint32_t i = 0; i < m_enemies.size(); i++) {
-      for (auto enemyIt = m_enemies[i].begin(); enemyIt != m_enemies[i].end();) {
-          Assignment *e = *enemyIt;
-          if (!e->IsAlive()) {
-              enemyIt = m_enemies[i].erase(enemyIt);
-              m_score += e->GetCredits(); // Score is currently just total money earned
-              m_money += e->GetCredits();
-              delete e;
-          } else {
-              enemyIt++;
-          }
+    for (auto enemyIt = m_enemies[i].begin(); enemyIt != m_enemies[i].end();) {
+      Assignment* e = *enemyIt;
+      if (!e->IsAlive()) {
+        enemyIt = m_enemies[i].erase(enemyIt);
+        m_score +=
+            e->GetCredits();  // Score is currently just total money earned
+        m_money += e->GetCredits();
+        delete e;
+      } else {
+        enemyIt++;
       }
+    }
   }
- }
+}
 
 bool Game::RoundIsFinished() {
-  if(m_enemyFactory.EnemiesLeft()) {
+  if (m_enemyFactory.EnemiesLeft()) {
     return false;
   } else {
-    //Must check if there are enemies still present on the field
-    for(const auto& eList: m_enemies){
-      if(!eList.empty()){
+    // Must check if there are enemies still present on the field
+    for (const auto& eList : m_enemies) {
+      if (!eList.empty()) {
         return false;
       }
     }
@@ -115,11 +116,11 @@ bool Game::RoundIsFinished() {
   }
 }
 
- std::vector<std::list<Assignment*>>& Game::GetEnemies() {
-    return m_enemies;
- }
+std::vector<std::list<Assignment*>>& Game::GetEnemies() { return m_enemies; }
 
-const std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>>& Game::GetAttacks() {
+const std::list<
+    std::pair<std::pair<int32_t, int32_t>, std::pair<int32_t, int32_t>>>&
+Game::GetAttacks() {
   return m_tickAttacks;
 }
 
@@ -128,11 +129,11 @@ const Map& Game::GetMap() const { return m_map; }
 bool Game::AddTower(Tower* t) {
   AttackingTower* at = dynamic_cast<AttackingTower*>(t);
   SupportTower* st = nullptr;
-  if(at) {
+  if (at) {
     m_attakingTowers.push_back(at);
   } else {
     st = dynamic_cast<SupportTower*>(t);
-    if(st) {
+    if (st) {
       m_supportingTowers.push_back(st);
     }
   }
@@ -167,70 +168,71 @@ bool Game::UpgradeTower(const std::pair<int32_t, int32_t>& coords) {
 }
 */
 
-bool Game::IsActionPossible(const std::pair<int32_t, int32_t>& coords, Action a) const {
+bool Game::IsActionPossible(const std::pair<int32_t, int32_t>& coords,
+                            Action a) const {
   tileType tile = m_map.GetPos(coords);
-  //Actions are only possible on towerTiles
-  if(tile != tileType::towerTile) {
+  // Actions are only possible on towerTiles
+  if (tile != tileType::towerTile) {
     return false;
   }
-  //Check if there is a tower at the location
+  // Check if there is a tower at the location
   Tower* tower;
-  for(auto* at: m_attakingTowers) {
-    if(at->GetCoords() == coords) {
+  for (auto* at : m_attakingTowers) {
+    if (at->GetCoords() == coords) {
       tower = at;
       break;
     }
   }
-  for(auto* st: m_supportingTowers) {
-    if(tower) {
+  for (auto* st : m_supportingTowers) {
+    if (tower) {
       break;
-    } else if(st->GetCoords() == coords) {
+    } else if (st->GetCoords() == coords) {
       tower = st;
     }
   }
   bool destroy = (a == Action::DestroyTower);
   bool upg = (a == Action::UpgradeTower);
-  //If there is a tower, it is always destroyable, upgradeability must be checked from the tower
-  if(tower) {
+  // If there is a tower, it is always destroyable, upgradeability must be
+  // checked from the tower
+  if (tower) {
     return destroy || (upg && tower->IsUpgradeable(m_money));
   }
-  //No tower, destroying or upgrading is not possible
+  // No tower, destroying or upgrading is not possible
   return !(destroy || upg);
 }
 
 void Game::CreateTower(const std::pair<int32_t, int32_t>& coords, TowerType t) {
-  if(!IsActionPossible(coords, static_cast<Action>(t))) {
+  if (!IsActionPossible(coords, static_cast<Action>(t))) {
     std::cerr << "Tower creation is not possible" << std::endl;
     return;
   }
-  switch (t)
-  {
-  case Freshman:
-    m_attakingTowers.emplace_back(AttackingTower::Freshman(coords, m_map));
-    break;
-  case Teekkari:
-    m_attakingTowers.emplace_back(AttackingTower::Teekkari(coords, m_map));
-    break;
-  case Bachelor:
-    m_attakingTowers.emplace_back(AttackingTower::Bachelor(coords, m_map));
-    break;
-  case Master:
-    m_attakingTowers.emplace_back(AttackingTower::Master(coords, m_map));
-    break;
-  case Doctor:
-    m_attakingTowers.emplace_back(AttackingTower::Doctor(coords, m_map));
-    break;
-  case Calculator:
-    m_supportingTowers.emplace_back(SupportTower::Calculator(coords));
-    break;
-  case CoffeeTable:
-    m_supportingTowers.emplace_back(SupportTower::CoffeeTable(coords));
-    break;
-  default:
-    std::cerr << "Invalid tower type" << std::endl;
-    break;
+  switch (t) {
+    case Freshman:
+      m_attakingTowers.emplace_back(AttackingTower::Freshman(coords, m_map));
+      break;
+    case Teekkari:
+      m_attakingTowers.emplace_back(AttackingTower::Teekkari(coords, m_map));
+      break;
+    case Bachelor:
+      m_attakingTowers.emplace_back(AttackingTower::Bachelor(coords, m_map));
+      break;
+    case Master:
+      m_attakingTowers.emplace_back(AttackingTower::Master(coords, m_map));
+      break;
+    case Doctor:
+      m_attakingTowers.emplace_back(AttackingTower::Doctor(coords, m_map));
+      break;
+    case Calculator:
+      m_supportingTowers.emplace_back(SupportTower::Calculator(coords));
+      break;
+    case CoffeeTable:
+      m_supportingTowers.emplace_back(SupportTower::CoffeeTable(coords));
+      break;
+    default:
+      std::cerr << "Invalid tower type" << std::endl;
+      break;
   }
-  //Substrack money
+  // Substrack money
   try {
     m_money -= Tower::towerPrices.at(t);
   } catch (...) {
@@ -238,9 +240,13 @@ void Game::CreateTower(const std::pair<int32_t, int32_t>& coords, TowerType t) {
   }
 }
 
-const std::list<AttackingTower*>& Game::GetAttackingTowers() const { return m_attakingTowers; }
+const std::list<AttackingTower*>& Game::GetAttackingTowers() const {
+  return m_attakingTowers;
+}
 
-const std::list<SupportTower*>& Game::GetSupportTowers() const { return m_supportingTowers; }
+const std::list<SupportTower*>& Game::GetSupportTowers() const {
+  return m_supportingTowers;
+}
 
 uint32_t Game::GetScore() const { return m_score; }
 
@@ -250,20 +256,21 @@ uint32_t Game::GetHealth() const { return m_playerHealth; }
 
 std::ostream& operator<<(std::ostream& os, const Game& game) {
   os << "*** GAME INFO ***\n";
-  os << "Player health: " << game.m_playerHealth << "\t\tScore: " << game.m_score << std::endl;
-  //Go through the towers and print their info
-  for(const auto* at: game.m_attakingTowers) {
+  os << "Player health: " << game.m_playerHealth
+     << "\t\tScore: " << game.m_score << std::endl;
+  // Go through the towers and print their info
+  for (const auto* at : game.m_attakingTowers) {
     os << *at;
   }
-  for(const auto* st: game.m_supportingTowers) {
+  for (const auto* st : game.m_supportingTowers) {
     os << *st;
   }
-  //Same for enemies
-  for(size_t i = 0; i < game.m_enemies.size(); i++) {
-    if(!game.m_enemies[i].empty()) {
+  // Same for enemies
+  for (size_t i = 0; i < game.m_enemies.size(); i++) {
+    if (!game.m_enemies[i].empty()) {
       os << "At path index " << i << "\n";
     }
-    for(const auto* e: game.m_enemies[i]) {
+    for (const auto* e : game.m_enemies[i]) {
       os << *e;
     }
   }

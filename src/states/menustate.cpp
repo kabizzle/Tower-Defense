@@ -19,6 +19,36 @@ MenuState::MenuState(GUI& gui, sf::RenderWindow& window)
   m_buttons[5] = m_gui.createButton("Map 3", 870, 360);
   m_buttons[6] = m_gui.createButton("Edit level", 465, 460);
   m_buttons[7] = m_gui.createButton("Play now", 465, 560);
+
+  // Create text boxes
+  sf::Text titleText, subtitleText, difficultyText, mapText;
+  titleText.setFont(m_gui.GetFont());
+  titleText.setFillColor(sf::Color::White);
+  titleText.setString("Wave University - Defend your deadline 1.0");
+  titleText.setCharacterSize(60);
+  titleText.setPosition(60, 30);
+  m_texts.push_back(titleText);
+
+  subtitleText.setFont(m_gui.GetFont());
+  subtitleText.setFillColor(sf::Color::White);
+  subtitleText.setString("Tower defense game. Beat as many waves as you can");
+  subtitleText.setCharacterSize(30);
+  subtitleText.setPosition(260, 130);
+  m_texts.push_back(subtitleText);
+
+  difficultyText.setFont(m_gui.GetFont());
+  difficultyText.setFillColor(sf::Color::White);
+  difficultyText.setString("Select the difficulty");
+  difficultyText.setCharacterSize(24);
+  difficultyText.setPosition(60, 220);
+  m_texts.push_back(difficultyText);
+
+  mapText.setFont(m_gui.GetFont());
+  mapText.setFillColor(sf::Color::White);
+  mapText.setString("Select the map");
+  mapText.setCharacterSize(24);
+  mapText.setPosition(60, 320);
+  m_texts.push_back(mapText);
 }
 
 void MenuState::PollEvents() {
@@ -91,6 +121,10 @@ void MenuState::PollEvents() {
 void MenuState::Draw() {
   this->m_window.clear();
   this->m_window.draw(Renderables::getMenuBackgroundSprite());
+
+  for (auto t : m_texts) {
+    this->m_window.draw(t);
+  }
 
   for (auto b : m_buttons) {
     b.second->drawButton(m_window);

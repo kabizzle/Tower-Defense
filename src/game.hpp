@@ -115,11 +115,7 @@ class Game {
 
   /**
    * @brief Upgrade tower. Checks if the tower exist and can be upgraded.
-<<<<<<< HEAD
-   *
-=======
    * MAYBE NOT NEEDED
->>>>>>> 1ef629a21cf5099879da584650825addc70b51a1
    * @param coords coordinates where tower is
    * @return if upgrade was successful
    */
@@ -132,7 +128,8 @@ class Game {
    * @param a Enumeration telling the desired action
    * @return bool
    */
-  bool IsActionPossible(const std::pair<int32_t, int32_t>& coords, Action a) const;
+  bool IsActionPossible(const std::pair<int32_t, int32_t>& coords,
+                        Action a) const;
 
   /**
    * @brief Create a Tower object in the game
