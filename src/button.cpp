@@ -33,6 +33,13 @@ sf::FloatRect Button::getGlobalBounds() {
     return sf::FloatRect(m_button.getPosition(), m_button.getSize());
 }
 
+void Button::enableButton() {
+    this->m_button.setFillColor(sf::Color::Cyan);
+}
+
+void Button::disableButton () {
+    this->m_button.setFillColor(sf::Color(190, 190, 190, 190));
+}
 
 TowerButton::TowerButton(TowerType tower, std::string text, int x, int y, sf::Font& font) : Button(text, x, y, font) {
     switch (tower) {
@@ -61,6 +68,7 @@ TowerButton::TowerButton(TowerType tower, std::string text, int x, int y, sf::Fo
 
     m_sprite.setPosition(sf::Vector2f(x, y));
     
+    m_button.setSize(sf::Vector2f(130, 30));
     m_button.setPosition(sf::Vector2f(x + TILE_SIZE, y));
     m_button.setFillColor(sf::Color::Cyan);
     m_button.setOutlineThickness(4);
@@ -76,5 +84,15 @@ void TowerButton::drawButton(sf::RenderWindow& window) {
     window.draw(m_sprite);    
     window.draw(m_button);
     window.draw(m_text);
+}
+
+void TowerButton::disableButton() {
+    this->m_button.setFillColor(sf::Color(190, 190, 190, 190));
+    this->m_sprite.setColor(sf::Color(190, 190, 190, 190));
+}
+
+void TowerButton::enableButton () {
+    this->m_button.setFillColor(sf::Color::Cyan);
+    this->m_sprite.setColor(sf::Color(255, 255, 255, 255));
 }
 

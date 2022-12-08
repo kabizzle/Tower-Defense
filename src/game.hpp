@@ -12,8 +12,8 @@
 
 /**
  * @brief An enumeration for different actions on grid cells
- */ 
- 
+ */
+
 enum Action {
   BuyFreshman,
   BuyTeekkari,
@@ -26,13 +26,10 @@ enum Action {
   DestroyTower
 };
 
-class Game
-{
-public:
-  Game(uint32_t mapWidth,
-        uint32_t mapLength,
-        const std::string& filename,
-        Difficulty difficulty);
+class Game {
+ public:
+  Game(uint32_t mapWidth, uint32_t mapLength, const std::string& filename,
+       Difficulty difficulty);
 
   /**
    * @brief Destroy the Game object
@@ -42,7 +39,8 @@ public:
 
   /**
    * @brief Used to start the next round
-   * Calls the enemyfactory to initialize its own state such that the round can start
+   * Calls the enemyfactory to initialize its own state such that the round can
+   * start
    * @return uint32_t The number of the round starting
    */
   uint32_t StartNextRound();
@@ -60,7 +58,8 @@ public:
   void TowerTurn();
 
   /**
-   * @brief Used to check if the round is still ongoing. SHOULD be called only AFTER StartNextRound()!
+   * @brief Used to check if the round is still ongoing. SHOULD be called only
+   * AFTER StartNextRound()!
    */
   bool RoundIsFinished();
 
@@ -69,20 +68,25 @@ public:
 
   /**
    * @brief Gives information about which attacks happened during the turn
-   * @return const std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>>& 
+   * @return const std::list<std::pair<std::pair<int32_t,
+   * int32_t>,std::pair<int32_t, int32_t>>>&
    */
-  const std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>>& GetAttacks();
+  const std::list<
+      std::pair<std::pair<int32_t, int32_t>, std::pair<int32_t, int32_t>>>&
+  GetAttacks();
 
   /**
-   * @brief Gets a const ref version of the map used, to get for example the path 
-   * 
-   * @return const Map& 
+   * @brief Gets a const ref version of the map used, to get for example the
+   * path
+   *
+   * @return const Map&
    */
   const Map& GetMap() const;
 
   /**
-   * @brief For adding a tower to the Game. NOTE: not ideal implementation, just for the text-based test
-   * 
+   * @brief For adding a tower to the Game. NOTE: not ideal implementation, just
+   * for the text-based test
+   *
    * @param t A pointer to the dynamically allocated tower
    * Will fail if the Tower is not an instance of Attacking or supporting Tower
    * @return bool Whether the adding was successfull
@@ -90,26 +94,32 @@ public:
   bool AddTower(Tower* t);
 
   /**
-   * @brief For building attacking tower. Assumes that tower is at suitable location.
-   * MAYBE NOT NEEDED
+   * @brief For building attacking tower. Assumes that tower is at suitable
+   * location. MAYBE NOT NEEDED
    * @param t tower to build
-   * @param cost cost of building tower NOTE: should probably be included in Tower class
+   * @param cost cost of building tower NOTE: should probably be included in
+   * Tower class
    * @return if building tower was successful
    */
   bool BuildAttackingTower(AttackingTower* t, uint32_t cost);
 
   /**
-   * @brief For building support tower. Assumes that tower is at suitable location.
-   * MAYBE NOT NEEDED
+   * @brief For building support tower. Assumes that tower is at suitable
+   * location. MAYBE NOT NEEDED
    * @param t tower to build
-   * @param cost cost of building tower NOTE: should probably be included in Tower class
+   * @param cost cost of building tower NOTE: should probably be included in
+   * Tower class
    * @return if building tower was successful
    */
   bool BuildSupportTower(SupportTower* t, uint32_t cost);
 
   /**
    * @brief Upgrade tower. Checks if the tower exist and can be upgraded.
+<<<<<<< HEAD
+   *
+=======
    * MAYBE NOT NEEDED
+>>>>>>> 1ef629a21cf5099879da584650825addc70b51a1
    * @param coords coordinates where tower is
    * @return if upgrade was successful
    */
@@ -135,15 +145,15 @@ public:
 
   /**
    * @brief Get a ref to the Attacking Towers for drawing them
-   * 
-   * @return const std::list<AttackingTower*>& 
+   *
+   * @return const std::list<AttackingTower*>&
    */
   const std::list<AttackingTower*>& GetAttackingTowers() const;
 
   /**
    * @brief Get a ref to the Support Towers for drawing them
-   * 
-   * @return const std::list<SupportTower*>& 
+   *
+   * @return const std::list<SupportTower*>&
    */
   const std::list<SupportTower*>& GetSupportTowers() const;
 
@@ -158,7 +168,7 @@ public:
    */
   friend std::ostream& operator<<(std::ostream& os, const Game& game);
 
-private:
+ private:
   uint32_t m_playerHealth;
   uint32_t m_score;
   uint32_t m_money;
@@ -173,8 +183,10 @@ private:
   std::vector<std::list<Assignment*>> m_enemies;
 
   /**
-   * @brief Stores the attack performed during towerturn so that they can be rendered
-   * They are stored as pairs of coordinate pairs, in the order "from, to"
+   * @brief Stores the attack performed during towerturn so that they can be
+   * rendered They are stored as pairs of coordinate pairs, in the order "from,
+   * to"
    */
-  std::list<std::pair<std::pair<int32_t, int32_t>,std::pair<int32_t, int32_t>>> m_tickAttacks;
+  std::list<std::pair<std::pair<int32_t, int32_t>, std::pair<int32_t, int32_t>>>
+      m_tickAttacks;
 };
