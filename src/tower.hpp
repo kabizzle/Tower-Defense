@@ -8,8 +8,18 @@
 #include "renderable.hpp"
 #include "map.hpp"
 
+enum TowerType {
+  Freshman,
+  Teekkari,
+  Bachelor,
+  Master,
+  Doctor,
+  Calculator,
+  CoffeeTable
+};
+
 /**
- * @brief An abstarct base-class for the towers
+ * @brief An abstract base-class for the towers
  * 
  * Sub-classes will be Attacking towers and supporting towers
  */
