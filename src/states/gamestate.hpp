@@ -42,9 +42,11 @@ class GameState : public State {
   uint32_t m_roundNum, m_frameInTick;
   Game m_gameLogic;
   std::vector<sf::Sprite> m_mapTileSprites;
+  std::map<int, Button*> m_buttons;
 
-  //For the build phase
-  int32_t m_selX, m_selY;       //The selected tile on the map, -1, -1 means nothing selected
+  // For the build phase
+  int32_t m_selX,
+      m_selY;  // The selected tile on the map, -1, -1 means nothing selected
 
   // Private functions
 

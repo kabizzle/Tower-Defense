@@ -1,5 +1,8 @@
 #include "gamestate.hpp"
 
+#include "button.hpp"
+#include "endstate.hpp"
+
 #define ANIMATION_LENGTH 10  // 30 frames is 1/2 second
 #define TILE_SIZE 30
 
@@ -11,30 +14,33 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
       m_roundNum(0),
       m_frameInTick(0),
       m_gameLogic(Game(30, 20, filename, difficulty)),
-      m_selX(-1), m_selY(-1) {
+      m_selX(-1),
+      m_selY(-1) {
+  // Initialize the map tiles
+  for (auto& [coords, tile] : m_gameLogic.GetMap().GetGrid()) {
+    sf::Sprite sprite;
+    switch (tile) {
+      case towerTile:
+        sprite = Renderables::getTowertileSprite();
+        break;
+      case startTile:
+        sprite = Renderables::getStarttileSprite();
+        break;
+      case pathTile:
+        sprite = Renderables::getPathtileSprite();
+        break;
+      case endTile:
+        sprite = Renderables::getEndtileSprite();
+        break;
+    }
+    sprite.setPosition(TILE_SIZE * coords.first, TILE_SIZE * coords.second);
+    m_mapTileSprites.push_back(sprite);
+  }
 
-        //Initialize the map tiles
-        for(auto& [coords, tile]: m_gameLogic.GetMap().GetGrid()){
-          sf::Sprite sprite;
-          switch (tile)
-          {
-          case towerTile:
-            sprite = Renderables::getTowertileSprite();
-            break;
-          case startTile:
-            sprite = Renderables::getStarttileSprite();
-            break;
-          case pathTile:
-            sprite = Renderables::getPathtileSprite();
-            break;
-          case endTile:
-            sprite = Renderables::getEndtileSprite();
-            break;
-          }
-          sprite.setPosition(coords.first, coords.second);
-          m_mapTileSprites.push_back(sprite);
-        }
-      }
+  // Initialize the buttons
+  auto quitButton = m_gui.createButton("Quit", 915, 15);
+  m_buttons[0] = quitButton;
+}
 
 void GameState::Run() {
   // We check which phase is active
@@ -52,6 +58,25 @@ void GameState::Run() {
 void GameState::Priv_RunEnemyPhase() {
   while (m_window.pollEvent(m_event)) {
     if (m_event.type == sf::Event::Closed) m_window.close();
+    if (this->m_event.type == sf::Event::MouseButtonPressed) {
+      if (this->m_event.mouseButton.button == sf::Mouse::Left) {
+        std::cout << "the left button was pressed" << std::endl;
+        sf::Vector2f mouse =
+            m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
+
+        for (auto b : m_buttons) {
+          if (!b.second->getGlobalBounds().contains(mouse)) continue;
+
+          switch (b.first) {
+            case 0:
+              m_gui.changeState(new EndState(m_gui, m_window,
+                                             15 /* m_gameLogic.GetScore()*/));
+              m_buttons[0]->addHighlight();
+              break;
+          }
+        }
+      }
+    }
   }
   // Clear the window
   m_window.clear();
@@ -74,6 +99,9 @@ void GameState::Priv_RunEnemyPhase() {
 
   // Background
   Priv_DrawBCG();
+
+  // Quit button
+  m_buttons[0]->drawButton(m_window);
 
   // Towers
   for (auto* at : m_gameLogic.GetAttackingTowers()) {
@@ -100,9 +128,9 @@ void GameState::Priv_RunEnemyPhase() {
           std::cerr << "Tried to animate enemies before start" << std::endl;
           continue;
         }
-        //Debug
-        //std::cout << "Intermediate position" << std::endl;
-        //Previous coordinate
+        // Debug
+        // std::cout << "Intermediate position" << std::endl;
+        // Previous coordinate
         auto& prev = path[i - 1];
         int32_t xP = prev.first * TILE_SIZE, yP = prev.second * TILE_SIZE;
         //(1-t)*x_1 + t*x_2
@@ -124,7 +152,7 @@ void GameState::Priv_RunEnemyPhase() {
 }
 
 void GameState::Priv_RunBuildPhase() {
-  // TODO the build stage loop
+  // TODO the build stage
 
   // Returns either by setting m_buildPhase to false or m_gameOver to true
   // At the end of build phase, get the next enemy phase ready
@@ -141,7 +169,6 @@ void GameState::Priv_DrawBCG() {
   }
 }
 
-
 void GameState::Priv_BuildPollEvents() {
   while (m_window.pollEvent(m_event)) {
     if (m_event.type == sf::Event::Closed) m_window.close();
@@ -149,12 +176,13 @@ void GameState::Priv_BuildPollEvents() {
     if (this->m_event.type == sf::Event::MouseButtonPressed) {
       if (this->m_event.mouseButton.button == sf::Mouse::Left) {
         std::cout << "the left button was pressed" << std::endl;
-        sf::Vector2f mouse = m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
-        //Check if the mouse press was inside the map area
+        sf::Vector2f mouse =
+            m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
+        // Check if the mouse press was inside the map area
         int32_t xInt = static_cast<int32_t>(mouse.x);
         int32_t yInt = static_cast<int32_t>(mouse.y);
-        if(xInt < 900 && yInt < 600) {
-          //Find which tile is selected
+        if (xInt < 900 && yInt < 600) {
+          // Find which tile is selected
           int32_t gridX = xInt / TILE_SIZE;
           int32_t gridY = yInt / TILE_SIZE;
         }
