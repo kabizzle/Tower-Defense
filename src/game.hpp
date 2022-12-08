@@ -117,15 +117,21 @@ public:
 
   /**
    * @brief Used by GUI states to check what can be done
-   * 
+   * NOTE: TODO make this check the price
    * @param coords The grid coordinates
    * @param a Enumeration telling the desired action
    * @return bool
    */
   bool IsActionPossible(const std::pair<int32_t, int32_t>& coords, Action a) const;
 
-  /***/
-  void CreateTower(const std::pair<int32_t, int32_t>& coords, Action a);
+  /**
+   * @brief Create a Tower object in the game
+   * Uses the coordinates and enumeration to place a tower on the playing field
+   * Reduces the players money
+   * @param coords The position where the tower needs to be created
+   * @param t An enumeration of the desired tower to build
+   */
+  void CreateTower(const std::pair<int32_t, int32_t>& coords, TowerType t);
 
   /**
    * @brief Get a ref to the Attacking Towers for drawing them
@@ -144,6 +150,8 @@ public:
   uint32_t GetScore() const;
 
   uint32_t GetMoney() const;
+
+  uint32_t GetHealth() const;
 
   /**
    * @brief Overload for the stream output operator
