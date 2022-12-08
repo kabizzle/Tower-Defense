@@ -1,6 +1,6 @@
 #include "gamestate.hpp"
 
-#define ANIMATION_LENGTH 10  // 30 frames is 1/2 second
+#define ANIMATION_LENGTH 10  // 60 frames / second
 #define TILE_SIZE 30
 
 GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
@@ -31,7 +31,7 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
             sprite = Renderables::getEndtileSprite();
             break;
           }
-          sprite.setPosition(coords.first, coords.second);
+          sprite.setPosition(coords.first * TILE_SIZE, coords.second * TILE_SIZE);
           m_mapTileSprites.push_back(sprite);
         }
       }
