@@ -108,6 +108,14 @@ public:
   bool BuildSupportTower(SupportTower* t, uint32_t cost);
 
   /**
+   * @brief Upgrade tower. Checks if the tower exist and can be upgraded.
+   * MAYBE NOT NEEDED
+   * @param coords coordinates where tower is
+   * @return if upgrade was successful
+   */
+  bool UpgradeTower(const std::pair<int32_t, int32_t>& coords);
+
+  /**
    * @brief Used by GUI states to check what can be done
    * 
    * @param coords The grid coordinates
@@ -116,13 +124,8 @@ public:
    */
   bool IsActionPossible(const std::pair<int32_t, int32_t>& coords, Action a) const;
 
-  /**
-   * @brief Upgrade tower. Checks if the tower exist and can be upgraded.
-   * 
-   * @param coords coordinates where tower is
-   * @return if upgrade was successful
-   */
-  bool UpgradeTower(const std::pair<int32_t, int32_t>& coords);
+  /***/
+  void CreateTower(const std::pair<int32_t, int32_t>& coords, Action a);
 
   /**
    * @brief Get a ref to the Attacking Towers for drawing them

@@ -137,6 +137,7 @@ bool Game::AddTower(Tower* t) {
   return (at || st);
 }
 
+/*
 bool Game::BuildAttackingTower(AttackingTower* t, uint32_t cost) {
   if (m_money < cost) return false;
   m_money -= cost;
@@ -162,6 +163,7 @@ bool Game::UpgradeTower(const std::pair<int32_t, int32_t>& coords) {
   m_money -= (*tower)->Upgrade();
   return true;
 }
+*/
 
 bool Game::IsActionPossible(const std::pair<int32_t, int32_t>& coords, Action a) const {
   tileType tile = m_map.GetPos(coords);
