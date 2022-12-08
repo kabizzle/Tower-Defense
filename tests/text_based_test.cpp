@@ -11,7 +11,7 @@
 int main(void) {
   Game* g;
   try {
-    g = new Game(30, 20, "../tests/testmap1.txt", Difficulty::Easy);
+    g = new Game(30, 20, "maps/map1.txt", Difficulty::Easy);
   } catch (const std::exception& e) {
     std::cerr << "ERROR: " << e.what() << std::endl;
     return 1;
@@ -49,12 +49,17 @@ int main(void) {
       }
       grid[coords.second][coords.first] = c;
     }
+    //Path
+    auto& path = g->GetMap().GetPath();
     // Place the enemies and towers
-    for (const auto& [coords, e] : g->GetEnemies()) {
-      if (grid[coords.second][coords.first] == 'e') {
+    auto& enemies = g->GetEnemies();
+    for (size_t i = 0; i < path.size(); i++) {
+      const auto& coords = path[i];
+      if (enemies[i].size() > 1) {
         grid[coords.second][coords.first] = 'E';  // Many enemies
+      } else if (enemies[i].size() == 1) {
+        grid[coords.second][coords.first] = 'e';
       }
-      grid[coords.second][coords.first] = 'e';
     }
     for (const auto* at : g->GetAttackingTowers()) {
       grid[at->GetCoords().second][at->GetCoords().first] = 'a';

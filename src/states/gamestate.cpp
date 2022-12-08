@@ -1,6 +1,6 @@
 #include "gamestate.hpp"
 
-#define ANIMATION_LENGTH 30  // 30 frames is 1/2 second
+#define ANIMATION_LENGTH 10  // 30 frames is 1/2 second
 #define TILE_SIZE 30
 
 GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
@@ -10,7 +10,8 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
       m_buildPhase(true),
       m_roundNum(0),
       m_frameInTick(0),
-      m_gameLogic(Game(30, 20, filename, difficulty)) {
+      m_gameLogic(Game(30, 20, filename, difficulty)),
+      m_selX(-1), m_selY(-1) {
 
         //Initialize the map tiles
         for(auto& [coords, tile]: m_gameLogic.GetMap().GetGrid()){
@@ -100,8 +101,10 @@ void GameState::Priv_RunEnemyPhase() {
           std::cerr << "Tried to animate enemies before start" << std::endl;
           continue;
         }
+        //Debug
+        //std::cout << "Intermediate position" << std::endl;
         //Previous coordinate
-        auto& prev = path[i];
+        auto& prev = path[i - 1];
         int32_t xP = prev.first * TILE_SIZE, yP = prev.second * TILE_SIZE;
         //(1-t)*x_1 + t*x_2
         //x_1-t*x_1 + t*x_2    t = f/AL
@@ -128,6 +131,7 @@ void GameState::Priv_RunBuildPhase() {
   //At the end of build phase, get the next enemy phase ready
   m_roundNum = m_gameLogic.StartNextRound();
   m_frameInTick = 0;
+  m_buildPhase = false;
 }
 
 
@@ -136,5 +140,27 @@ void GameState::Priv_DrawBCG() {
   m_window.draw(bcg);
   for(const auto& s: m_mapTileSprites) {
     m_window.draw(s);
+  }
+}
+
+
+void GameState::Priv_BuildPollEvents() {
+  while (m_window.pollEvent(m_event)) {
+    if (m_event.type == sf::Event::Closed) m_window.close();
+
+    if (this->m_event.type == sf::Event::MouseButtonPressed) {
+      if (this->m_event.mouseButton.button == sf::Mouse::Left) {
+        std::cout << "the left button was pressed" << std::endl;
+        sf::Vector2f mouse = m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
+        //Check if the mouse press was inside the map area
+        int32_t xInt = static_cast<int32_t>(mouse.x);
+        int32_t yInt = static_cast<int32_t>(mouse.y);
+        if(xInt < 900 && yInt < 600) {
+          //Find which tile is selected
+          int32_t gridX = xInt / TILE_SIZE;
+          int32_t gridY = yInt / TILE_SIZE;
+        }
+      }
+    }
   }
 }

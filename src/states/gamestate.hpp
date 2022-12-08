@@ -43,6 +43,9 @@ class GameState : public State {
   Game m_gameLogic;
   std::vector<sf::Sprite> m_mapTileSprites;
 
+  //For the build phase
+  int32_t m_selX, m_selY;       //The selected tile on the map, -1, -1 means nothing selected
+
   // Private functions
 
   /**
@@ -65,4 +68,6 @@ class GameState : public State {
    * Assumes that the window has been properly cleared
    */
   void Priv_DrawBCG();
+
+  void Priv_BuildPollEvents();
 };
