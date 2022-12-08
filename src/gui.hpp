@@ -37,6 +37,7 @@ public:
 
 
     Button* createButton(std::string text, int x, int y);
+    TowerButton* createTowerButton(TowerType type, int x, int y);
 
     sf::Font& GetFont();
 

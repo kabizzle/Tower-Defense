@@ -79,6 +79,11 @@ Button* GUI::createButton(std::string text, int x, int y) {
   return button;
 }
 
+TowerButton* GUI::createTowerButton(TowerType type, int x, int y) {
+  TowerButton* towerButton = new TowerButton(type, std::to_string(Tower::towerPrices.at(type)), x, y, m_font);
+  return towerButton;
+}
+
 void GUI::update() {
   if (this->m_new_state){
     this->deleteState();
