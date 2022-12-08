@@ -13,8 +13,14 @@ GUI::GUI() : m_renderables(new Renderables()) {}
 GUI::~GUI() {
   delete this->m_window;
   delete this->m_renderables;
-  delete this->m_state;
+  this->deleteState();
 
+}
+
+void GUI::deleteState() {
+  if (this->m_state) {
+    delete this->m_state;
+  }
 }
 
 void GUI::init() {
@@ -100,4 +106,9 @@ void GUI::update() {
 
 sf::Font& GUI::GetFont() {
   return m_font;
+}
+
+void GUI::changeState(State* state) {
+  this->deleteState();
+  this->m_state = state;
 }

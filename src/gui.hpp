@@ -23,9 +23,6 @@ public:
     // Initialise variables
     void init();
 
-    // create window
-    void render();
-
     // determine if gui is open
     bool running();
 
@@ -42,12 +39,14 @@ public:
     // move enemy
     void moveEnemies();
 
-    // creates textures for enemies and towers
-    void init_textures();
 
     Button* createButton(std::string text, int x, int y);
 
     sf::Font& GetFont();
+
+    void changeState(State* state);
+
+    void deleteState();
     
 protected:
     State* m_state;
