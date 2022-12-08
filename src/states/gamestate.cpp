@@ -1,9 +1,13 @@
 #include "gamestate.hpp"
 
+<<<<<<< HEAD
 #include "button.hpp"
 #include "endstate.hpp"
 
 #define ANIMATION_LENGTH 10  // 30 frames is 1/2 second
+=======
+#define ANIMATION_LENGTH 10  // 60 frames / second
+>>>>>>> 6cd81c4c19e6e6c8d4805fd224f79aedff52f2cc
 #define TILE_SIZE 30
 
 GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
@@ -14,6 +18,7 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
       m_roundNum(0),
       m_frameInTick(0),
       m_gameLogic(Game(30, 20, filename, difficulty)),
+<<<<<<< HEAD
       m_selX(-1),
       m_selY(-1) {
   // Initialize the map tiles
@@ -41,6 +46,32 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
   auto quitButton = m_gui.createButton("Quit", 915, 15);
   m_buttons[0] = quitButton;
 }
+=======
+      m_selX(-1), m_selY(-1) {
+
+        //Initialize the map tiles
+        for(auto& [coords, tile]: m_gameLogic.GetMap().GetGrid()){
+          sf::Sprite sprite;
+          switch (tile)
+          {
+          case towerTile:
+            sprite = Renderables::getTowertileSprite();
+            break;
+          case startTile:
+            sprite = Renderables::getStarttileSprite();
+            break;
+          case pathTile:
+            sprite = Renderables::getPathtileSprite();
+            break;
+          case endTile:
+            sprite = Renderables::getEndtileSprite();
+            break;
+          }
+          sprite.setPosition(coords.first * TILE_SIZE, coords.second * TILE_SIZE);
+          m_mapTileSprites.push_back(sprite);
+        }
+      }
+>>>>>>> 6cd81c4c19e6e6c8d4805fd224f79aedff52f2cc
 
 void GameState::Run() {
   // We check which phase is active
