@@ -107,7 +107,14 @@ public:
    */
   bool BuildSupportTower(SupportTower* t, uint32_t cost);
 
-  bool IsActionPossible(int32_t x, int32_t y, Action a) const;
+  /**
+   * @brief Used by GUI states to check what can be done
+   * 
+   * @param coords The grid coordinates
+   * @param a Enumeration telling the desired action
+   * @return bool
+   */
+  bool IsActionPossible(const std::pair<int32_t, int32_t>& coords, Action a) const;
 
   /**
    * @brief Upgrade tower. Checks if the tower exist and can be upgraded.

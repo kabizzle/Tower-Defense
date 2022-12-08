@@ -55,18 +55,17 @@ void AttackingTower::Heal(uint32_t h) {
 }
 
 bool AttackingTower::IsUpgradeable(uint32_t money) const {
-  return money >= (m_level * m_upgCost) && m_level < 3;
+  return m_level < 3 && money >= m_upgCost;
 }
 
 uint32_t AttackingTower::Upgrade() {
-  uint32_t upgradeCost = m_level * m_upgCost;
   m_basePower += m_basePower;
   m_maxHealth += m_maxHealth / 2;
   m_range += 2;
   Priv_UpdateRange(m_range);
   SetSprite(m_allSprites[m_level]);
   m_level++;
-  return upgradeCost;
+  return m_upgCost;
 }
 
 std::ostream& operator<<(std::ostream& os, const AttackingTower& at) {

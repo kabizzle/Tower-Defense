@@ -31,11 +31,18 @@ public:
    */
   const std::pair<int32_t, int32_t>& GetCoords() const;
 
-  inline static const std::map<TowerType, uint32_t> towerPrices = {
-    {TowerType::Freshman, 20}, {TowerType::Teekkari, 40},
-    {TowerType::Bachelor, 60}, {TowerType::Master, 80},
-    {TowerType::Doctor, 100}, {TowerType::Calculator, 50},
-    {TowerType::CoffeeTable, 50}
+  /**
+   * @brief Tells if the tower can be upgraded with set amount of money
+   * @param money The amount of money the player has 
+   * @return bool
+   */
+  virtual bool IsUpgradeable(uint32_t money) const = 0;
+
+  inline static const std::map<std::string, uint32_t> towerPrices = {
+    {"freshman", 20}, {"teekkari", 40},
+    {"bachelor", 60}, {"master", 80},
+    {"doctor", 100}, {"calculator", 50},
+    {"coffee_table", 50}
   };
 
 protected:

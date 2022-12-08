@@ -163,6 +163,37 @@ bool Game::UpgradeTower(const std::pair<int32_t, int32_t>& coords) {
   return true;
 }
 
+bool Game::IsActionPossible(const std::pair<int32_t, int32_t>& coords, Action a) const {
+  tileType tile = m_map.GetPos(coords);
+  //Actions are only possible on towerTiles
+  if(tile != tileType::towerTile) {
+    return false;
+  }
+  //Check if there is a tower at the location
+  Tower* tower;
+  for(auto* at: m_attakingTowers) {
+    if(at->GetCoords() == coords) {
+      tower = at;
+      break;
+    }
+  }
+  for(auto* st: m_supportingTowers) {
+    if(tower) {
+      break;
+    } else if(st->GetCoords() == coords) {
+      tower = st;
+    }
+  }
+  bool destroy = (a == Action::DestroyTower);
+  bool upg = (a == Action::UpgradeTower);
+  //If there is a tower, it is always destroyable, upgradeability must be checked from the tower
+  if(tower) {
+    return destroy || (upg && tower->IsUpgradeable(m_money));
+  }
+  //No tower, destroying or upgrading is not possible
+  return !(destroy || upg);
+}
+
 const std::list<AttackingTower*>& Game::GetAttackingTowers() const { return m_attakingTowers; }
 
 const std::list<SupportTower*>& Game::GetSupportTowers() const { return m_supportingTowers; }

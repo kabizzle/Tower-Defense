@@ -1,5 +1,7 @@
 #include "endstate.hpp"
 
+#include "menustate.hpp"
+
 EndState::EndState(GUI& gui, sf::RenderWindow& window, uint32_t score)
     : State(gui, window), m_score(score) {
   // Create buttons
@@ -11,7 +13,7 @@ EndState::EndState(GUI& gui, sf::RenderWindow& window, uint32_t score)
   m_text_score.setString("Your score: " + std::to_string(m_score));
   m_text_score.setPosition(30, 110);
   m_text_name.setFont(m_gui.GetFont());
-  m_text_name.setString("Your name: ");
+  m_text_name.setString("Type your name: ");
   m_text_name.setPosition(30, 150);
   m_text_highscores.setFont(m_gui.GetFont());
   m_text_highscores.setString(m_highscores.GetTop10asString());
@@ -39,7 +41,7 @@ void EndState::Priv_PollEvents() {
 
           switch (b.first) {
             case 0:
-              // Go to Main Menu
+              m_gui.changeState(new MenuState(m_gui, m_window));
               break;
             case 1:
               // Save the score if name is not empty
@@ -60,7 +62,7 @@ void EndState::Priv_PollEvents() {
       std::cout << "You pressed: " << c << std::endl;  // TODO: Remove
       if (isalpha(c) || c == ' ') {
         m_input += c;
-        m_text_name.setString("Your name: " + m_input);
+        m_text_name.setString("Type your name: " + m_input);
       }
     }
 
@@ -69,7 +71,7 @@ void EndState::Priv_PollEvents() {
       if (m_event.key.code == sf::Keyboard::Backspace) {
         if (!m_input.empty()) {
           m_input.pop_back();
-          m_text_name.setString("Your name: " + m_input);
+          m_text_name.setString("Type your name: " + m_input);
         }
       }
     }
