@@ -7,6 +7,7 @@ MenuState::MenuState(GUI& gui, sf::RenderWindow& window)
       m_editing(false) {
   auto easyButton = m_gui.createButton("Easy", 60, 260);
   m_buttons[0] = easyButton;
+  m_buttons[0]->addHighlight();
 
   auto mediumButton = m_gui.createButton("Easy", 465, 260);
   m_buttons[1] = mediumButton;
@@ -16,6 +17,7 @@ MenuState::MenuState(GUI& gui, sf::RenderWindow& window)
 
   auto map1Button = m_gui.createButton("Map 1", 60, 420);
   m_buttons[3] = map1Button;
+  m_buttons[3]->addHighlight();
 
   auto map2Button = m_gui.createButton("Map 2", 465, 420);
   m_buttons[4] = map2Button;
@@ -80,12 +82,12 @@ void MenuState::PollEvents() {
               m_buttons[3]->removeHighlight();
               m_buttons[4]->removeHighlight();
               break;
-            //case 6:
-              // gui.currentState = EditorState(m_gui, m_window,
-              // m_selectedMap)
-            //case 7:
-              // gui.currentState = GameState(m_gui, m_window, m_difficulty,
-              // m_selectedMap); return; ???
+              // case 6:
+              //  gui.currentState = EditorState(m_gui, m_window,
+              //  m_selectedMap)
+              // case 7:
+              //  gui.currentState = GameState(m_gui, m_window, m_difficulty,
+              //  m_selectedMap); return; ???
           }
         }
       }
@@ -94,16 +96,14 @@ void MenuState::PollEvents() {
 }
 
 void MenuState::Draw() {
-    // Draw menu background
+  this->m_window.clear();
+  this->m_window.draw(Renderables::getMenuBackgroundSprite());
 
-    this->m_window.clear();
-    this->m_window.draw(Renderables::getMenuBackgroundSprite());
+  for (auto b : m_buttons) {
+    b.second->drawButton(m_window);
+  }
 
-    for (auto b : m_buttons) {
-      b.second->drawButton(m_window);
-    }
-
-    this->m_window.display();
+  this->m_window.display();
 }
 
 void MenuState::Run() {
