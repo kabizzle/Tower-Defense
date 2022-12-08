@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
 #include "../gui.hpp"
 /**
  * @brief Abstract State class represents the classes that run and draw the
@@ -28,7 +29,7 @@ class State {
    */
   virtual void Run() = 0;
 
-protected:
+ protected:
   GUI& m_gui;
   sf::RenderWindow& m_window;
   sf::Event m_event;

@@ -5,7 +5,7 @@
 #include "../enemy_factory.hpp"
 #include "../level_editor.hpp"
 #include "../map.hpp"
-#include "state.hpp" 
+#include "state.hpp"
 
 class EditorState : public State {
  public:
