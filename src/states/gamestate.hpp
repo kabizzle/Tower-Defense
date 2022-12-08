@@ -51,26 +51,13 @@ class GameState : public State {
 
   // Private functions
 
-  /**
-   * @brief Used by Run to run an enemy phase
-   * At the end of the phase it will change the value of m_buildPhase.
-   * If the player looses during the round, it will change the value of
-   * m_gameOver
-   */
-  void Priv_RunEnemyPhase();
+  void PollEvents();
 
-  /**
-   * @brief Used by Run to run a building phase
-   * At the end of the phase it will change the value of m_buildPhase.
-   * If the player quits, it will change the value of m_gameOver
-   */
-  void Priv_RunBuildPhase();
+  void Draw();
 
   /**
    * @brief Draws the background and map to the window
    * Assumes that the window has been properly cleared
    */
   void Priv_DrawBCG();
-
-  void Priv_BuildPollEvents();
 };
