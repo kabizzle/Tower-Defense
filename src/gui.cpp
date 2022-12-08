@@ -82,9 +82,10 @@ Button* GUI::createButton(std::string text, int x, int y) {
 void GUI::update() {
   if (this->m_new_state){
     this->deleteState();
+    this->m_state = this->m_new_state;
     this->m_new_state = nullptr;
   }
-  
+
   this->m_state->Run();
 }
 
