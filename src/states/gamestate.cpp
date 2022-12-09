@@ -43,14 +43,14 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
   }
 
   // Initialize the buttons
-  m_buttons[Action::BuyFreshman] = m_gui.createButton("Freshman", 915, 15);
-  m_buttons[Action::BuyTeekkari] = m_gui.createButton("Teekkari", 915, 55);
-  m_buttons[Action::BuyBachelor] = m_gui.createButton("Bachelor", 915, 95);
-  m_buttons[Action::BuyMaster] = m_gui.createButton("Master", 915, 135);
-  m_buttons[Action::BuyDoctor] = m_gui.createButton("Doctor", 915, 175);
-  m_buttons[Action::BuyCalculator] = m_gui.createButton("Calculator", 915, 215);
+  m_buttons[Action::BuyFreshman] = m_gui.createTowerButton(TowerType::Freshman, 915, 15);
+  m_buttons[Action::BuyTeekkari] = m_gui.createTowerButton(TowerType::Teekkari, 915, 55);
+  m_buttons[Action::BuyBachelor] = m_gui.createTowerButton(TowerType::Bachelor, 915, 95);
+  m_buttons[Action::BuyMaster] = m_gui.createTowerButton(TowerType::Master, 915, 135);
+  m_buttons[Action::BuyDoctor] = m_gui.createTowerButton(TowerType::Doctor, 915, 175);
+  m_buttons[Action::BuyCalculator] = m_gui.createTowerButton(TowerType::Calculator, 915, 215);
   m_buttons[Action::BuyCoffeeTable] =
-      m_gui.createButton("CoffeeTable", 915, 255);
+      m_gui.createTowerButton(TowerType::CoffeeTable, 915, 255);
   m_buttons[Action::UpgradeTower] =
       m_gui.createButton("Upgrade selected tower", 915, 295);
   m_buttons[Action::DestroyTower] =
@@ -225,7 +225,9 @@ void GameState::Draw() {
         return;
       }
       // call tower turn
-      m_gameLogic.TowerTurn();
+      if(m_gameLogic.TowerTurn()){
+        //Play enemy death sound here
+      }
       if (m_gameLogic.RoundIsFinished()) {
         m_buildPhase = true;
         return;
