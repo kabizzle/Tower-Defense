@@ -7,3 +7,5 @@ Tower::Tower(uint32_t range, const std::pair<int32_t, int32_t>& coords, const st
   }
 
 const std::pair<int32_t, int32_t>& Tower::GetCoords() const { return m_coords; }
+
+uint32_t Tower::GetRange() const { return m_range; }
