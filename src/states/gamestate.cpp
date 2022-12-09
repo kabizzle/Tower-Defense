@@ -249,7 +249,7 @@ void GameState::Draw() {
       int32_t x2 = to.first * TILE_SIZE, y2 = to.second * TILE_SIZE;
       x = x + m_frameInTick * (x2 - x) / ANIMATION_LENGTH;
       y = y + m_frameInTick * (y2 - y) / ANIMATION_LENGTH;
-      m_projectile.setPosition(x + TILE_SIZE / 2 + PROJECTILE_RADIUS, y + TILE_SIZE / 2 + PROJECTILE_RADIUS);
+      m_projectile.setPosition(x + TILE_SIZE / 2 - PROJECTILE_RADIUS, y + TILE_SIZE / 2 - PROJECTILE_RADIUS);
       m_window.draw(m_projectile);
     }
 
