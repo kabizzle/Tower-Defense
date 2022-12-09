@@ -148,6 +148,13 @@ class Game {
   void UpgradeTower(const std::pair<int32_t, int32_t>& coords);
 
   /**
+   * @brief Destroys tower.
+   * 
+   * @param coords position of tower to destroy
+   */
+  void DestroyTower(const std::pair<int32_t, int32_t>& coords);
+
+  /**
    * @brief Get a ref to the Attacking Towers for drawing them
    *
    * @return const std::list<AttackingTower*>&

@@ -124,10 +124,10 @@ void GameState::PollEvents() {
                                           TowerType::CoffeeTable);
                   break;
                 case Action::UpgradeTower:
-
+                  m_gameLogic.UpgradeTower(std::make_pair(m_selX, m_selY));
                   break;
                 case Action::DestroyTower:
-
+                  m_gameLogic.DestroyTower(std::make_pair(m_selX, m_selY));
                   break;
                 case 9:
                   m_gui.changeState(new EndState(m_gui, m_window, m_roundNum));

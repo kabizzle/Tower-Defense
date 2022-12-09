@@ -229,6 +229,30 @@ void Game::UpgradeTower(const std::pair<int32_t, int32_t>& coords) {
   m_money -= tower->Upgrade();
 }
 
+void Game::DestroyTower(const std::pair<int32_t, int32_t>& coords) {
+  if (!IsActionPossible(coords, Action::DestroyTower)) {
+    std::cerr << "Tower destroying is not possible" << std::endl;
+    return;
+  }
+  // Search tower first from attacking towers
+  auto attackingTowerIt = std::find_if(m_attakingTowers.begin(), m_attakingTowers.end(),
+    [coords] (const AttackingTower* t) {return (*t).GetCoords() == coords;});
+  // Check if the tower was found
+  if (attackingTowerIt != m_attakingTowers.end()) {
+    // Remove and free the tower
+    AttackingTower* t = *attackingTowerIt;
+    m_attakingTowers.erase(attackingTowerIt);
+    delete t;
+    return;
+  }
+  // If not attacking tower, it has to be support tower
+  auto supportTowerIt = std::find_if(m_supportingTowers.begin(), m_supportingTowers.end(),
+    [coords] (const SupportTower* t) {return (*t).GetCoords() == coords;});
+  SupportTower* t = *supportTowerIt;
+  m_supportingTowers.erase(supportTowerIt);
+  delete t;
+}
+
 const std::list<AttackingTower*>& Game::GetAttackingTowers() const {
   return m_attakingTowers;
 }
