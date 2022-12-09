@@ -57,7 +57,7 @@ void MenuState::PollEvents() {
 
     if (this->m_event.type == sf::Event::MouseButtonPressed) {
       if (this->m_event.mouseButton.button == sf::Mouse::Left) {
-        std::cout << "the left button was pressed" << std::endl;
+        Renderables::getAttackSound().play();
         sf::Vector2f mouse =
             m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
 

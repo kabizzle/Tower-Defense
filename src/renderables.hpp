@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 
 class Renderables {
 public:
@@ -40,6 +41,7 @@ public:
     static sf::Sprite& getTeekkari2Sprite();
     static sf::Sprite& getTeekkari3Sprite();
     static sf::Sprite& getTowertileSprite();
+    static sf::Sound& getAttackSound();
 
 private:
     sf::Texture bachelor_1;
@@ -108,6 +110,8 @@ private:
     sf::Sprite teekkari_3_sprite;
     sf::Sprite towerTile_sprite;
 
+    sf::SoundBuffer attack;
+    sf::Sound attack_sound;
     static Renderables* s_instance;
 };
 
