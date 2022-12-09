@@ -20,21 +20,16 @@ void AttackingTower::Attack(std::vector<std::list<Assignment*>>& enemies,
       if(e->IsAlive()){
         //Tower will attack this enemy, add the action to attackCollection
         attackCollection.emplace_back(this->m_coords, this->m_map.GetPath()[i]);
-        if(dmgToGiveOut <= e->CrLeft()) {
-          //The last bit of dmg the tower has left
-          uint32_t dmgToTower = e->TakeDmg(dmgToGiveOut, enemies[i]);
-          m_health = dmgToTower < m_health ? m_health - dmgToTower : 0;
+        uint32_t dmgToThisEnemy = (dmgToGiveOut < e->CrLeft()) ? dmgToGiveOut : e->CrLeft();
+        uint32_t dmgToTower = e->TakeDmg(dmgToThisEnemy, enemies[i]);
+        m_health = (dmgToTower < m_health) ? m_health - dmgToTower : 0;
+        //If the tower loses all its health, it cannot continue dealing dmg during this tick
+        if(!this->IsFunctional()) {
+          //Change the look a bit
+          m_sprite.setColor(sf::Color(255, 255, 255, 80));
           return;
-        } else {
-          uint32_t dmgUsed = e->CrLeft();
-          uint32_t dmgToTower = e->TakeDmg(dmgUsed, enemies[i]);
-          m_health = dmgToTower < m_health ? m_health - dmgToTower : 0;
-          //If the tower loses all its health, it cannot continue dealing dmg during this tick
-          if(!this->IsFunctional()) {
-            return;
-          }
-          dmgToGiveOut -= dmgUsed;
         }
+        dmgToGiveOut -= dmgToThisEnemy;
         
       }
     }
@@ -51,6 +46,10 @@ void AttackingTower::Heal(uint32_t h) {
   m_health += h;
   if(m_health > m_maxHealth) {
     m_health = m_maxHealth;
+  }
+  //When a tower is healed and becomes functional, the sprite will be changed back
+  if(this->IsFunctional()) {
+    m_sprite.setColor(sf::Color(255, 255, 255, 255));
   }
 }
 
