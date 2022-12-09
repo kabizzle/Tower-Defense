@@ -12,11 +12,19 @@ Button::Button(std::string text, int x, int y, sf::Font& font)
   m_text.setFillColor(sf::Color::Black);
   m_text.setString(text);
   m_text.setCharacterSize(24);
-  m_text.setPosition(x + 30, y);
+
+
+  // sf::FloatRect textRect = m_text.getLocalBounds();
+  // m_text.setOrigin(textRect.width/2.0f, textRect.height/2.0f);
+  // m_text.setPosition(x + 134, y);
+  m_text.setPosition(x + 175 - text.length()*8, y);
+
 
   if (text == "Play now") {
     m_button.setFillColor(sf::Color::Blue);
     m_text.setFillColor(sf::Color::White);
+    // m_text.setPosition(x + 124, y); 
+
     // m_button.setOutlineColor(sf::Color::Blue);
   } else if (text == "Give up") {
     m_button.setFillColor(sf::Color::Red);
