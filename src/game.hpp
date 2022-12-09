@@ -55,7 +55,7 @@ class Game {
   /**
    * @brief Makes the towers attack the enemies
    */
-  void TowerTurn();
+  bool TowerTurn();
 
   /**
    * @brief Used to check if the round is still ongoing. SHOULD be called only
