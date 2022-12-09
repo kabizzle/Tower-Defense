@@ -67,7 +67,7 @@ void GameState::Run() {
   this->Draw();
   // If the game is over, we change the state to endstate
   if (m_gameOver) {
-    m_gui.changeState(new EndState(m_gui, m_window, m_roundNum));
+    m_gui.changeState(new EndState(m_gui, m_window, m_gameLogic.GetScore()));
   }
 }
 
@@ -130,7 +130,7 @@ void GameState::PollEvents() {
                   m_gameLogic.DestroyTower(std::make_pair(m_selX, m_selY));
                   break;
                 case 9:
-                  m_gui.changeState(new EndState(m_gui, m_window, m_roundNum));
+                  m_gui.changeState(new EndState(m_gui, m_window, m_gameLogic.GetScore()));
                   m_buttons[9]->addHighlight();
                   break;
                 case 10:
@@ -161,7 +161,7 @@ void GameState::PollEvents() {
             switch (b.first) {
               case 9:
                 m_gui.changeState(
-                    new EndState(m_gui, m_window, m_roundNum - 1));
+                    new EndState(m_gui, m_window, m_gameLogic.GetScore()));
                 m_buttons[0]->addHighlight();
                 break;
             }
