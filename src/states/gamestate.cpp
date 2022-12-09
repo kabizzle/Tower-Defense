@@ -93,6 +93,12 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
   m_rangeCircle.setOutlineColor(sf::Color::Black);
 }
 
+GameState::~GameState() {
+  for(auto [i, button]: m_buttons) {
+    delete button;
+  }
+}
+
 void GameState::Run() {
   this->PollEvents();
   this->Draw();

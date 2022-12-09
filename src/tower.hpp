@@ -73,10 +73,4 @@ protected:
   Tower(uint32_t range, const std::pair<int32_t, int32_t>& coords,
         const std::string& imageName, const std::vector<sf::Sprite>& sprites);
   virtual ~Tower() { }
-
-  /**
-   * @brief TODO, for possible range updates
-   * 
-   */
-  void UpdateTargetable();
 };
