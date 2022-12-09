@@ -189,6 +189,19 @@ void GameState::PollEvents() {
 
 void GameState::Draw() {
   m_window.clear();
+
+  //Check which buttons must be enabled
+  for(auto [i, button]: m_buttons) {
+    //Only the ones where i < 8 need the checks to see if the buttons should be grayed out
+    if(i < 8) {
+      if(m_gameLogic.IsActionPossible({m_selX, m_selY}, static_cast<Action>(i))){
+        button->enableButton();
+      } else {
+        button->disableButton();
+      }
+    }
+  }
+
   // Draw the background and shared information between the phases
   Priv_DrawBCG();
 
@@ -213,6 +226,7 @@ void GameState::Draw() {
 
     // Draw the buttons
     for (auto b : m_buttons) {
+
       b.second->drawButton(m_window);
     }
 
