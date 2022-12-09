@@ -291,6 +291,8 @@ uint32_t Game::GetMoney() const { return m_money; }
 
 uint32_t Game::GetHealth() const { return m_playerHealth; }
 
+Difficulty Game::GetDifficulty() const { return m_enemyFactory.GetDifficulty(); }
+
 std::ostream& operator<<(std::ostream& os, const Game& game) {
   os << "*** GAME INFO ***\n";
   os << "Player health: " << game.m_playerHealth

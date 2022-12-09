@@ -91,6 +91,8 @@ class EnemyFactory {
    */
   friend std::ostream& operator<<(std::ostream& os, const EnemyFactory& ef);
 
+  Difficulty GetDifficulty() const;
+
  private:
   Difficulty m_diff;
   uint32_t m_round;
