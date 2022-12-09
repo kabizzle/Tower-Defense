@@ -57,7 +57,6 @@ void MenuState::PollEvents() {
 
     if (this->m_event.type == sf::Event::MouseButtonPressed) {
       if (this->m_event.mouseButton.button == sf::Mouse::Left) {
-        //Renderables::getSelectSound().play();
 
         sf::Vector2f mouse =
             m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
@@ -72,68 +71,53 @@ void MenuState::PollEvents() {
               m_buttons[1]->removeHighlight();
               m_buttons[2]->removeHighlight();
               Renderables::getSelectSound().play();
-
               break;
             case 1:
               m_difficulty = Difficulty::Medium;
               m_buttons[1]->addHighlight();
               m_buttons[0]->removeHighlight();
               m_buttons[2]->removeHighlight();
-              //click.play();
               Renderables::getSelectSound().play();
-
               break;
             case 2:
               m_difficulty = Difficulty::Hard;
               m_buttons[2]->addHighlight();
               m_buttons[1]->removeHighlight();
               m_buttons[0]->removeHighlight();
-              //click.play();
               Renderables::getSelectSound().play();
-
               break;
             case 3:
               m_selectedMap = "src/maps/map1.txt";
               m_buttons[3]->addHighlight();
               m_buttons[4]->removeHighlight();
               m_buttons[5]->removeHighlight();
-              //click.play();
               Renderables::getSelectSound().play();
-
               break;
             case 4:
               m_selectedMap = "src/maps/map2.txt";
               m_buttons[4]->addHighlight();
               m_buttons[3]->removeHighlight();
               m_buttons[5]->removeHighlight();
-              //click.play();
               Renderables::getSelectSound().play();
-
               break;
             case 5:
               m_selectedMap = "src/maps/map3.txt";
               m_buttons[5]->addHighlight();
               m_buttons[3]->removeHighlight();
               m_buttons[4]->removeHighlight();
-              //click.play();
               Renderables::getSelectSound().play();
-
               break;
             case 6:
               m_gui.changeState(
                   new EditorState(m_gui, m_window, m_selectedMap));
               m_buttons[6]->addHighlight();
-              //click.play();
               Renderables::getSelectSound().play();
-
               break;
             case 7:
               m_gui.changeState(
                   new GameState(m_gui, m_window, m_difficulty, m_selectedMap));
               m_buttons[7]->addHighlight();
-              //click.play();
               Renderables::getSelectSound().play();
-
               break;
           }
         }
