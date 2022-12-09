@@ -6,6 +6,57 @@
 #include <string>
 #include <vector>
 
+/*
+
+# Custom map textfile syntax (Can be edited in-game with level editor.)
+
+## A correct map textfile should be created using the following instruction
+1. You should create an exactly 20 x 30 symbol text file (20 lines with 30
+characters each. 2.
+3. The symbol matrix should consist of tower tiles with a single path going from
+the starting tile to the ending tile.
+4. Path tiles should always have only two other path tiles as neighbours. That
+is, two parts of the path should never be alongside each other but with at least
+one tower tile in between.
+
+## Use the following symbols
+_ (underscore) = A tower tile
+S (capital S) = The path starting tile. Should be in the leftmost column.
+X (capital X) = A path tile.
+E (capital E) = The path ending tile. Should be in the rightmost column.
+
+## Common issues
+* Starting tile not at the leftmost column.
+* Ending tile not at the rightmost column.
+* Path not intact (connecting the starting and ending tile).
+* Path has two parts going alongside without a tower tile in between.
+* Newline symbol at the end of last/30th line = 31 lines in the textfile.
+* Unknown symbols or spaces in the text file, or too few/many symbols in a row.
+
+## Example map to start with (copy and paste rows to .txt file)
+______________________________
+______________________________
+______________________________
+______________________________
+SXXXXXXXXXXXX_________________
+____________X_________________
+____________XXXXXXXXXXXXXXXXXE
+______________________________
+______________________________
+______________________________
+______________________________
+______________________________
+______________________________
+______________________________
+______________________________
+______________________________
+______________________________
+______________________________
+______________________________
+______________________________
+
+*/
+
 /**
  * @brief Grid tile enumeration representing different kinds of map positions.
  *

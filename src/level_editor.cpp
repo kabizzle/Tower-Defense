@@ -3,6 +3,8 @@
 #include <fstream>
 #include <iostream>
 
+#define PRINT_EDITOR_ERRORS false
+
 LevelEditor::LevelEditor(int width, int height, std::string& mapPath)
     : m_width(width),
       m_height(height),
@@ -41,19 +43,19 @@ bool LevelEditor::Save() {
 
       switch (tile) {
         case tileType::towerTile:
-          os << '_';
+          os << '_' << std::flush;
           break;
 
         case tileType::startTile:
-          os << 'S';
+          os << 'S' << std::flush;
           break;
 
         case tileType::pathTile:
-          os << 'X';
+          os << 'X' << std::flush;
           break;
 
         case tileType::endTile:
-          os << 'E';
+          os << 'E' << std::flush;
           break;
 
         default:
@@ -78,7 +80,7 @@ bool LevelEditor::Validate() {
   try {
     result = m_map.ValidateMap() && m_map.BuildPath();
   } catch (std::exception& e) {
-    std::cout << e.what() << std::endl;
+    if (PRINT_EDITOR_ERRORS) std::cout << e.what() << std::endl;
     result = false;
   }
   return result;

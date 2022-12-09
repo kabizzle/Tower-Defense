@@ -18,5 +18,5 @@ class LevelEditor {
   Map m_map;
   int m_width;
   int m_height;
-  std::string& m_mapPath;
+  std::string m_mapPath;
 };

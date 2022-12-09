@@ -117,6 +117,8 @@ bool Map::TestTilePos(std::pair<int, int> coordinate, tileType tile) {
 bool Map::ValidateMap() {
   int startFlag = 0;
   int endFlag = 0;
+  m_start = std::make_pair(-1, -1);
+  m_end = std::make_pair(-1, -1);
   if (m_grid.size() != (m_height * m_width)) {
     throw std::invalid_argument("Loaded map is wrong size.");
   }
@@ -181,6 +183,15 @@ bool Map::ValidateMap() {
 bool Map::BuildPath() {
   m_path.clear();
   bool endFlag = false;
+
+  if (m_start.first < 0 || m_start.second < 0) {
+    throw std::invalid_argument("Start tile is missing.");
+    return false;
+  } else if (m_end.first < 0 || m_end.second < 0) {
+    throw std::invalid_argument("End tile is missing.");
+    return false;
+  }
+
   m_path.push_back(m_start);
   std::pair<int, int> previous_position;
   std::pair<int, int> position = m_start;

@@ -10,12 +10,14 @@ EditorState::EditorState(GUI& gui, sf::RenderWindow& window,
       m_editor(LevelEditor(30, 20, mapPath)),
       m_mapPath(mapPath),
       m_selX(-1),
-      m_selY(-1) {
+      m_selY(-1),
+      m_selectedButton(0) {
   // Initialize the buttons
-  m_buttons[0] = m_gui.createButton("Path starting tile", 915, 215);
-  m_buttons[1] = m_gui.createButton("Path tile", 915, 255);
-  m_buttons[2] = m_gui.createButton("Path ending tile", 915, 295);
-  m_buttons[3] = m_gui.createButton("Clear tile", 915, 335);
+  m_buttons[0] = m_gui.createButton("Clear tile", 915, 15);
+  m_buttons[0]->addHighlight();
+  m_buttons[1] = m_gui.createButton("Path tile", 915, 55);
+  m_buttons[2] = m_gui.createButton("Path starting tile", 915, 95);
+  m_buttons[3] = m_gui.createButton("Path ending tile", 915, 135);
   m_buttons[4] = m_gui.createButton("Save and return", 915, 620);
   m_buttons[5] = m_gui.createButton("Cancel changes", 915, 670);
 
@@ -36,6 +38,20 @@ EditorState::EditorState(GUI& gui, sf::RenderWindow& window,
   m_unvalidated.setString("Map is faulty");
   m_unvalidated.setCharacterSize(24);
   m_unvalidated.setPosition(30, 648);
+
+  m_instructions.setFont(m_gui.GetFont());
+  m_instructions.setFillColor(sf::Color::White);
+  m_instructions.setString(
+      "Map requirements:\n- Exactly 1 starting tile in the\n  leftmost "
+      "column.\n- "
+      "Exactly "
+      "1 ending tile in the\n  rightmost column.\n- Single intact path from "
+      "starting\n  tile to ending "
+      "tile.\n- Two parts of the path can't run\n  alongside each other "
+      "without\n  "
+      "an empty tile in between.");
+  m_instructions.setCharacterSize(16);
+  m_instructions.setPosition(915, 175);
 }
 
 void EditorState::PollEvents() {
@@ -54,6 +70,43 @@ void EditorState::PollEvents() {
           // Find which tile is selected
           m_selX = xInt / TILE_SIZE;
           m_selY = yInt / TILE_SIZE;
+          // Perform action if an action button is selected
+          switch (m_selectedButton) {
+            case 0:
+              try {
+                m_editor.Edit(std::make_pair(m_selX, m_selY),
+                              tileType::towerTile);
+              } catch (std::exception& e) {
+                std::cout << e.what() << std::endl;
+              }
+              break;
+            case 1:
+              try {
+                m_editor.Edit(std::make_pair(m_selX, m_selY),
+                              tileType::pathTile);
+              } catch (std::exception& e) {
+                std::cout << e.what() << std::endl;
+              }
+              break;
+            case 2:
+              try {
+                m_editor.Edit(std::make_pair(m_selX, m_selY),
+                              tileType::startTile);
+              } catch (std::exception& e) {
+                std::cout << e.what() << std::endl;
+              }
+              break;
+            case 3:
+              try {
+                m_editor.Edit(std::make_pair(m_selX, m_selY),
+                              tileType::endTile);
+              } catch (std::exception& e) {
+                std::cout << e.what() << std::endl;
+              }
+              break;
+            default:
+              break;
+          }
 
         } else {
           for (auto b : m_buttons) {
@@ -61,37 +114,24 @@ void EditorState::PollEvents() {
 
             switch (b.first) {
               case 0:
-                try {
-                  m_editor.Edit(std::make_pair(m_selX, m_selY),
-                                tileType::startTile);
-                } catch (std::exception& e) {
-                  std::cout << e.what() << std::endl;
-                }
+                m_buttons[m_selectedButton]->removeHighlight();
+                m_selectedButton = 0;
+                m_buttons[0]->addHighlight();
                 break;
               case 1:
-                try {
-                  m_editor.Edit(std::make_pair(m_selX, m_selY),
-                                tileType::pathTile);
-                } catch (std::exception& e) {
-                  std::cout << e.what() << std::endl;
-                }
+                m_buttons[m_selectedButton]->removeHighlight();
+                m_selectedButton = 1;
+                m_buttons[1]->addHighlight();
                 break;
               case 2:
-                try {
-                  m_editor.Edit(std::make_pair(m_selX, m_selY),
-                                tileType::endTile);
-                } catch (std::exception& e) {
-                  std::cout << e.what() << std::endl;
-                }
+                m_buttons[m_selectedButton]->removeHighlight();
+                m_selectedButton = 2;
+                m_buttons[2]->addHighlight();
                 break;
               case 3:
-                try {
-                  m_editor.Edit(std::make_pair(m_selX, m_selY),
-                                tileType::towerTile);
-                } catch (std::exception& e) {
-                  std::cout << e.what() << std::endl;
-                }
-
+                m_buttons[m_selectedButton]->removeHighlight();
+                m_selectedButton = 3;
+                m_buttons[3]->addHighlight();
                 break;
               case 4:
                 try {
@@ -108,6 +148,21 @@ void EditorState::PollEvents() {
             }
           }
         }
+      }
+    }
+
+    // Check if the selected tile has to be drawn
+    if (m_event.type == sf::Event::MouseMoved) {
+      // Reset to false
+      m_drawSelectedShape = false;
+      // Check if mouse is hovering over a maptile
+      // Check if the mouse is inside the map area
+      int32_t xInt = static_cast<int32_t>(m_event.mouseMove.x);
+      int32_t yInt = static_cast<int32_t>(m_event.mouseMove.y);
+      if (xInt < 900 && yInt < 600) {
+        m_selX = xInt / TILE_SIZE;
+        m_selY = yInt / TILE_SIZE;
+        m_drawSelectedShape = true;
       }
     }
   }
@@ -146,8 +201,8 @@ void EditorState::Draw() {
     m_window.draw(s);
   }
 
-  // Draw the selected tile square
-  if (m_selX >= 0 || m_selY >= 0) {
+  // Draw the selected tile square if mouse is hovering over the map
+  if (m_drawSelectedShape && m_selX >= 0 && m_selY >= 0) {
     m_selectedShape.setPosition(
         sf::Vector2f(m_selX * TILE_SIZE, m_selY * TILE_SIZE));
     m_window.draw(m_selectedShape);
@@ -163,6 +218,9 @@ void EditorState::Draw() {
   } else {
     m_window.draw(m_unvalidated);
   }
+
+  // Draw the instructions
+  m_window.draw(m_instructions);
 
   m_window.display();
 }
