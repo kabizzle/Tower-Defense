@@ -63,7 +63,9 @@ uint32_t AttackingTower::Upgrade() {
   m_maxHealth += m_maxHealth / 2;
   m_range += 2;
   Priv_UpdateRange(m_range);
-  SetSprite(m_allSprites[m_level]);
+  auto& newSprite = m_allSprites[m_level];
+  newSprite.setPosition(m_coords.first, m_coords.second);
+  SetSprite(newSprite);
   m_level++;
   return m_upgCost;
 }

@@ -29,7 +29,7 @@ protected:
   void AddSuffix(const std::string& suffix);
 
   void SetSprite(const sf::Sprite& newSprite);
-private:
+protected:
   std::string m_imageName;
   sf::Sprite m_sprite;
 };

@@ -23,6 +23,7 @@ uint32_t Assignment::CrLeft() const { return m_curCr; }
 uint32_t Assignment::GetCredits() const { return m_maxCr; }
 
 uint32_t Assignment::TakeDmg(uint32_t dmg, std::list<Assignment*>& location){
+    (void) location;    //This one doesn't need the location
     if(m_curCr > dmg){
       m_curCr -= dmg;
     } else {
