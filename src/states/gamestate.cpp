@@ -6,6 +6,7 @@
 
 #define ANIMATION_LENGTH 10  // 30 frames is 1/2 second
 #define TILE_SIZE 30
+#define PROJECTILE_RADIUS 5
 
 GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
                      const std::string& filename)
@@ -15,6 +16,7 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
       m_roundNum(0),
       m_frameInTick(0),
       m_gameLogic(Game(30, 20, filename, difficulty)),
+      m_projectile(sf::CircleShape(PROJECTILE_RADIUS)),
       m_selX(-1),
       m_selY(-1) {
   // Initialize the map tiles
@@ -36,6 +38,8 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
     }
     sprite.setPosition(TILE_SIZE * coords.first, TILE_SIZE * coords.second);
     m_mapTileSprites.push_back(sprite);
+    //Projectile color
+    m_projectile.setFillColor(sf::Color(255, 0, 0));
   }
 
   // Initialize the buttons

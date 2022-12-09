@@ -174,10 +174,10 @@ Renderables::Renderables() {
     }
 
     attack_sound.setBuffer(attack);
-    attack_sound.setVolume(50);
+    //attack_sound.setVolume(50);
 
-    select_sound.setBuffer(attack);
-    select_sound.setVolume(50);
+    select_sound.setBuffer(select);
+    //select_sound.setVolume(80);
 
     bachelor_1_sprite.setTexture(bachelor_1);
     bachelor_2_sprite.setTexture(bachelor_2);

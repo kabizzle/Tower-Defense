@@ -45,6 +45,7 @@ class GameState : public State {
   std::vector<sf::Sprite> m_mapTileSprites;
   std::map<int, Button*> m_buttons;
   sf::RectangleShape m_selectedShape;
+  sf::CircleShape m_projectile;
 
   // For the build phase
   int32_t m_selX, m_selY;  // The selected tile on the map, -1, -1 means nothing selected
