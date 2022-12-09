@@ -35,8 +35,6 @@ class EditorState : public State {
 
  private:
   LevelEditor m_editor;
-  int m_width = 30;
-  int m_height = 20;
   std::vector<sf::Sprite> m_mapTileSprites;
   std::map<int, Button*> m_buttons;
   sf::RectangleShape m_selectedShape;

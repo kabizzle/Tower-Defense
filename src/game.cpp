@@ -170,26 +170,30 @@ bool Game::IsActionPossible(const std::pair<int32_t, int32_t>& coords,
       tower = st;
     }
   }
-  //Check the action and determine the outcome
-  switch (a)
-  {
-  case Action::UpgradeTower:
-    //There must be a tower and it must be upgradeable with the amount of money
-    return (tower && tower->IsUpgradeable(m_money));
-    break;
-  case Action::DestroyTower:
-    //There must be a tower
-    return (tower != nullptr);
-    break;
-  default:
-    //The action is about buying, so we must check if the cell is free and if we have enough money
-    try {
-      return !(tower) && Tower::towerPrices.at(static_cast<TowerType>(a)) <= m_money;
-    } catch(...) {
-      std::cerr << "In \"Game::IsActionPossible()\" was not able to determine the cost of a tower" << std::endl;
-      return false;
-    }
-    break;
+  // Check the action and determine the outcome
+  switch (a) {
+    case Action::UpgradeTower:
+      // There must be a tower and it must be upgradeable with the amount of
+      // money
+      return (tower && tower->IsUpgradeable(m_money));
+      break;
+    case Action::DestroyTower:
+      // There must be a tower
+      return (tower != nullptr);
+      break;
+    default:
+      // The action is about buying, so we must check if the cell is free and if
+      // we have enough money
+      try {
+        return !(tower) &&
+               Tower::towerPrices.at(static_cast<TowerType>(a)) <= m_money;
+      } catch (...) {
+        std::cerr << "In \"Game::IsActionPossible()\" was not able to "
+                     "determine the cost of a tower"
+                  << std::endl;
+        return false;
+      }
+      break;
   }
 }
 
@@ -286,6 +290,8 @@ uint32_t Game::GetScore() const {
 uint32_t Game::GetMoney() const { return m_money; }
 
 uint32_t Game::GetHealth() const { return m_playerHealth; }
+
+Difficulty Game::GetDifficulty() const { return m_enemyFactory.GetDifficulty(); }
 
 std::ostream& operator<<(std::ostream& os, const Game& game) {
   os << "*** GAME INFO ***\n";

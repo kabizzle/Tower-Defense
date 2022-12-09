@@ -54,6 +54,8 @@ class Game {
 
   /**
    * @brief Makes the towers attack the enemies
+   * If enemies died during the attacking, returns true
+   * @return bool
    */
   bool TowerTurn();
 
@@ -180,6 +182,8 @@ class Game {
   uint32_t GetMoney() const;
 
   uint32_t GetHealth() const;
+
+  Difficulty GetDifficulty() const;
 
   /**
    * @brief Overload for the stream output operator

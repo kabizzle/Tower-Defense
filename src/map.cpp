@@ -48,6 +48,7 @@ bool Map::InitializeMap(const std::string& filename) {
   m_grid.erase(std::make_pair(30, 19));
   std::cout << "Map loading complete, next validating and building the path."
             << std::endl;
+
   return ValidateMap() && BuildPath();
 }
 
@@ -229,11 +230,6 @@ bool Map::Edit(std::pair<int, int> coordinate, tileType tile) {
   if (tile < 0 || tile > 3) {
     return false;
   }
-
-  if (!TestTilePos(coordinate, tile)) {
-    return false;
-  } else {
-    m_grid[coordinate] = tile;
-    return true;
-  }
+  m_grid[coordinate] = tile;
+  return true;
 }

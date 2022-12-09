@@ -13,10 +13,6 @@ Button::Button(std::string text, int x, int y, sf::Font& font)
   m_text.setString(text);
   m_text.setCharacterSize(24);
 
-
-  // sf::FloatRect textRect = m_text.getLocalBounds();
-  // m_text.setOrigin(textRect.width/2.0f, textRect.height/2.0f);
-  // m_text.setPosition(x + 134, y);
   m_text.setPosition(x + 175 - text.length()*8, y);
 
 
