@@ -4,9 +4,9 @@
 Button::Button(std::string text, int x, int y, sf::Font& font)
     : m_button(sf::RectangleShape(sf::Vector2f(350, 30))), m_font(font) {
   m_button.setPosition(sf::Vector2f(x, y));
-  m_button.setFillColor(sf::Color::Cyan);
+  // m_button.setFillColor(sf::Color::Cyan);
   m_button.setOutlineThickness(4);
-  m_button.setOutlineColor(sf::Color::Cyan);
+  m_button.setOutlineColor(sf::Color::Transparent);
 
   m_text.setFont(m_font);
   m_text.setFillColor(sf::Color::Black);
@@ -17,11 +17,13 @@ Button::Button(std::string text, int x, int y, sf::Font& font)
   if (text == "Play now") {
     m_button.setFillColor(sf::Color::Blue);
     m_text.setFillColor(sf::Color::White);
-    m_button.setOutlineColor(sf::Color::Blue);
+    // m_button.setOutlineColor(sf::Color::Blue);
   } else if (text == "Give up") {
     m_button.setFillColor(sf::Color::Red);
     m_text.setFillColor(sf::Color::White);
-    m_button.setOutlineColor(sf::Color::Red);
+    // m_button.setOutlineColor(sf::Color::Red);
+  } else {  
+    m_button.setFillColor(sf::Color::Cyan);
   }
 }
 
@@ -31,7 +33,7 @@ void Button::addHighlight() {
 }
 
 void Button::removeHighlight() {
-  m_button.setOutlineColor(sf::Color::Cyan);
+  m_button.setOutlineColor(sf::Color::Transparent);
   m_text.setStyle(sf::Text::Regular);
 }
 
@@ -83,7 +85,7 @@ TowerButton::TowerButton(TowerType tower, std::string text, int x, int y,
   m_button.setPosition(sf::Vector2f(x + TILE_SIZE, y));
   m_button.setFillColor(sf::Color::Cyan);
   m_button.setOutlineThickness(4);
-  m_button.setOutlineColor(sf::Color::Cyan);
+  m_button.setOutlineColor(sf::Color::Transparent);
 
   m_text.setFont(m_font);
   m_text.setFillColor(sf::Color::Black);
