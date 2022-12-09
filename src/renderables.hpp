@@ -42,6 +42,7 @@ public:
     static sf::Sprite& getTeekkari3Sprite();
     static sf::Sprite& getTowertileSprite();
     static sf::Sound& getAttackSound();
+    static sf::Sound& getSelectSound();
 
 private:
     sf::Texture bachelor_1;
@@ -111,7 +112,10 @@ private:
     sf::Sprite towerTile_sprite;
 
     sf::SoundBuffer attack;
+    sf::SoundBuffer select;
+
     sf::Sound attack_sound;
+    sf::Sound select_sound;
     static Renderables* s_instance;
 };
 
