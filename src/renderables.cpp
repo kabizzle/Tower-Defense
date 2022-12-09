@@ -168,7 +168,17 @@ Renderables::Renderables() {
         return;
     }
 
+    if (!select.loadFromFile("images/select-sound.wav")) {
+        std::cout << "Error: Audio not found" << std::endl; 
+        return;
+    }
+
     attack_sound.setBuffer(attack);
+    attack_sound.setVolume(50);
+
+    select_sound.setBuffer(attack);
+    select_sound.setVolume(50);
+
     bachelor_1_sprite.setTexture(bachelor_1);
     bachelor_2_sprite.setTexture(bachelor_2);
     bachelor_3_sprite.setTexture(bachelor_3);
@@ -334,4 +344,8 @@ sf::Sprite& Renderables::getTowertileSprite() {
 
 sf::Sound& Renderables::getAttackSound() {
     return s_instance->attack_sound;
+}
+
+sf::Sound& Renderables::getSelectSound() {
+    return s_instance->select_sound;
 }

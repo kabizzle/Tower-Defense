@@ -21,6 +21,7 @@ void GUI::init() {
   this->m_videoMode.width = 1280;
   this->m_window = new sf::RenderWindow(this->m_videoMode, "test window", sf::Style::Close);
   this->m_window->setFramerateLimit(60);
+  this->m_window->setPosition(sf::Vector2i(0, 30));
   this->start = sf::Vector2f(100, 200);
   this->m_state = new MenuState(*this, *this->m_window);
   this->m_new_state = nullptr;
