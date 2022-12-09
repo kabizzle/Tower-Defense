@@ -54,10 +54,8 @@ class Game {
 
   /**
    * @brief Makes the towers attack the enemies
-   * If enemies died during the attacking, returns true
-   * @return bool
    */
-  bool TowerTurn();
+  void TowerTurn();
 
   /**
    * @brief Used to check if the round is still ongoing. SHOULD be called only
@@ -121,7 +119,7 @@ class Game {
    * @param coords coordinates where tower is
    * @return if upgrade was successful
    */
-  bool UpgradeTower(const std::pair<int32_t, int32_t>& coords);
+  // bool UpgradeTower(const std::pair<int32_t, int32_t>& coords);
 
   /**
    * @brief Used by GUI states to check what can be done
@@ -141,6 +139,20 @@ class Game {
    * @param t An enumeration of the desired tower to build
    */
   void CreateTower(const std::pair<int32_t, int32_t>& coords, TowerType t);
+
+  /**
+   * @brief Upgrades tower and reduces player's money.
+   *
+   * @param coords position of tower to upgrade
+   */
+  void UpgradeTower(const std::pair<int32_t, int32_t>& coords);
+
+  /**
+   * @brief Destroys tower.
+   *
+   * @param coords position of tower to destroy
+   */
+  void DestroyTower(const std::pair<int32_t, int32_t>& coords);
 
   /**
    * @brief Get a ref to the Attacking Towers for drawing them
