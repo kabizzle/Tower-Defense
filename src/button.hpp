@@ -16,7 +16,7 @@ public:
     void disableButton();
     void enableButton();
 
-    void drawButton(sf::RenderWindow& window);
+    virtual void drawButton(sf::RenderWindow& window);
     sf::FloatRect getGlobalBounds();
 
 protected:
