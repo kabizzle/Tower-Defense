@@ -3,7 +3,7 @@
 
 AttackingTower::AttackingTower(uint32_t power, uint32_t range, uint32_t health, uint32_t upgCost,
                                const std::pair<int32_t, int32_t>& coords, const Map& map,
-                               const std::string& imageName, const std::vector<sf::Sprite>& sprites)
+                               const std::string& imageName, std::vector<sf::Sprite> sprites)
   : Tower(range, coords, imageName, sprites), m_basePower(power), m_maxHealth(health),
     m_health(health), m_upgCost(upgCost), m_level(1),
     m_buffs(1.0f), m_map(map) {
