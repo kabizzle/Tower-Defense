@@ -45,7 +45,7 @@ bool Game::EnemyTurn() {
         enemyIt = m_enemies[i].erase(enemyIt);
         // If enemy moves from the last tile decrease player's health and check
         // if the game ends
-        if (i == m_enemies.size() - 1) {
+        if (i == static_cast<int32_t>(m_enemies.size() - 1)) {
           m_playerHealth -= 1;
           delete e;
           if (m_playerHealth == 0) {

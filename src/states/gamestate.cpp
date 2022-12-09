@@ -352,7 +352,7 @@ void GameState::Draw() {
       }
     }
     // Increment / reset the frame counter
-    m_frameInTick = (m_frameInTick >= ANIMATION_LENGTH) ? 0 : m_frameInTick + m_gameSpeed;
+    m_frameInTick = (m_frameInTick + m_gameSpeed >= ANIMATION_LENGTH) ? 0 : m_frameInTick + m_gameSpeed;
   }
 
   // Display (shared)
@@ -374,7 +374,7 @@ void GameState::Priv_DrawBCG() {
 
 void GameState::Priv_InitializeText(sf::Text& text, int32_t x, int32_t y) {
   text.setFont(m_gui.GetFont());
-  text.setColor(sf::Color::White);
+  text.setFillColor(sf::Color::White);
   text.setCharacterSize(24);
   text.setPosition(x, y);
 }

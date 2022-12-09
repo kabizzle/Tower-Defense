@@ -7,10 +7,10 @@
 EditorState::EditorState(GUI& gui, sf::RenderWindow& window,
                          std::string& mapPath)
     : State(gui, window),
+      m_editor(LevelEditor(30, 20, mapPath)),
       m_mapPath(mapPath),
       m_selX(-1),
-      m_selY(-1),
-      m_editor(LevelEditor(30, 20, mapPath)) {
+      m_selY(-1) {
   // Initialize the map tiles
   for (auto& [coords, tile] : m_editor.GetMap().GetGrid()) {
     sf::Sprite sprite;
