@@ -3,6 +3,7 @@
 #include <map>
 
 #include "../button.hpp"
+#include "../enemy_factory.hpp"
 #include "../highscores.hpp"
 #include "state.hpp"
 
@@ -15,7 +16,7 @@ class EndState : public State {
    * @param window
    * @param score
    */
-  EndState(GUI& gui, sf::RenderWindow& window, uint32_t score);
+  EndState(GUI& gui, sf::RenderWindow& window, uint32_t score, Difficulty difficulty);
 
   /**
    * @brief Destroy the End State object
@@ -36,6 +37,7 @@ class EndState : public State {
 
  private:
   uint32_t m_score;
+  Difficulty m_difficulty;
   std::map<int32_t, Button*> m_buttons;
   Highscores m_highscores;
   std::string m_input;

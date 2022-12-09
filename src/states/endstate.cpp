@@ -2,22 +2,22 @@
 
 #include "menustate.hpp"
 
-EndState::EndState(GUI& gui, sf::RenderWindow& window, uint32_t score)
-    : State(gui, window), m_score(score) {
+EndState::EndState(GUI& gui, sf::RenderWindow& window, uint32_t score, Difficulty difficulty)
+    : State(gui, window), m_score(score), m_difficulty(difficulty) {
   // Create buttons
   m_buttons[0] = m_gui.createButton("Main Menu", 30, 30);
-  m_buttons[1] = m_gui.createButton("Save score", 30, 70);
+  m_buttons[1] = m_gui.createButton("Save score", 30, 80);
 
   // Create Text objects
   m_text_score.setFont(m_gui.GetFont());
   m_text_score.setString("Your score: " + std::to_string(m_score));
-  m_text_score.setPosition(30, 110);
+  m_text_score.setPosition(30, 130);
   m_text_name.setFont(m_gui.GetFont());
   m_text_name.setString("Type your name: ");
-  m_text_name.setPosition(30, 150);
+  m_text_name.setPosition(30, 180);
   m_text_highscores.setFont(m_gui.GetFont());
   m_text_highscores.setString(m_highscores.GetTop10asString());
-  m_text_highscores.setPosition(30, 190);
+  m_text_highscores.setPosition(30, 240);
 }
 
 EndState::~EndState() {
@@ -45,7 +45,7 @@ void EndState::Priv_PollEvents() {
               break;
             case 1:
               // Save the score if name is not empty
-              if (!m_input.empty()) m_highscores.AddScore(m_input, m_score);
+              if (!m_input.empty()) m_highscores.AddScore(m_input, m_score, m_difficulty);
               // Update top 10
               m_text_highscores.setString(m_highscores.GetTop10asString());
               break;

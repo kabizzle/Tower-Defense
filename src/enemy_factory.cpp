@@ -88,6 +88,8 @@ Assignment* EnemyFactory::CreateEnemy(Enemy e) const {
   }
 }
 
+Difficulty EnemyFactory::GetDifficulty() const { return m_diff; }
+
 std::ostream& operator<<(std::ostream& os, const EnemyFactory& ef) {
   os << "Enemy factory initialized for round " << ef.m_round << "; number is " << ef.m_nums[0]
      << " and the enemies allocated:\n"

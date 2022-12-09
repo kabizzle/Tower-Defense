@@ -181,6 +181,8 @@ class Game {
 
   uint32_t GetHealth() const;
 
+  Difficulty GetDifficulty() const;
+
   /**
    * @brief Overload for the stream output operator
    */

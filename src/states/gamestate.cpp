@@ -87,7 +87,7 @@ void GameState::Run() {
   this->Draw();
   // If the game is over, we change the state to endstate
   if (m_gameOver) {
-    m_gui.changeState(new EndState(m_gui, m_window, m_gameLogic.GetScore()));
+    m_gui.changeState(new EndState(m_gui, m_window, m_gameLogic.GetScore(), m_gameLogic.GetDifficulty()));
   }
 }
 
@@ -156,7 +156,7 @@ void GameState::PollEvents() {
                   m_buildPhase = false;
                   break;
                 case 10:
-                  m_gui.changeState(new EndState(m_gui, m_window, m_gameLogic.GetScore()));
+                  m_gui.changeState(new EndState(m_gui, m_window, m_gameLogic.GetScore(), m_gameLogic.GetDifficulty()));
                   m_buttons[10]->addHighlight();
                   break;
                 default:
@@ -184,7 +184,7 @@ void GameState::PollEvents() {
             switch (i) {
               case 10:
                 m_gui.changeState(
-                    new EndState(m_gui, m_window, m_gameLogic.GetScore()));
+                    new EndState(m_gui, m_window, m_gameLogic.GetScore(), m_gameLogic.GetDifficulty()));
                 m_buttons[0]->addHighlight();
                 break;
               case 11:
