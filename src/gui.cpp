@@ -25,7 +25,7 @@ void GUI::init() {
   this->start = sf::Vector2f(100, 200);
   this->m_state = new MenuState(*this, *this->m_window);
   this->m_new_state = nullptr;
-  this->m_font.loadFromFile("arial.ttf");
+  this->m_font.loadFromFile("SpaceMono-Regular.ttf");
 }
 
 bool GUI::running() { return this->m_window->isOpen(); }
