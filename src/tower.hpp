@@ -55,6 +55,8 @@ public:
     {TowerType::CoffeeTable, 5}
   };
 
+  uint32_t GetRange() const;
+
 protected:
   uint32_t m_range;
   std::pair<int32_t, int32_t> m_coords;
