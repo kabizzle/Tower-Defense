@@ -54,6 +54,8 @@ class Game {
 
   /**
    * @brief Makes the towers attack the enemies
+   * If enemies died during the attacking, returns true
+   * @return bool
    */
   bool TowerTurn();
 

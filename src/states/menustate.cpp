@@ -17,7 +17,7 @@ MenuState::MenuState(GUI& gui, sf::RenderWindow& window)
   m_buttons[3]->addHighlight();  // Highlight default selection
   m_buttons[4] = m_gui.createButton("Map 2", 465, 360);
   m_buttons[5] = m_gui.createButton("Map 3", 870, 360);
-  m_buttons[6] = m_gui.createButton("Edit level", 465, 460);
+  m_buttons[6] = m_gui.createButton("Edit map", 465, 460);
   m_buttons[7] = m_gui.createButton("Play now", 465, 560);
 
   // Create text boxes
@@ -31,7 +31,7 @@ MenuState::MenuState(GUI& gui, sf::RenderWindow& window)
 
   subtitleText.setFont(m_gui.GetFont());
   subtitleText.setFillColor(sf::Color::White);
-  subtitleText.setString("Tower defense game. Beat as many waves as you can");
+  subtitleText.setString("Tower defense game. Beat as many waves as you can.");
   subtitleText.setCharacterSize(30);
   subtitleText.setPosition((window.getSize().x / 2) - (50 * 9), 130);
   m_texts.push_back(subtitleText);
@@ -57,7 +57,6 @@ void MenuState::PollEvents() {
 
     if (this->m_event.type == sf::Event::MouseButtonPressed) {
       if (this->m_event.mouseButton.button == sf::Mouse::Left) {
-
         sf::Vector2f mouse =
             m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
 

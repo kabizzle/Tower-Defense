@@ -11,33 +11,13 @@ EditorState::EditorState(GUI& gui, sf::RenderWindow& window,
       m_selX(-1),
       m_selY(-1),
       m_editor(LevelEditor(30, 20, mapPath)) {
-  // Initialize the map tiles
-  for (auto& [coords, tile] : m_editor.GetMap().GetGrid()) {
-    sf::Sprite sprite;
-    switch (tile) {
-      case towerTile:
-        sprite = Renderables::getTowertileSprite();
-        break;
-      case startTile:
-        sprite = Renderables::getStarttileSprite();
-        break;
-      case pathTile:
-        sprite = Renderables::getPathtileSprite();
-        break;
-      case endTile:
-        sprite = Renderables::getEndtileSprite();
-        break;
-    }
-    sprite.setPosition(TILE_SIZE * coords.first, TILE_SIZE * coords.second);
-    m_mapTileSprites.push_back(sprite);
-  }
-
   // Initialize the buttons
   m_buttons[0] = m_gui.createButton("Path starting tile", 915, 215);
   m_buttons[1] = m_gui.createButton("Path tile", 915, 255);
   m_buttons[2] = m_gui.createButton("Path ending tile", 915, 295);
-  m_buttons[3] = m_gui.createButton("Save and return to menu", 915, 620);
-  m_buttons[4] = m_gui.createButton("Cancel changes", 915, 670);
+  m_buttons[3] = m_gui.createButton("Clear tile", 915, 335);
+  m_buttons[4] = m_gui.createButton("Save and return to menu", 915, 620);
+  m_buttons[5] = m_gui.createButton("Cancel changes", 915, 670);
 
   // Initialize the selected tile square shape
   m_selectedShape = sf::RectangleShape(sf::Vector2f(30, 30));
@@ -69,18 +49,47 @@ void EditorState::PollEvents() {
 
             switch (b.first) {
               case 0:
-
+                try {
+                  m_editor.Edit(std::make_pair(m_selX, m_selY),
+                                tileType::startTile);
+                } catch (std::exception& e) {
+                  std::cout << e.what() << std::endl;
+                }
                 break;
               case 1:
-
+                try {
+                  m_editor.Edit(std::make_pair(m_selX, m_selY),
+                                tileType::pathTile);
+                } catch (std::exception& e) {
+                  std::cout << e.what() << std::endl;
+                }
                 break;
               case 2:
-
+                try {
+                  m_editor.Edit(std::make_pair(m_selX, m_selY),
+                                tileType::endTile);
+                } catch (std::exception& e) {
+                  std::cout << e.what() << std::endl;
+                }
                 break;
               case 3:
+                try {
+                  m_editor.Edit(std::make_pair(m_selX, m_selY),
+                                tileType::towerTile);
+                } catch (std::exception& e) {
+                  std::cout << e.what() << std::endl;
+                }
 
                 break;
               case 4:
+                try {
+                  m_editor.Save();
+                } catch (std::exception& e) {
+                  std::cout << e.what() << std::endl;
+                }
+                m_gui.changeState(new MenuState(m_gui, m_window));
+                break;
+              case 5:
                 m_gui.changeState(new MenuState(m_gui, m_window));
                 m_buttons[4]->addHighlight();
                 break;
@@ -94,6 +103,29 @@ void EditorState::PollEvents() {
 
 void EditorState::Draw() {
   m_window.clear();
+
+  // Initialize the map tiles
+  m_mapTileSprites.clear();
+
+  for (auto& [coords, tile] : m_editor.GetMap().GetGrid()) {
+    sf::Sprite sprite;
+    switch (tile) {
+      case towerTile:
+        sprite = Renderables::getTowertileSprite();
+        break;
+      case startTile:
+        sprite = Renderables::getStarttileSprite();
+        break;
+      case pathTile:
+        sprite = Renderables::getPathtileSprite();
+        break;
+      case endTile:
+        sprite = Renderables::getEndtileSprite();
+        break;
+    }
+    sprite.setPosition(TILE_SIZE * coords.first, TILE_SIZE * coords.second);
+    m_mapTileSprites.push_back(sprite);
+  }
 
   // Draw the background and tiles
   const auto& bcg = Renderables::getBackgroundSprite();

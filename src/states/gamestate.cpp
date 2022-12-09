@@ -39,18 +39,23 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
     }
     sprite.setPosition(TILE_SIZE * coords.first, TILE_SIZE * coords.second);
     m_mapTileSprites.push_back(sprite);
-    //Projectile color
+    // Projectile color
     m_projectile.setFillColor(sf::Color(255, 0, 0));
   }
 
   // Initialize the buttons
-  // During build phase 
-  m_buttons[Action::BuyFreshman] = m_gui.createTowerButton(TowerType::Freshman, 915, 15);
-  m_buttons[Action::BuyTeekkari] = m_gui.createTowerButton(TowerType::Teekkari, 915, 55);
-  m_buttons[Action::BuyBachelor] = m_gui.createTowerButton(TowerType::Bachelor, 915, 95);
-  m_buttons[Action::BuyMaster] = m_gui.createTowerButton(TowerType::Master, 915, 135);
-  m_buttons[Action::BuyDoctor] = m_gui.createTowerButton(TowerType::Doctor, 915, 175);
-  m_buttons[Action::BuyCalculator] = m_gui.createTowerButton(TowerType::Calculator, 915, 215);
+  m_buttons[Action::BuyFreshman] =
+      m_gui.createTowerButton(TowerType::Freshman, 915, 15);
+  m_buttons[Action::BuyTeekkari] =
+      m_gui.createTowerButton(TowerType::Teekkari, 915, 55);
+  m_buttons[Action::BuyBachelor] =
+      m_gui.createTowerButton(TowerType::Bachelor, 915, 95);
+  m_buttons[Action::BuyMaster] =
+      m_gui.createTowerButton(TowerType::Master, 915, 135);
+  m_buttons[Action::BuyDoctor] =
+      m_gui.createTowerButton(TowerType::Doctor, 915, 175);
+  m_buttons[Action::BuyCalculator] =
+      m_gui.createTowerButton(TowerType::Calculator, 915, 215);
   m_buttons[Action::BuyCoffeeTable] =
       m_gui.createTowerButton(TowerType::CoffeeTable, 915, 255);
   m_buttons[Action::UpgradeTower] =
@@ -87,7 +92,8 @@ void GameState::Run() {
   this->Draw();
   // If the game is over, we change the state to endstate
   if (m_gameOver) {
-    m_gui.changeState(new EndState(m_gui, m_window, m_gameLogic.GetScore(), m_gameLogic.GetDifficulty()));
+    m_gui.changeState(new EndState(m_gui, m_window, m_gameLogic.GetScore(),
+                                   m_gameLogic.GetDifficulty()));
   }
 }
 
@@ -156,11 +162,14 @@ void GameState::PollEvents() {
                   m_buildPhase = false;
                   break;
                 case 10:
-                  m_gui.changeState(new EndState(m_gui, m_window, m_gameLogic.GetScore(), m_gameLogic.GetDifficulty()));
+                  m_gui.changeState(new EndState(m_gui, m_window,
+                                                 m_gameLogic.GetScore(),
+                                                 m_gameLogic.GetDifficulty()));
                   m_buttons[10]->addHighlight();
                   break;
                 default:
-                  //For to skip over some buttons only visible during enemy phase
+                  // For to skip over some buttons only visible during enemy
+                  // phase
                   break;
               }
             }
@@ -183,8 +192,9 @@ void GameState::PollEvents() {
 
             switch (i) {
               case 10:
-                m_gui.changeState(
-                    new EndState(m_gui, m_window, m_gameLogic.GetScore(), m_gameLogic.GetDifficulty()));
+                m_gui.changeState(new EndState(m_gui, m_window,
+                                               m_gameLogic.GetScore(),
+                                               m_gameLogic.GetDifficulty()));
                 m_buttons[0]->addHighlight();
                 break;
               case 11:
@@ -213,7 +223,7 @@ void GameState::PollEvents() {
                 button->addHighlight();
                 break;
               default:
-                //For those buttons which don't matter in this phase
+                // For those buttons which don't matter in this phase
                 break;
             }
           }
@@ -231,11 +241,13 @@ void GameState::PollEvents() {
 void GameState::Draw() {
   m_window.clear();
 
-  //Check which buttons must be enabled
-  for(auto [i, button]: m_buttons) {
-    //Only the ones where i < 8 need the checks to see if the buttons should be grayed out
-    if(i < 9) {
-      if(m_gameLogic.IsActionPossible({m_selX, m_selY}, static_cast<Action>(i))){
+  // Check which buttons must be enabled
+  for (auto [i, button] : m_buttons) {
+    // Only the ones where i < 8 need the checks to see if the buttons should be
+    // grayed out
+    if (i < 9) {
+      if (m_gameLogic.IsActionPossible({m_selX, m_selY},
+                                       static_cast<Action>(i))) {
         button->enableButton();
       } else {
         button->disableButton();
@@ -267,7 +279,7 @@ void GameState::Draw() {
 
     // Draw the buttons
     for (auto [i, button] : m_buttons) {
-      if(i < 11) {
+      if (i < 11) {
         button->drawButton(m_window);
       }
     }
@@ -283,8 +295,8 @@ void GameState::Draw() {
         return;
       }
       // call tower turn
-      if(m_gameLogic.TowerTurn()){
-        //Play enemy death sound here
+      if (m_gameLogic.TowerTurn()) {
+        // Play enemy death sound here
         Renderables::getAttackSound().play();
       }
       if (m_gameLogic.RoundIsFinished()) {
@@ -297,8 +309,8 @@ void GameState::Draw() {
     }
 
     // Buttons
-    for(auto [i, button]: m_buttons) {
-      if(i >= 10) {
+    for (auto [i, button] : m_buttons) {
+      if (i >= 10) {
         button->drawButton(m_window);
       }
     }
@@ -312,12 +324,13 @@ void GameState::Draw() {
     }
 
     // Draw attacks
-    for(const auto& [from, to]: m_gameLogic.GetAttacks()){
+    for (const auto& [from, to] : m_gameLogic.GetAttacks()) {
       int32_t x = from.first * TILE_SIZE, y = from.second * TILE_SIZE;
       int32_t x2 = to.first * TILE_SIZE, y2 = to.second * TILE_SIZE;
       x = x + m_frameInTick * (x2 - x) / ANIMATION_LENGTH;
       y = y + m_frameInTick * (y2 - y) / ANIMATION_LENGTH;
-      m_projectile.setPosition(x + TILE_SIZE / 2 - PROJECTILE_RADIUS, y + TILE_SIZE / 2 - PROJECTILE_RADIUS);
+      m_projectile.setPosition(x + TILE_SIZE / 2 - PROJECTILE_RADIUS,
+                               y + TILE_SIZE / 2 - PROJECTILE_RADIUS);
       m_window.draw(m_projectile);
     }
 
@@ -353,7 +366,8 @@ void GameState::Draw() {
       }
     }
     // Increment / reset the frame counter
-    m_frameInTick = (m_frameInTick >= ANIMATION_LENGTH) ? 0 : m_frameInTick + m_gameSpeed;
+    m_frameInTick =
+        (m_frameInTick >= ANIMATION_LENGTH) ? 0 : m_frameInTick + m_gameSpeed;
   }
 
   // Display (shared)
@@ -381,8 +395,8 @@ void GameState::Priv_InitializeText(sf::Text& text, int32_t x, int32_t y) {
 }
 
 void GameState::Priv_ClearSpeedHighlights() {
-  for(auto [i, button]: m_buttons) {
-    if(i > 10) {
+  for (auto [i, button] : m_buttons) {
+    if (i > 10) {
       button->removeHighlight();
     }
   }
