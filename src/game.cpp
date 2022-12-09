@@ -182,9 +182,11 @@ bool Game::IsActionPossible(const std::pair<int32_t, int32_t>& coords,
       return (tower != nullptr);
       break;
     default:
-      // The action is about buying, so we need to check the price of the tower
+      // The action is about buying, so we must check if the cell is free and if
+      // we have enough money
       try {
-        return Tower::towerPrices.at(static_cast<TowerType>(a)) <= m_money;
+        return !(tower) &&
+               Tower::towerPrices.at(static_cast<TowerType>(a)) <= m_money;
       } catch (...) {
         std::cerr << "In \"Game::IsActionPossible()\" was not able to "
                      "determine the cost of a tower"
@@ -281,7 +283,9 @@ const std::list<SupportTower*>& Game::GetSupportTowers() const {
   return m_supportingTowers;
 }
 
-uint32_t Game::GetScore() const { return m_score; }
+uint32_t Game::GetScore() const {
+  return 100 * m_score / m_map.GetPath().size();
+}
 
 uint32_t Game::GetMoney() const { return m_money; }
 

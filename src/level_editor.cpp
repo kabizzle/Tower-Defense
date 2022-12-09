@@ -68,4 +68,4 @@ bool LevelEditor::Save() {
   return true;
 }
 
-Map LevelEditor::GetMap() { return m_map; }
+const Map& LevelEditor::GetMap() const { return m_map; }

@@ -10,7 +10,7 @@ class LevelEditor {
 
   bool Save();
 
-  Map GetMap();
+  const Map& GetMap() const;
 
  private:
   Map m_map;

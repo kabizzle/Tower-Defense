@@ -170,6 +170,13 @@ class Game {
    */
   const std::list<SupportTower*>& GetSupportTowers() const;
 
+  /**
+   * @brief Calculates player's score. Total money earned is multiplied by 100
+   *        and then divided by the length of the path. When the path is shorter
+   *        there is shorter time to defeat enemies so player get more points.
+   * 
+   * @return player's score
+   */
   uint32_t GetScore() const;
 
   uint32_t GetMoney() const;
@@ -183,7 +190,7 @@ class Game {
 
  private:
   uint32_t m_playerHealth;
-  uint32_t m_score;
+  uint32_t m_score; // Stores total money earned
   uint32_t m_money;
   Map m_map;
   EnemyFactory m_enemyFactory;
