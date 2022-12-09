@@ -87,10 +87,13 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
   Priv_InitializeText(m_moneyText, 400, 624);
   Priv_InitializeText(m_scoreText, 400, 672);
 
-  // Initialize circle for drawing range
+  // Initialize circles for drawing range
   m_rangeCircle.setFillColor(sf::Color::Transparent);
   m_rangeCircle.setOutlineThickness(4);
   m_rangeCircle.setOutlineColor(sf::Color::Black);
+  m_upgradeRange.setFillColor(sf::Color::Transparent);
+  m_upgradeRange.setOutlineThickness(4);
+  m_upgradeRange.setOutlineColor(sf::Color::Green);
 }
 
 GameState::~GameState() {
@@ -163,6 +166,8 @@ void GameState::PollEvents() {
                   break;
                 case Action::UpgradeTower:
                   m_gameLogic.UpgradeTower(std::make_pair(m_selX, m_selY));
+                  // Draw uprage range only if it can be upgraded again
+                  m_drawUpgradeRange = m_gameLogic.IsActionPossible(std::make_pair(m_selX, m_selY), Action::UpgradeTower);
                   break;
                 case Action::DestroyTower:
                   m_gameLogic.DestroyTower(std::make_pair(m_selX, m_selY));
@@ -187,6 +192,8 @@ void GameState::PollEvents() {
             }
           }
         }
+        // Don't draw range after mouse button is pressed
+        m_drawRange = false;
       }
       // Check if the range circle has to be drawn
       if (m_event.type == sf::Event::MouseMoved) {
@@ -198,11 +205,17 @@ void GameState::PollEvents() {
             // Check if mouse is hovering at TowerButton
             if (m_buttons[action]->getGlobalBounds().contains(m_event.mouseMove.x, m_event.mouseMove.y)) {
               m_drawRange = true;
-              uint32_t range = 30 * Tower::towerRanges.at(static_cast<TowerType>(action));
-              m_rangeCircle.setRadius(range);
-              m_rangeCircle.setOrigin(range, range);
-              m_rangeCircle.setPosition(m_selX * 30 + 15, m_selY * 30 + 15);
+              uint32_t range = TILE_SIZE * Tower::towerRanges.at(static_cast<TowerType>(action));
+              Priv_ChangeCircle(m_rangeCircle, range);
             }
+          }
+        }
+        m_drawUpgradeRange = false;
+        // Check if tower can be upgraded in selected tile
+        if (m_gameLogic.IsActionPossible(std::make_pair(m_selX, m_selY), Action::UpgradeTower)) {
+          // Check if mouse is hovering at UpgradeButton
+          if (m_buttons[Action::UpgradeTower]->getGlobalBounds().contains(m_event.mouseMove.x, m_event.mouseMove.y)) {
+            m_drawUpgradeRange = true;
           }
         }
       }
@@ -322,8 +335,22 @@ void GameState::Draw() {
       }
     }
 
+    // Check if the selected tile contains tower
+    const Tower* t = m_gameLogic.GetTower(std::make_pair(m_selX, m_selY));
+    if (t) {
+      m_drawRange = true;
+      Priv_ChangeCircle(m_rangeCircle, TILE_SIZE * t->GetRange());
+      if (m_drawUpgradeRange) Priv_ChangeCircle(m_upgradeRange, TILE_SIZE * (t->GetRange() + 2));
+    }
+
     // Draw range of tower if needed
     if (m_drawRange) m_window.draw(m_rangeCircle);
+
+    // Draw upgrade range if needed
+    if (m_drawUpgradeRange) {
+      std::cout << "upgrade" << std::endl;
+      m_window.draw(m_upgradeRange);
+    }
 
   } else {
     // DRAW THE WAVE PHASE:
@@ -441,4 +468,10 @@ void GameState::Priv_ClearSpeedHighlights() {
       button->removeHighlight();
     }
   }
+}
+
+void GameState::Priv_ChangeCircle(sf::CircleShape& circle, uint32_t range) {
+  circle.setRadius(range);
+  circle.setOrigin(range, range);
+  circle.setPosition(m_selX * TILE_SIZE + TILE_SIZE / 2, m_selY * TILE_SIZE + TILE_SIZE / 2);
 }
