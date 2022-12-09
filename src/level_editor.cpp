@@ -1,5 +1,8 @@
 #include "level_editor.hpp"
 
+#include <fstream>
+#include <iostream>
+
 LevelEditor::LevelEditor(int width, int height, std::string& mapPath)
     : m_width(width),
       m_height(height),
@@ -25,7 +28,7 @@ bool LevelEditor::Save() {
     return false;
   }
 
-  std::ofstream os(m_mapPath, std::ofstream::trunc);
+  std::ofstream os(m_mapPath, std::ios::trunc);
   if (os.rdstate() && (os.failbit | os.badbit)) {
     throw std::invalid_argument("File selecting failed.");
   }
@@ -33,7 +36,7 @@ bool LevelEditor::Save() {
   int tile;
 
   for (int y = 0; y < m_height; y++) {
-    for (int x = 0; x <= m_width; x++) {
+    for (int x = 0; x < m_width; x++) {
       tile = m_map.GetPos(std::make_pair(x, y));
 
       switch (tile) {

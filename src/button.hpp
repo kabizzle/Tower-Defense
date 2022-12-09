@@ -8,7 +8,7 @@ class Button {
 public: 
     Button(std::string text, int x, int y, sf::Font& font);
     
-    ~Button() = default;
+    virtual ~Button() = default;
     
     void addHighlight();
     void removeHighlight();
