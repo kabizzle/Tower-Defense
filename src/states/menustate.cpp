@@ -25,15 +25,15 @@ MenuState::MenuState(GUI& gui, sf::RenderWindow& window)
   titleText.setFont(m_gui.GetFont());
   titleText.setFillColor(sf::Color::White);
   titleText.setString("Wave University - Defend your deadline 1.0");
-  titleText.setCharacterSize(60);
-  titleText.setPosition(60, 30);
+  titleText.setCharacterSize(48);
+  titleText.setPosition((window.getSize().x / 2) - (43 * 14), 30);
   m_texts.push_back(titleText);
 
   subtitleText.setFont(m_gui.GetFont());
   subtitleText.setFillColor(sf::Color::White);
   subtitleText.setString("Tower defense game. Beat as many waves as you can");
   subtitleText.setCharacterSize(30);
-  subtitleText.setPosition(260, 130);
+  subtitleText.setPosition((window.getSize().x / 2) - (50 * 9), 130);
   m_texts.push_back(subtitleText);
 
   difficultyText.setFont(m_gui.GetFont());
