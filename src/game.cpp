@@ -140,34 +140,6 @@ bool Game::AddTower(Tower* t) {
   return (at || st);
 }
 
-/*
-bool Game::BuildAttackingTower(AttackingTower* t, uint32_t cost) {
-  if (m_money < cost) return false;
-  m_money -= cost;
-  m_attakingTowers.push_back(t);
-  return true;
-}
-
-bool Game::BuildSupportTower(SupportTower* t, uint32_t cost) {
-  if (m_money < cost) return false;
-  m_money -= cost;
-  m_supportingTowers.push_back(t);
-  return true;
-}
-
-bool Game::UpgradeTower(const std::pair<int32_t, int32_t>& coords) {
-  auto tower = std::find_if(m_attakingTowers.begin(), m_attakingTowers.end(),
-    [coords] (const AttackingTower* t) {return (*t).GetCoords() == coords;});
-  // Check that the tower at given coordinates exists
-  if (tower == m_attakingTowers.end()) return false;
-  // Check that the tower can be upgraded
-  if (!(*tower)->IsUpgradeable(m_money)) return false;
-  // Upgrade the tower and subtract cost fo upgrade from player's money
-  m_money -= (*tower)->Upgrade();
-  return true;
-}
-*/
-
 bool Game::IsActionPossible(const std::pair<int32_t, int32_t>& coords,
                             Action a) const {
   tileType tile = m_map.GetPos(coords);
@@ -238,6 +210,18 @@ void Game::CreateTower(const std::pair<int32_t, int32_t>& coords, TowerType t) {
   } catch (...) {
     std::cerr << "Wasn't able to determine the cost of a tower" << std::endl;
   }
+}
+
+void Game::UpgradeTower(const std::pair<int32_t, int32_t>& coords) {
+  if (!IsActionPossible(coords, Action::UpgradeTower)) {
+    std::cerr << "Tower upgrading is not possible" << std::endl;
+    return;
+  }
+  // If upgrading is possible, it has to be AttackingTower
+  AttackingTower* tower = *std::find_if(m_attakingTowers.begin(), m_attakingTowers.end(),
+    [coords] (const AttackingTower* t) {return (*t).GetCoords() == coords;});
+  // Upgrade the tower and subtract cost fo upgrade from player's money
+  m_money -= tower->Upgrade();
 }
 
 const std::list<AttackingTower*>& Game::GetAttackingTowers() const {
