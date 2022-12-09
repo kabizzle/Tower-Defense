@@ -56,6 +56,11 @@ void Button::disableButton() {
   this->m_button.setFillColor(sf::Color(190, 190, 190, 190));
 }
 
+void Button::changeText(std::string text) {
+  this->m_text.setString(text);
+}
+
+
 TowerButton::TowerButton(TowerType tower, int x, int y,
                          sf::Font& font)
     : Button("", x, y, font) {
