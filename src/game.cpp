@@ -8,7 +8,7 @@ Game::Game(uint32_t mapWidth, uint32_t mapLength, const std::string& filename,
            Difficulty difficulty)
     : m_playerHealth(100 - difficulty * 20),
       m_score(0),
-      m_money(1000),  // TODO: change to some meaningful value
+      m_money(100),
       m_map(Map(mapWidth, mapLength)),
       m_enemyFactory(difficulty) {
   m_map.InitializeMap(filename);
@@ -285,15 +285,17 @@ const std::list<SupportTower*>& Game::GetSupportTowers() const {
 
 const Tower* Game::GetTower(const std::pair<int32_t, int32_t>& coords) const {
   auto it = m_attakingTowers.begin();
-  it = std::find_if(it, m_attakingTowers.end(), 
-                    [&coords](AttackingTower* at) {return at->GetCoords() == coords; });
-  if(it != m_attakingTowers.end()) {
+  it = std::find_if(it, m_attakingTowers.end(), [&coords](AttackingTower* at) {
+    return at->GetCoords() == coords;
+  });
+  if (it != m_attakingTowers.end()) {
     return *it;
   }
   auto it2 = m_supportingTowers.begin();
-  it2 = std::find_if(it2, m_supportingTowers.end(), 
-                    [&coords](SupportTower* st) {return st->GetCoords() == coords; });
-  if(it2 != m_supportingTowers.end()) {
+  it2 = std::find_if(
+      it2, m_supportingTowers.end(),
+      [&coords](SupportTower* st) { return st->GetCoords() == coords; });
+  if (it2 != m_supportingTowers.end()) {
     return *it2;
   } else {
     return nullptr;
@@ -308,7 +310,9 @@ uint32_t Game::GetMoney() const { return m_money; }
 
 uint32_t Game::GetHealth() const { return m_playerHealth; }
 
-Difficulty Game::GetDifficulty() const { return m_enemyFactory.GetDifficulty(); }
+Difficulty Game::GetDifficulty() const {
+  return m_enemyFactory.GetDifficulty();
+}
 
 std::ostream& operator<<(std::ostream& os, const Game& game) {
   os << "*** GAME INFO ***\n";
