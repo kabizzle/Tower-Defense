@@ -163,6 +163,12 @@ Renderables::Renderables() {
         return;
     }
 
+    if (!attack.loadFromFile("images/attack-sound.wav")) {
+        std::cout << "Error: Audio not found" << std::endl; 
+        return;
+    }
+
+    attack_sound.setBuffer(attack);
     bachelor_1_sprite.setTexture(bachelor_1);
     bachelor_2_sprite.setTexture(bachelor_2);
     bachelor_3_sprite.setTexture(bachelor_3);
@@ -324,4 +330,8 @@ sf::Sprite& Renderables::getTeekkari3Sprite() {
 
 sf::Sprite& Renderables::getTowertileSprite() {
     return s_instance->towerTile_sprite;
+}
+
+sf::Sound& Renderables::getAttackSound() {
+    return s_instance->attack_sound;
 }
