@@ -174,7 +174,7 @@ class Game {
    * @brief Get a pointer to Tower in a cell
    * The function will return nullptr if no tower is at the desired location
    * @param coords The xy-coordinates where we want
-   * @return const Tower const* 
+   * @return const Tower*
    */
   const Tower* GetTower(const std::pair<int32_t, int32_t>& coords) const;
 

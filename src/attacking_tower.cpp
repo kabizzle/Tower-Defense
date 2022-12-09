@@ -59,6 +59,8 @@ bool AttackingTower::IsUpgradeable(uint32_t money) const {
   return m_level < 3 && money >= m_upgCost;
 }
 
+uint32_t AttackingTower::GetUpgradeCost() const { return m_upgCost; }
+
 uint32_t AttackingTower::Upgrade() {
   m_basePower += m_basePower;
   m_maxHealth += m_maxHealth / 2;
