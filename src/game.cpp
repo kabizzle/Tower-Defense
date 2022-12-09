@@ -91,7 +91,8 @@ void Game::TowerTurn() {
       Assignment* e = *enemyIt;
       if (!e->IsAlive()) {
         enemyIt = m_enemies[i].erase(enemyIt);
-        m_score += e->GetCredits();  // Score is currently just total money earned
+        m_score +=
+            e->GetCredits();  // Score is currently just total money earned
         m_money += e->GetCredits();
         delete e;
       } else {
@@ -166,26 +167,28 @@ bool Game::IsActionPossible(const std::pair<int32_t, int32_t>& coords,
       tower = st;
     }
   }
-  //Check the action and determine the outcome
-  switch (a)
-  {
-  case Action::UpgradeTower:
-    //There must be a tower and it must be upgradeable with the amount of money
-    return (tower && tower->IsUpgradeable(m_money));
-    break;
-  case Action::DestroyTower:
-    //There must be a tower
-    return (tower != nullptr);
-    break;
-  default:
-    //The action is about buying, so we need to check the price of the tower
-    try {
-      return Tower::towerPrices.at(static_cast<TowerType>(a)) <= m_money;
-    } catch(...) {
-      std::cerr << "In \"Game::IsActionPossible()\" was not able to determine the cost of a tower" << std::endl;
-      return false;
-    }
-    break;
+  // Check the action and determine the outcome
+  switch (a) {
+    case Action::UpgradeTower:
+      // There must be a tower and it must be upgradeable with the amount of
+      // money
+      return (tower && tower->IsUpgradeable(m_money));
+      break;
+    case Action::DestroyTower:
+      // There must be a tower
+      return (tower != nullptr);
+      break;
+    default:
+      // The action is about buying, so we need to check the price of the tower
+      try {
+        return Tower::towerPrices.at(static_cast<TowerType>(a)) <= m_money;
+      } catch (...) {
+        std::cerr << "In \"Game::IsActionPossible()\" was not able to "
+                     "determine the cost of a tower"
+                  << std::endl;
+        return false;
+      }
+      break;
   }
 }
 
@@ -234,8 +237,9 @@ void Game::UpgradeTower(const std::pair<int32_t, int32_t>& coords) {
     return;
   }
   // If upgrading is possible, it has to be AttackingTower
-  AttackingTower* tower = *std::find_if(m_attakingTowers.begin(), m_attakingTowers.end(),
-    [coords] (const AttackingTower* t) {return (*t).GetCoords() == coords;});
+  AttackingTower* tower = *std::find_if(
+      m_attakingTowers.begin(), m_attakingTowers.end(),
+      [coords](const AttackingTower* t) { return (*t).GetCoords() == coords; });
   // Upgrade the tower and subtract cost fo upgrade from player's money
   m_money -= tower->Upgrade();
 }
@@ -246,8 +250,9 @@ void Game::DestroyTower(const std::pair<int32_t, int32_t>& coords) {
     return;
   }
   // Search tower first from attacking towers
-  auto attackingTowerIt = std::find_if(m_attakingTowers.begin(), m_attakingTowers.end(),
-    [coords] (const AttackingTower* t) {return (*t).GetCoords() == coords;});
+  auto attackingTowerIt = std::find_if(
+      m_attakingTowers.begin(), m_attakingTowers.end(),
+      [coords](const AttackingTower* t) { return (*t).GetCoords() == coords; });
   // Check if the tower was found
   if (attackingTowerIt != m_attakingTowers.end()) {
     // Remove and free the tower
@@ -257,8 +262,9 @@ void Game::DestroyTower(const std::pair<int32_t, int32_t>& coords) {
     return;
   }
   // If not attacking tower, it has to be support tower
-  auto supportTowerIt = std::find_if(m_supportingTowers.begin(), m_supportingTowers.end(),
-    [coords] (const SupportTower* t) {return (*t).GetCoords() == coords;});
+  auto supportTowerIt = std::find_if(
+      m_supportingTowers.begin(), m_supportingTowers.end(),
+      [coords](const SupportTower* t) { return (*t).GetCoords() == coords; });
   SupportTower* t = *supportTowerIt;
   m_supportingTowers.erase(supportTowerIt);
   delete t;
