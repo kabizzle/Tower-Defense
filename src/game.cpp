@@ -283,6 +283,23 @@ const std::list<SupportTower*>& Game::GetSupportTowers() const {
   return m_supportingTowers;
 }
 
+const Tower* Game::GetTower(const std::pair<int32_t, int32_t>& coords) const {
+  auto it = m_attakingTowers.begin();
+  it = std::find_if(it, m_attakingTowers.end(), 
+                    [&coords](AttackingTower* at) {return at->GetCoords() == coords; });
+  if(it != m_attakingTowers.end()) {
+    return *it;
+  }
+  auto it2 = m_supportingTowers.begin();
+  it2 = std::find_if(it2, m_supportingTowers.end(), 
+                    [&coords](SupportTower* st) {return st->GetCoords() == coords; });
+  if(it2 != m_supportingTowers.end()) {
+    return *it2;
+  } else {
+    return nullptr;
+  }
+}
+
 uint32_t Game::GetScore() const {
   return 100 * m_score / m_map.GetPath().size();
 }
