@@ -67,6 +67,7 @@ uint32_t AttackingTower::Upgrade() {
   auto& newSprite = m_allSprites[m_level];
   std::cout << "Test2" << std::endl; //debug
   newSprite.setPosition(m_coords.first * TILE_SIZE, m_coords.second * TILE_SIZE);
+  std::cout << "Test3" << std::endl; //debug
   SetSprite(newSprite);
   m_level++;
   return m_upgCost;
@@ -80,41 +81,41 @@ std::ostream& operator<<(std::ostream& os, const AttackingTower& at) {
 
 AttackingTower* AttackingTower::Freshman(const std::pair<int32_t, int32_t>& coords, const Map& map) {
   std::vector<sf::Sprite> sprites;
-  sprites.emplace_back(Renderables::getFreshman1Sprite());
-  sprites.emplace_back(Renderables::getFreshman2Sprite());
-  sprites.emplace_back(Renderables::getFreshman3Sprite());
+  sprites.push_back(Renderables::getFreshman1Sprite());
+  sprites.push_back(Renderables::getFreshman2Sprite());
+  sprites.push_back(Renderables::getFreshman3Sprite());
   return new AttackingTower(1, 7, 40, towerPrices.at(TowerType::Freshman), coords, map, "freshman", sprites);
 }
 
 AttackingTower* AttackingTower::Teekkari(const std::pair<int32_t, int32_t>& coords, const Map& map) {
   std::vector<sf::Sprite> sprites;
-  sprites.emplace_back(Renderables::getTeekkari1Sprite());
-  sprites.emplace_back(Renderables::getTeekkari2Sprite());
-  sprites.emplace_back(Renderables::getTeekkari3Sprite());
+  sprites.push_back(Renderables::getTeekkari1Sprite());
+  sprites.push_back(Renderables::getTeekkari2Sprite());
+  sprites.push_back(Renderables::getTeekkari3Sprite());
   return new AttackingTower(5, 7, 80, towerPrices.at(TowerType::Teekkari), coords, map, "teekkari", sprites);
 }
 
 AttackingTower* AttackingTower::Bachelor(const std::pair<int32_t, int32_t>& coords, const Map& map) {
   std::vector<sf::Sprite> sprites;
-  sprites.emplace_back(Renderables::getBachelor1Sprite());
-  sprites.emplace_back(Renderables::getBachelor2Sprite());
-  sprites.emplace_back(Renderables::getBachelor3Sprite());
+  sprites.push_back(Renderables::getBachelor1Sprite());
+  sprites.push_back(Renderables::getBachelor2Sprite());
+  sprites.push_back(Renderables::getBachelor3Sprite());
   return new AttackingTower(20, 8, 120, towerPrices.at(TowerType::Bachelor), coords, map, "bachelor", sprites);
 }
 
 AttackingTower* AttackingTower::Master(const std::pair<int32_t, int32_t>& coords, const Map& map) {
   std::vector<sf::Sprite> sprites;
-  sprites.emplace_back(Renderables::getMaster1Sprite());
-  sprites.emplace_back(Renderables::getMaster2Sprite());
-  sprites.emplace_back(Renderables::getMaster3Sprite());
+  sprites.push_back(Renderables::getMaster1Sprite());
+  sprites.push_back(Renderables::getMaster2Sprite());
+  sprites.push_back(Renderables::getMaster3Sprite());
   return new AttackingTower(50, 8, 160, towerPrices.at(TowerType::Master), coords, map, "master", sprites);
 }
 
 AttackingTower* AttackingTower::Doctor(const std::pair<int32_t, int32_t>& coords, const Map& map) {
   std::vector<sf::Sprite> sprites;
-  sprites.emplace_back(Renderables::getDoctor1Sprite());
-  sprites.emplace_back(Renderables::getDoctor2Sprite());
-  sprites.emplace_back(Renderables::getDoctor3Sprite());
+  sprites.push_back(Renderables::getDoctor1Sprite());
+  sprites.push_back(Renderables::getDoctor2Sprite());
+  sprites.push_back(Renderables::getDoctor3Sprite());
   return new AttackingTower(100, 9, 200, towerPrices.at(TowerType::Doctor), coords, map, "doctor", sprites);
 }
 
