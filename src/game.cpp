@@ -70,7 +70,7 @@ bool Game::EnemyTurn() {
   return true;
 }
 
-void Game::TowerTurn() {
+bool Game::TowerTurn() {
   // Reset the m_tickattacks collection
   m_tickAttacks.clear();
   // Supporting towers act first because they affect attacking towers
@@ -86,6 +86,7 @@ void Game::TowerTurn() {
     }
   }
   // Remove and free dead enemies
+  bool enemiesDied = false;
   for (uint32_t i = 0; i < m_enemies.size(); i++) {
     for (auto enemyIt = m_enemies[i].begin(); enemyIt != m_enemies[i].end();) {
       Assignment* e = *enemyIt;
@@ -93,12 +94,14 @@ void Game::TowerTurn() {
         enemyIt = m_enemies[i].erase(enemyIt);
         m_score += e->GetCredits();  // Score is currently just total money earned
         m_money += e->GetCredits();
+        enemiesDied = true;
         delete e;
       } else {
         enemyIt++;
       }
     }
   }
+  return enemiesDied;
 }
 
 bool Game::RoundIsFinished() {

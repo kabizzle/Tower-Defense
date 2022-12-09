@@ -225,7 +225,9 @@ void GameState::Draw() {
         return;
       }
       // call tower turn
-      m_gameLogic.TowerTurn();
+      if(m_gameLogic.TowerTurn()){
+        //Play enemy death sound here
+      }
       if (m_gameLogic.RoundIsFinished()) {
         m_buildPhase = true;
         return;
