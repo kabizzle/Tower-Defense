@@ -38,17 +38,23 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
     }
     sprite.setPosition(TILE_SIZE * coords.first, TILE_SIZE * coords.second);
     m_mapTileSprites.push_back(sprite);
-    //Projectile color
+    // Projectile color
     m_projectile.setFillColor(sf::Color(255, 0, 0));
   }
 
   // Initialize the buttons
-  m_buttons[Action::BuyFreshman] = m_gui.createTowerButton(TowerType::Freshman, 915, 15);
-  m_buttons[Action::BuyTeekkari] = m_gui.createTowerButton(TowerType::Teekkari, 915, 55);
-  m_buttons[Action::BuyBachelor] = m_gui.createTowerButton(TowerType::Bachelor, 915, 95);
-  m_buttons[Action::BuyMaster] = m_gui.createTowerButton(TowerType::Master, 915, 135);
-  m_buttons[Action::BuyDoctor] = m_gui.createTowerButton(TowerType::Doctor, 915, 175);
-  m_buttons[Action::BuyCalculator] = m_gui.createTowerButton(TowerType::Calculator, 915, 215);
+  m_buttons[Action::BuyFreshman] =
+      m_gui.createTowerButton(TowerType::Freshman, 915, 15);
+  m_buttons[Action::BuyTeekkari] =
+      m_gui.createTowerButton(TowerType::Teekkari, 915, 55);
+  m_buttons[Action::BuyBachelor] =
+      m_gui.createTowerButton(TowerType::Bachelor, 915, 95);
+  m_buttons[Action::BuyMaster] =
+      m_gui.createTowerButton(TowerType::Master, 915, 135);
+  m_buttons[Action::BuyDoctor] =
+      m_gui.createTowerButton(TowerType::Doctor, 915, 175);
+  m_buttons[Action::BuyCalculator] =
+      m_gui.createTowerButton(TowerType::Calculator, 915, 215);
   m_buttons[Action::BuyCoffeeTable] =
       m_gui.createTowerButton(TowerType::CoffeeTable, 915, 255);
   m_buttons[Action::UpgradeTower] =
@@ -139,7 +145,8 @@ void GameState::PollEvents() {
                   m_gameLogic.DestroyTower(std::make_pair(m_selX, m_selY));
                   break;
                 case 9:
-                  m_gui.changeState(new EndState(m_gui, m_window, m_gameLogic.GetScore()));
+                  m_gui.changeState(
+                      new EndState(m_gui, m_window, m_gameLogic.GetScore()));
                   m_buttons[9]->addHighlight();
                   break;
                 case 10:
@@ -225,8 +232,8 @@ void GameState::Draw() {
         return;
       }
       // call tower turn
-      if(m_gameLogic.TowerTurn()){
-        //Play enemy death sound here
+      if (m_gameLogic.TowerTurn()) {
+        // Play enemy death sound here
       }
       if (m_gameLogic.RoundIsFinished()) {
         m_buildPhase = true;
@@ -246,12 +253,13 @@ void GameState::Draw() {
     }
 
     // Draw attacks
-    for(const auto& [from, to]: m_gameLogic.GetAttacks()){
+    for (const auto& [from, to] : m_gameLogic.GetAttacks()) {
       int32_t x = from.first * TILE_SIZE, y = from.second * TILE_SIZE;
       int32_t x2 = to.first * TILE_SIZE, y2 = to.second * TILE_SIZE;
       x = x + m_frameInTick * (x2 - x) / ANIMATION_LENGTH;
       y = y + m_frameInTick * (y2 - y) / ANIMATION_LENGTH;
-      m_projectile.setPosition(x + TILE_SIZE / 2 - PROJECTILE_RADIUS, y + TILE_SIZE / 2 - PROJECTILE_RADIUS);
+      m_projectile.setPosition(x + TILE_SIZE / 2 - PROJECTILE_RADIUS,
+                               y + TILE_SIZE / 2 - PROJECTILE_RADIUS);
       m_window.draw(m_projectile);
     }
 
