@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include "gui.hpp"
 
 int main() {
@@ -8,18 +9,17 @@ int main() {
   while (gui.running()) {
     gui.update();
   }
-  std::cout << "Hello, World!" << std::endl;
+  std::cout << "Closing the software." << std::endl;
   return 0;
 }
-
 
 /**
  * Game state variable - current_state
  * while window is open:
  *  call current_state.run()
- * 
- * 
+ *
+ *
  * -- inside current state
- * --  
- * 
+ * --
+ *
  */

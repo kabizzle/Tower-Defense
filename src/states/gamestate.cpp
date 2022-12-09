@@ -96,25 +96,32 @@ void GameState::PollEvents() {
 
               switch (b.first) {
                 case Action::BuyFreshman:
-
+                  m_gameLogic.CreateTower(std::make_pair(m_selX, m_selY),
+                                          TowerType::Freshman);
                   break;
                 case Action::BuyTeekkari:
-
+                  m_gameLogic.CreateTower(std::make_pair(m_selX, m_selY),
+                                          TowerType::Teekkari);
                   break;
                 case Action::BuyBachelor:
-
+                  m_gameLogic.CreateTower(std::make_pair(m_selX, m_selY),
+                                          TowerType::Bachelor);
                   break;
                 case Action::BuyMaster:
-
+                  m_gameLogic.CreateTower(std::make_pair(m_selX, m_selY),
+                                          TowerType::Master);
                   break;
                 case Action::BuyDoctor:
-
+                  m_gameLogic.CreateTower(std::make_pair(m_selX, m_selY),
+                                          TowerType::Doctor);
                   break;
                 case Action::BuyCalculator:
-
+                  m_gameLogic.CreateTower(std::make_pair(m_selX, m_selY),
+                                          TowerType::Calculator);
                   break;
                 case Action::BuyCoffeeTable:
-
+                  m_gameLogic.CreateTower(std::make_pair(m_selX, m_selY),
+                                          TowerType::CoffeeTable);
                   break;
                 case Action::UpgradeTower:
 

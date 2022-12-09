@@ -8,7 +8,7 @@ Game::Game(uint32_t mapWidth, uint32_t mapLength, const std::string& filename,
            Difficulty difficulty)
     : m_playerHealth(100 - difficulty * 20),
       m_score(0),
-      m_money(100),  // TODO: change to some meaningful value
+      m_money(1000),  // TODO: change to some meaningful value
       m_map(Map(mapWidth, mapLength)),
       m_enemyFactory(difficulty) {
   m_map.InitializeMap(filename);
@@ -170,13 +170,18 @@ bool Game::UpgradeTower(const std::pair<int32_t, int32_t>& coords) {
 
 bool Game::IsActionPossible(const std::pair<int32_t, int32_t>& coords,
                             Action a) const {
+  // Check if coordinate is positive
+  if (coords.first < 0 || coords.second < 0) {
+    return false;
+  }
+
   tileType tile = m_map.GetPos(coords);
   // Actions are only possible on towerTiles
   if (tile != tileType::towerTile) {
     return false;
   }
   // Check if there is a tower at the location
-  Tower* tower;
+  Tower* tower = nullptr;
   for (auto* at : m_attakingTowers) {
     if (at->GetCoords() == coords) {
       tower = at;
