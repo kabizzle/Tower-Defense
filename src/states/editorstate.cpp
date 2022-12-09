@@ -10,8 +10,7 @@ EditorState::EditorState(GUI& gui, sf::RenderWindow& window,
       m_editor(LevelEditor(30, 20, mapPath)),
       m_mapPath(mapPath),
       m_selX(-1),
-      m_selY(-1),
-      m_editor(LevelEditor(30, 20, mapPath)) {
+      m_selY(-1) {
   // Initialize the buttons
   m_buttons[0] = m_gui.createButton("Path starting tile", 915, 215);
   m_buttons[1] = m_gui.createButton("Path tile", 915, 255);
