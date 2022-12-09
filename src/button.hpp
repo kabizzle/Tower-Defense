@@ -15,6 +15,7 @@ public:
 
     void disableButton();
     void enableButton();
+    virtual void changeText(std::string text);
 
     virtual void drawButton(sf::RenderWindow& window);
     sf::FloatRect getGlobalBounds();

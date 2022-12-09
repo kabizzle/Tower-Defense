@@ -59,10 +59,10 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
   m_buttons[Action::BuyCoffeeTable] =
       m_gui.createTowerButton(TowerType::CoffeeTable, 915, 255);
   m_buttons[Action::UpgradeTower] =
-      m_gui.createButton("Upgrade selected tower", 915, 295);
+      m_gui.createButton("Upgrade tower", 915, 295);
   m_buttons[Action::DestroyTower] =
-      m_gui.createButton("Destroy selected tower", 915, 335);
-  m_buttons[9] = m_gui.createButton("Advance to the next round", 915, 620);
+      m_gui.createButton("Destroy tower", 915, 335);
+  m_buttons[9] = m_gui.createButton("Next round", 915, 620);
   // During both phases
   m_buttons[10] = m_gui.createButton("Give up", 915, 670);
   // During enemy phase
