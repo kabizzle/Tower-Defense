@@ -62,12 +62,9 @@ uint32_t AttackingTower::Upgrade() {
   m_basePower += m_basePower;
   m_maxHealth += m_maxHealth / 2;
   m_range += 2;
-  std::cout << "Test1" << std::endl;  //debug
   Priv_UpdateRange(m_range);
   auto& newSprite = m_allSprites[m_level];
-  std::cout << "Test2" << std::endl; //debug
   newSprite.setPosition(m_coords.first * TILE_SIZE, m_coords.second * TILE_SIZE);
-  std::cout << "Test3" << std::endl; //debug
   SetSprite(newSprite);
   m_level++;
   return m_upgCost;

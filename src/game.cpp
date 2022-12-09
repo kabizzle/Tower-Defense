@@ -91,8 +91,7 @@ void Game::TowerTurn() {
       Assignment* e = *enemyIt;
       if (!e->IsAlive()) {
         enemyIt = m_enemies[i].erase(enemyIt);
-        m_score +=
-            e->GetCredits();  // Score is currently just total money earned
+        m_score += e->GetCredits();  // Score is currently just total money earned
         m_money += e->GetCredits();
         delete e;
       } else {
@@ -167,15 +166,27 @@ bool Game::IsActionPossible(const std::pair<int32_t, int32_t>& coords,
       tower = st;
     }
   }
-  bool destroy = (a == Action::DestroyTower);
-  bool upg = (a == Action::UpgradeTower);
-  // If there is a tower, it is always destroyable, upgradeability must be
-  // checked from the tower
-  if (tower) {
-    return destroy || (upg && tower->IsUpgradeable(m_money));
+  //Check the action and determine the outcome
+  switch (a)
+  {
+  case Action::UpgradeTower:
+    //There must be a tower and it must be upgradeable with the amount of money
+    return (tower && tower->IsUpgradeable(m_money));
+    break;
+  case Action::DestroyTower:
+    //There must be a tower
+    return (tower != nullptr);
+    break;
+  default:
+    //The action is about buying, so we need to check the price of the tower
+    try {
+      return Tower::towerPrices.at(static_cast<TowerType>(a)) <= m_money;
+    } catch(...) {
+      std::cerr << "In \"Game::IsActionPossible()\" was not able to determine the cost of a tower" << std::endl;
+      return false;
+    }
+    break;
   }
-  // No tower, destroying or upgrading is not possible
-  return !(destroy || upg);
 }
 
 void Game::CreateTower(const std::pair<int32_t, int32_t>& coords, TowerType t) {

@@ -47,8 +47,7 @@ class GameState : public State {
   sf::RectangleShape m_selectedShape;
 
   // For the build phase
-  int32_t m_selX,
-      m_selY;  // The selected tile on the map, -1, -1 means nothing selected
+  int32_t m_selX, m_selY;  // The selected tile on the map, -1, -1 means nothing selected
 
   // Private functions
 
