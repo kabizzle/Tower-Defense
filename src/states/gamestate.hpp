@@ -48,6 +48,7 @@ class GameState : public State {
   sf::Text m_scoreText;
   sf::Text m_healthText;
   sf::Text m_moneyText;
+  sf::Text m_roundNumText;
   sf::CircleShape m_projectile;
 
   // For the build phase

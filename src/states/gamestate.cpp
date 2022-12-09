@@ -72,9 +72,10 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
   m_selectedShape.setOutlineColor(sf::Color::Cyan);
 
   // Initialize text for health, money and score
-  Priv_InitializeText(m_healthText, 30, 645);
-  Priv_InitializeText(m_moneyText, 300, 645);
-  Priv_InitializeText(m_scoreText, 600, 645);
+  Priv_InitializeText(m_roundNumText, 30, 624);
+  Priv_InitializeText(m_healthText, 30, 672);
+  Priv_InitializeText(m_moneyText, 400, 624);
+  Priv_InitializeText(m_scoreText, 400, 672);
 }
 
 void GameState::Run() {
@@ -190,10 +191,24 @@ void GameState::PollEvents() {
   m_healthText.setString("Health: " + std::to_string(m_gameLogic.GetHealth()));
   m_moneyText.setString("Money: " + std::to_string(m_gameLogic.GetMoney()));
   m_scoreText.setString("Score: " + std::to_string(m_gameLogic.GetScore()));
+  m_roundNumText.setString("Round: " + std::to_string(m_roundNum));
 }
 
 void GameState::Draw() {
   m_window.clear();
+
+  //Check which buttons must be enabled
+  for(auto [i, button]: m_buttons) {
+    //Only the ones where i < 8 need the checks to see if the buttons should be grayed out
+    if(i < 8) {
+      if(m_gameLogic.IsActionPossible({m_selX, m_selY}, static_cast<Action>(i))){
+        button->enableButton();
+      } else {
+        button->disableButton();
+      }
+    }
+  }
+
   // Draw the background and shared information between the phases
   Priv_DrawBCG();
 
@@ -218,6 +233,7 @@ void GameState::Draw() {
 
     // Draw the buttons
     for (auto b : m_buttons) {
+
       b.second->drawButton(m_window);
     }
 
@@ -312,6 +328,7 @@ void GameState::Priv_DrawBCG() {
   m_window.draw(m_healthText);
   m_window.draw(m_moneyText);
   m_window.draw(m_scoreText);
+  m_window.draw(m_roundNumText);
 }
 
 void GameState::Priv_InitializeText(sf::Text& text, int32_t x, int32_t y) {
