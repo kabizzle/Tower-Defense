@@ -8,6 +8,9 @@
 #include "renderable.hpp"
 #include "map.hpp"
 
+#define TILE_SIZE 30
+
+
 enum TowerType {
   Freshman,
   Teekkari,
