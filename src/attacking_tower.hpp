@@ -65,6 +65,12 @@ public:
   bool IsUpgradeable(uint32_t money) const;
 
   /**
+   * @brief Tells the upgrade cost
+   * @return uint32_t 
+   */
+  uint32_t GetUpgradeCost() const;
+
+  /**
    * @brief Can be used to upgrade the tower to the next level. Assumes that tower is upgradeable.
    * @return Cost of the upgrade
    */

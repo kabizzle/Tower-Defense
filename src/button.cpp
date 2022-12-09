@@ -56,36 +56,48 @@ void Button::disableButton() {
   this->m_button.setFillColor(sf::Color(190, 190, 190, 190));
 }
 
-TowerButton::TowerButton(TowerType tower, std::string text, int x, int y,
+void Button::changeText(std::string text) {
+  this->m_text.setString(text);
+}
+
+
+TowerButton::TowerButton(TowerType tower, int x, int y,
                          sf::Font& font)
-    : Button(text, x, y, font) {
+    : Button("", x, y, font) {
   switch (tower) {
     case TowerType::Freshman:
       m_sprite = Renderables::getFreshman1Sprite();
+      m_name = "Freshman (attack)";
       break;
     case TowerType::Teekkari:
       m_sprite = Renderables::getTeekkari1Sprite();
+      m_name = "Teekkari (attack)";
       break;
     case TowerType::Bachelor:
       m_sprite = Renderables::getBachelor1Sprite();
+      m_name = "Bachelor (attack)";
       break;
     case TowerType::Master:
       m_sprite = Renderables::getMaster1Sprite();
+      m_name = "Master (attack)";
       break;
     case TowerType::Doctor:
       m_sprite = Renderables::getDoctor1Sprite();
+      m_name = "Doctor (attack)";
       break;
     case TowerType::Calculator:
       m_sprite = Renderables::getCalculatorSprite();
+      m_name = "Calculator (buff)";
       break;
     case TowerType::CoffeeTable:
       m_sprite = Renderables::getCoffeeTableSprite();
+      m_name = "CoffeeTable (heal)";
       break;
   }
 
   m_sprite.setPosition(sf::Vector2f(x, y));
 
-  m_button.setSize(sf::Vector2f(130, 30));
+  m_button.setSize(sf::Vector2f(320, 30));
   m_button.setPosition(sf::Vector2f(x + TILE_SIZE, y));
   m_button.setFillColor(sf::Color::Cyan);
   m_button.setOutlineThickness(4);
@@ -93,9 +105,9 @@ TowerButton::TowerButton(TowerType tower, std::string text, int x, int y,
 
   m_text.setFont(m_font);
   m_text.setFillColor(sf::Color::Black);
-  m_text.setString(text);
-  m_text.setCharacterSize(24);
-  m_text.setPosition(sf::Vector2f(x + TILE_SIZE + 20, y + 10));
+  m_text.setString(m_name + " " + std::to_string(Tower::towerPrices.at(tower)) + " cr");
+  m_text.setCharacterSize(20);
+  m_text.setPosition(sf::Vector2f(x + 32, y + 2));
 }
 
 void TowerButton::drawButton(sf::RenderWindow& window) {

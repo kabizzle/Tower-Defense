@@ -48,6 +48,15 @@ public:
     {TowerType::CoffeeTable, 50}
   };
 
+  inline static const std::map<TowerType, uint32_t> towerRanges = {
+    {TowerType::Freshman, 7}, {TowerType::Teekkari, 7},
+    {TowerType::Bachelor, 8}, {TowerType::Master, 8},
+    {TowerType::Doctor, 9}, {TowerType::Calculator, 5},
+    {TowerType::CoffeeTable, 5}
+  };
+
+  uint32_t GetRange() const;
+
 protected:
   uint32_t m_range;
   std::pair<int32_t, int32_t> m_coords;

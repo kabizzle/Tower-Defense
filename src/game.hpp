@@ -171,6 +171,14 @@ class Game {
   const std::list<SupportTower*>& GetSupportTowers() const;
 
   /**
+   * @brief Get a pointer to Tower in a cell
+   * The function will return nullptr if no tower is at the desired location
+   * @param coords The xy-coordinates where we want
+   * @return const Tower*
+   */
+  const Tower* GetTower(const std::pair<int32_t, int32_t>& coords) const;
+
+  /**
    * @brief Calculates player's score. Total money earned is multiplied by 100
    *        and then divided by the length of the path. When the path is shorter
    *        there is shorter time to defeat enemies so player get more points.

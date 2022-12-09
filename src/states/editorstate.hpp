@@ -41,10 +41,8 @@ class EditorState : public State {
   sf::Text m_validated;
   sf::Text m_unvalidated;
   std::string m_mapPath;
-
   int32_t m_selX,
       m_selY;  // The selected tile on the map, -1, -1 means nothing selected
-
   void PollEvents();
   void Draw();
 };
