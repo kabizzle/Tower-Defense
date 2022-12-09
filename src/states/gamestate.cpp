@@ -64,6 +64,11 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
   m_selectedShape.setFillColor(sf::Color(0, 255, 255, 64));
   m_selectedShape.setOutlineThickness(4);
   m_selectedShape.setOutlineColor(sf::Color::Cyan);
+
+  // Initialize text for health, money and score
+  Priv_InitializeText(m_healthText, 30, 645);
+  Priv_InitializeText(m_moneyText, 300, 645);
+  Priv_InitializeText(m_scoreText, 600, 645);
 }
 
 void GameState::Run() {
@@ -174,6 +179,10 @@ void GameState::PollEvents() {
       }
     }
   }
+  // Update text
+  m_healthText.setString("Health: " + std::to_string(m_gameLogic.GetHealth()));
+  m_moneyText.setString("Money: " + std::to_string(m_gameLogic.GetMoney()));
+  m_scoreText.setString("Score: " + std::to_string(m_gameLogic.GetScore()));
 }
 
 void GameState::Draw() {
@@ -240,7 +249,7 @@ void GameState::Draw() {
       int32_t x2 = to.first * TILE_SIZE, y2 = to.second * TILE_SIZE;
       x = x + m_frameInTick * (x2 - x) / ANIMATION_LENGTH;
       y = y + m_frameInTick * (y2 - y) / ANIMATION_LENGTH;
-      m_projectile.setPosition(x + TILE_SIZE / 2 + PROJECTILE_RADIUS, y + TILE_SIZE / 2 + PROJECTILE_RADIUS);
+      m_projectile.setPosition(x + TILE_SIZE / 2 - PROJECTILE_RADIUS, y + TILE_SIZE / 2 - PROJECTILE_RADIUS);
       m_window.draw(m_projectile);
     }
 
@@ -289,4 +298,15 @@ void GameState::Priv_DrawBCG() {
   for (const auto& s : m_mapTileSprites) {
     m_window.draw(s);
   }
+  // Draw health, money and score
+  m_window.draw(m_healthText);
+  m_window.draw(m_moneyText);
+  m_window.draw(m_scoreText);
+}
+
+void GameState::Priv_InitializeText(sf::Text& text, int32_t x, int32_t y) {
+  text.setFont(m_gui.GetFont());
+  text.setColor(sf::Color::White);
+  text.setCharacterSize(24);
+  text.setPosition(x, y);
 }
