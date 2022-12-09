@@ -66,9 +66,10 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
   m_selectedShape.setOutlineColor(sf::Color::Cyan);
 
   // Initialize text for health, money and score
-  Priv_InitializeText(m_healthText, 30, 645);
-  Priv_InitializeText(m_moneyText, 300, 645);
-  Priv_InitializeText(m_scoreText, 600, 645);
+  Priv_InitializeText(m_healthText, 30, 624);
+  Priv_InitializeText(m_moneyText, 30, 672);
+  Priv_InitializeText(m_scoreText, 600, 624);
+  Priv_InitializeText(m_roundNumText, 600, 672);
 }
 
 void GameState::Run() {
@@ -183,6 +184,7 @@ void GameState::PollEvents() {
   m_healthText.setString("Health: " + std::to_string(m_gameLogic.GetHealth()));
   m_moneyText.setString("Money: " + std::to_string(m_gameLogic.GetMoney()));
   m_scoreText.setString("Score: " + std::to_string(m_gameLogic.GetScore()));
+  m_roundNumText.setString("Round: " + std::to_string(m_roundNum));
 }
 
 void GameState::Draw() {
@@ -304,6 +306,7 @@ void GameState::Priv_DrawBCG() {
   m_window.draw(m_healthText);
   m_window.draw(m_moneyText);
   m_window.draw(m_scoreText);
+  m_window.draw(m_roundNumText);
 }
 
 void GameState::Priv_InitializeText(sf::Text& text, int32_t x, int32_t y) {
