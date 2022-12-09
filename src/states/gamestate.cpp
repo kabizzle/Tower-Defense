@@ -234,8 +234,15 @@ void GameState::Draw() {
       m_window.draw(st->GetSprite());
     }
 
-    // Draw attacks? A sprite for these?
-    // m_gameLogic.GetAttacks() (WIP)
+    // Draw attacks
+    for(const auto& [from, to]: m_gameLogic.GetAttacks()){
+      int32_t x = from.first * TILE_SIZE, y = from.second * TILE_SIZE;
+      int32_t x2 = to.first * TILE_SIZE, y2 = to.second * TILE_SIZE;
+      x = x + m_frameInTick * (x2 - x) / ANIMATION_LENGTH;
+      y = y + m_frameInTick * (y2 - y) / ANIMATION_LENGTH;
+      m_projectile.setPosition(x + TILE_SIZE / 2 + PROJECTILE_RADIUS, y + TILE_SIZE / 2 + PROJECTILE_RADIUS);
+      m_window.draw(m_projectile);
+    }
 
     // Enemies
     auto& enemyVec = m_gameLogic.GetEnemies();
