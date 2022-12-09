@@ -38,6 +38,8 @@ class EditorState : public State {
   std::vector<sf::Sprite> m_mapTileSprites;
   std::map<int, Button*> m_buttons;
   sf::RectangleShape m_selectedShape;
+  sf::Text m_validated;
+  sf::Text m_unvalidated;
   std::string m_mapPath;
 
   int32_t m_selX,

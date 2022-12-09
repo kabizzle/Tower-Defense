@@ -16,7 +16,7 @@ EditorState::EditorState(GUI& gui, sf::RenderWindow& window,
   m_buttons[1] = m_gui.createButton("Path tile", 915, 255);
   m_buttons[2] = m_gui.createButton("Path ending tile", 915, 295);
   m_buttons[3] = m_gui.createButton("Clear tile", 915, 335);
-  m_buttons[4] = m_gui.createButton("Save and return to menu", 915, 620);
+  m_buttons[4] = m_gui.createButton("Save and return", 915, 620);
   m_buttons[5] = m_gui.createButton("Cancel changes", 915, 670);
 
   // Initialize the selected tile square shape
@@ -24,6 +24,18 @@ EditorState::EditorState(GUI& gui, sf::RenderWindow& window,
   m_selectedShape.setFillColor(sf::Color(0, 255, 255, 64));
   m_selectedShape.setOutlineThickness(4);
   m_selectedShape.setOutlineColor(sf::Color::Cyan);
+
+  m_validated.setFont(m_gui.GetFont());
+  m_validated.setFillColor(sf::Color::Green);
+  m_validated.setString("Map is Valid");
+  m_validated.setCharacterSize(24);
+  m_validated.setPosition(30, 648);
+
+  m_unvalidated.setFont(m_gui.GetFont());
+  m_unvalidated.setFillColor(sf::Color::Red);
+  m_unvalidated.setString("Map is faulty");
+  m_unvalidated.setCharacterSize(24);
+  m_unvalidated.setPosition(30, 648);
 }
 
 void EditorState::PollEvents() {
@@ -144,6 +156,12 @@ void EditorState::Draw() {
   // Draw the buttons
   for (auto b : m_buttons) {
     b.second->drawButton(m_window);
+  }
+  // Draw the syntax status of the map (Correct / Faulty)
+  if (m_editor.Validate()) {
+    m_window.draw(m_validated);
+  } else {
+    m_window.draw(m_unvalidated);
   }
 
   m_window.display();

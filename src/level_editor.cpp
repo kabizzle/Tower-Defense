@@ -18,9 +18,9 @@ bool LevelEditor::Edit(std::pair<int, int> coordinate, tileType tile) {
 bool LevelEditor::Save() {
   bool validate = false;
   try {
-    validate = m_map.ValidateMap() && m_map.BuildPath();
+    validate = (m_map.ValidateMap() && m_map.BuildPath());
   } catch (std::exception& e) {
-    throw e;
+    std::cout << e.what() << std::endl;
     validate = false;
   }
 
@@ -72,3 +72,14 @@ bool LevelEditor::Save() {
 }
 
 const Map& LevelEditor::GetMap() const { return m_map; }
+
+bool LevelEditor::Validate() {
+  bool result = false;
+  try {
+    result = m_map.ValidateMap() && m_map.BuildPath();
+  } catch (std::exception& e) {
+    std::cout << e.what() << std::endl;
+    result = false;
+  }
+  return result;
+}

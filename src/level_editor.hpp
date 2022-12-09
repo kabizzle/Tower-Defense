@@ -12,6 +12,8 @@ class LevelEditor {
 
   const Map& GetMap() const;
 
+  bool Validate();
+
  private:
   Map m_map;
   int m_width;
