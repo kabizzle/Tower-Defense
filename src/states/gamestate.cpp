@@ -85,6 +85,11 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
   Priv_InitializeText(m_healthText, 30, 672);
   Priv_InitializeText(m_moneyText, 400, 624);
   Priv_InitializeText(m_scoreText, 400, 672);
+
+  // Initialize circle for drawing range
+  m_rangeCircle.setFillColor(sf::Color::Transparent);
+  m_rangeCircle.setOutlineThickness(4);
+  m_rangeCircle.setOutlineColor(sf::Color::Black);
 }
 
 void GameState::Run() {
@@ -176,6 +181,24 @@ void GameState::PollEvents() {
           }
         }
       }
+      // Check if the range circle has to be drawn
+      if (m_event.type == sf::Event::MouseMoved) {
+        // Reset to false
+        m_drawRange = false;
+        // Check if tower could be built to selected tile
+        if (m_gameLogic.IsActionPossible(std::make_pair(m_selX, m_selY), Action::BuyFreshman)) {
+          for (uint32_t action = 0; action <= 6; action++) {
+            // Check if mouse is hovering at TowerButton
+            if (m_buttons[action]->getGlobalBounds().contains(m_event.mouseMove.x, m_event.mouseMove.y)) {
+              m_drawRange = true;
+              uint32_t range = 30 * Tower::towerRanges.at(static_cast<TowerType>(action));
+              m_rangeCircle.setRadius(range);
+              m_rangeCircle.setOrigin(range, range);
+              m_rangeCircle.setPosition(m_selX * 30 + 15, m_selY * 30 + 15);
+            }
+          }
+        }
+      }
     }
   } else {
     // PollEvents in the Wave phase
@@ -233,9 +256,9 @@ void GameState::PollEvents() {
   }
   // Update text
   m_healthText.setString("Health: " + std::to_string(m_gameLogic.GetHealth()));
-  m_moneyText.setString("Money: " + std::to_string(m_gameLogic.GetMoney()));
+  m_moneyText.setString("Money: " + std::to_string(m_gameLogic.GetMoney()) + " cr");
   m_scoreText.setString("Score: " + std::to_string(m_gameLogic.GetScore()));
-  m_roundNumText.setString("Round: " + std::to_string(m_roundNum));
+  m_roundNumText.setString("Round:  " + std::to_string(m_roundNum));
 }
 
 void GameState::Draw() {
@@ -283,6 +306,9 @@ void GameState::Draw() {
         button->drawButton(m_window);
       }
     }
+
+    // Draw range of tower if needed
+    if (m_drawRange) m_window.draw(m_rangeCircle);
 
   } else {
     // DRAW THE WAVE PHASE:

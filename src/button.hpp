@@ -28,11 +28,12 @@ protected:
 
 class TowerButton : public Button{
 public:
-    TowerButton(TowerType tower, std::string text, int x, int y, sf::Font& font);
+    TowerButton(TowerType tower, int x, int y, sf::Font& font);
     void drawButton(sf::RenderWindow& window);
     void disableButton();
     void enableButton();
 
 private:
     sf::Sprite m_sprite;
+    std::string m_name;
 };

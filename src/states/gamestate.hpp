@@ -38,7 +38,7 @@ class GameState : public State {
  private:
   // Difficulty m_difficulty;        //These are not needed as they can be
   // passed directly to Game const std::string& m_mapFile;
-  bool m_gameOver, m_buildPhase;
+  bool m_gameOver, m_buildPhase, m_drawRange;
   uint32_t m_roundNum, m_gameSpeed;
   int32_t m_frameInTick;
   Game m_gameLogic;
@@ -49,6 +49,7 @@ class GameState : public State {
   sf::Text m_healthText;
   sf::Text m_moneyText;
   sf::Text m_roundNumText;
+  sf::CircleShape m_rangeCircle;
   sf::CircleShape m_projectile;
   int32_t m_selX, m_selY;  // The selected tile on the map, -1, -1 means nothing selected
 

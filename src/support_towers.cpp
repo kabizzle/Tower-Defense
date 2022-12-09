@@ -16,13 +16,13 @@ bool SupportTower::IsUpgradeable(uint32_t money) const { return false; }
 SupportTower* SupportTower::Calculator(const std::pair<int32_t, int32_t>& coords) {
   std::vector<sf::Sprite> sprites;
   sprites.emplace_back(Renderables::getCalculatorSprite());
-  return new BuffTower(5, coords, 0.5f, "calculator", sprites);
+  return new BuffTower(towerRanges.at(TowerType::Calculator), coords, 0.5f, "calculator", sprites);
 }
 
 SupportTower* SupportTower::CoffeeTable(const std::pair<int32_t, int32_t>& coords) {
   std::vector<sf::Sprite> sprites;
   sprites.emplace_back(Renderables::getCoffeeTableSprite());
-  return new HealTower(5, coords, 30, "coffee_table", sprites);
+  return new HealTower(towerRanges.at(TowerType::CoffeeTable), coords, 30, "coffee_table", sprites);
 }
 
 
