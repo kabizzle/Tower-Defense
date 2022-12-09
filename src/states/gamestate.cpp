@@ -267,7 +267,7 @@ void GameState::Draw() {
 
     // Draw the buttons
     for (auto [i, button] : m_buttons) {
-      if(1 < 11) {
+      if(i < 11) {
         button->drawButton(m_window);
       }
     }
