@@ -66,10 +66,10 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
   m_selectedShape.setOutlineColor(sf::Color::Cyan);
 
   // Initialize text for health, money and score
-  Priv_InitializeText(m_healthText, 30, 624);
-  Priv_InitializeText(m_moneyText, 30, 672);
-  Priv_InitializeText(m_scoreText, 600, 624);
-  Priv_InitializeText(m_roundNumText, 600, 672);
+  Priv_InitializeText(m_roundNumText, 30, 624);
+  Priv_InitializeText(m_healthText, 30, 672);
+  Priv_InitializeText(m_moneyText, 400, 624);
+  Priv_InitializeText(m_scoreText, 400, 672);
 }
 
 void GameState::Run() {
