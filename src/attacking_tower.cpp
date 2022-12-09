@@ -28,6 +28,8 @@ void AttackingTower::Attack(std::vector<std::list<Assignment*>>& enemies,
           //Change the look a bit
           m_sprite.setColor(sf::Color(255, 255, 255, 80));
           return;
+        } else if (dmgToGiveOut == 0) {
+          return;
         }
         dmgToGiveOut -= dmgToThisEnemy;
         
