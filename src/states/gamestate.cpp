@@ -297,6 +297,7 @@ void GameState::Draw() {
       // call tower turn
       if (m_gameLogic.TowerTurn()) {
         // Play enemy death sound here
+        Renderables::getAttackSound().play();
       }
       if (m_gameLogic.RoundIsFinished()) {
         m_buildPhase = true;
