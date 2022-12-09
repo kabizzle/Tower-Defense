@@ -4,7 +4,7 @@
 #include "endstate.hpp"
 #include "game.hpp"
 
-#define ANIMATION_LENGTH 10  // 30 frames is 1/2 second
+#define ANIMATION_LENGTH 20  // 30 frames is 1/2 second
 #define TILE_SIZE 30
 #define PROJECTILE_RADIUS 5
 
@@ -14,6 +14,7 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
       m_gameOver(false),
       m_buildPhase(true),
       m_roundNum(0),
+      m_gameSpeed(1),
       m_frameInTick(0),
       m_gameLogic(Game(30, 20, filename, difficulty)),
       m_projectile(sf::CircleShape(PROJECTILE_RADIUS)),
@@ -43,6 +44,7 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
   }
 
   // Initialize the buttons
+  // During build phase 
   m_buttons[Action::BuyFreshman] = m_gui.createTowerButton(TowerType::Freshman, 915, 15);
   m_buttons[Action::BuyTeekkari] = m_gui.createTowerButton(TowerType::Teekkari, 915, 55);
   m_buttons[Action::BuyBachelor] = m_gui.createTowerButton(TowerType::Bachelor, 915, 95);
@@ -55,9 +57,17 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
       m_gui.createButton("Upgrade selected tower", 915, 295);
   m_buttons[Action::DestroyTower] =
       m_gui.createButton("Destroy selected tower", 915, 335);
-  m_buttons[9 /* The next int after last enum */] =
-      m_gui.createButton("Give up", 915, 670);
-  m_buttons[10] = m_gui.createButton("Advance to the next round", 915, 620);
+  m_buttons[9] = m_gui.createButton("Advance to the next round", 915, 620);
+  // During both phases
+  m_buttons[10] = m_gui.createButton("Give up", 915, 670);
+  // During enemy phase
+  m_buttons[11] = m_gui.createButton("Gamespeed 1x", 915, 15);
+  m_buttons[12] = m_gui.createButton("Gamespeed 2x", 915, 55);
+  m_buttons[13] = m_gui.createButton("Gamespeed 5x", 915, 95);
+  m_buttons[14] = m_gui.createButton("Gamespeed 10x", 915, 135);
+  m_buttons[15] = m_gui.createButton("Gamespeed 20x", 915, 175);
+
+  // 1x speed is the default
 
   // Initialize the selected tile square shape
   m_selectedShape = sf::RectangleShape(sf::Vector2f(30, 30));
@@ -66,9 +76,10 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
   m_selectedShape.setOutlineColor(sf::Color::Cyan);
 
   // Initialize text for health, money and score
-  Priv_InitializeText(m_healthText, 30, 645);
-  Priv_InitializeText(m_moneyText, 300, 645);
-  Priv_InitializeText(m_scoreText, 600, 645);
+  Priv_InitializeText(m_roundNumText, 30, 624);
+  Priv_InitializeText(m_healthText, 30, 672);
+  Priv_InitializeText(m_moneyText, 400, 624);
+  Priv_InitializeText(m_scoreText, 400, 672);
 }
 
 void GameState::Run() {
@@ -139,14 +150,17 @@ void GameState::PollEvents() {
                   m_gameLogic.DestroyTower(std::make_pair(m_selX, m_selY));
                   break;
                 case 9:
-                  m_gui.changeState(new EndState(m_gui, m_window, m_gameLogic.GetScore()));
-                  m_buttons[9]->addHighlight();
-                  break;
-                case 10:
                   // Advance to the next wave
                   m_roundNum = m_gameLogic.StartNextRound();
                   m_frameInTick = 0;
                   m_buildPhase = false;
+                  break;
+                case 10:
+                  m_gui.changeState(new EndState(m_gui, m_window, m_gameLogic.GetScore()));
+                  m_buttons[10]->addHighlight();
+                  break;
+                default:
+                  //For to skip over some buttons only visible during enemy phase
                   break;
               }
             }
@@ -164,14 +178,42 @@ void GameState::PollEvents() {
           sf::Vector2f mouse =
               m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
 
-          for (auto b : m_buttons) {
-            if (!b.second->getGlobalBounds().contains(mouse)) continue;
+          for (auto [i, button] : m_buttons) {
+            if (!button->getGlobalBounds().contains(mouse)) continue;
 
-            switch (b.first) {
-              case 9:
+            switch (i) {
+              case 10:
                 m_gui.changeState(
                     new EndState(m_gui, m_window, m_gameLogic.GetScore()));
                 m_buttons[0]->addHighlight();
+                break;
+              case 11:
+                m_gameSpeed = 1;
+                Priv_ClearSpeedHighlights();
+                button->addHighlight();
+                break;
+              case 12:
+                m_gameSpeed = 2;
+                Priv_ClearSpeedHighlights();
+                button->addHighlight();
+                break;
+              case 13:
+                m_gameSpeed = 5;
+                Priv_ClearSpeedHighlights();
+                button->addHighlight();
+                break;
+              case 14:
+                m_gameSpeed = 10;
+                Priv_ClearSpeedHighlights();
+                button->addHighlight();
+                break;
+              case 15:
+                m_gameSpeed = 20;
+                Priv_ClearSpeedHighlights();
+                button->addHighlight();
+                break;
+              default:
+                //For those buttons which don't matter in this phase
                 break;
             }
           }
@@ -183,10 +225,24 @@ void GameState::PollEvents() {
   m_healthText.setString("Health: " + std::to_string(m_gameLogic.GetHealth()));
   m_moneyText.setString("Money: " + std::to_string(m_gameLogic.GetMoney()));
   m_scoreText.setString("Score: " + std::to_string(m_gameLogic.GetScore()));
+  m_roundNumText.setString("Round: " + std::to_string(m_roundNum));
 }
 
 void GameState::Draw() {
   m_window.clear();
+
+  //Check which buttons must be enabled
+  for(auto [i, button]: m_buttons) {
+    //Only the ones where i < 8 need the checks to see if the buttons should be grayed out
+    if(i < 9) {
+      if(m_gameLogic.IsActionPossible({m_selX, m_selY}, static_cast<Action>(i))){
+        button->enableButton();
+      } else {
+        button->disableButton();
+      }
+    }
+  }
+
   // Draw the background and shared information between the phases
   Priv_DrawBCG();
 
@@ -210,8 +266,10 @@ void GameState::Draw() {
     }
 
     // Draw the buttons
-    for (auto b : m_buttons) {
-      b.second->drawButton(m_window);
+    for (auto [i, button] : m_buttons) {
+      if(1 < 11) {
+        button->drawButton(m_window);
+      }
     }
 
   } else {
@@ -230,12 +288,19 @@ void GameState::Draw() {
       }
       if (m_gameLogic.RoundIsFinished()) {
         m_buildPhase = true;
+        m_gameSpeed = 1;
+        Priv_ClearSpeedHighlights();
+        m_buttons[11]->addHighlight();
         return;
       }
     }
 
-    // Quit button
-    m_buttons[9]->drawButton(m_window);
+    // Buttons
+    for(auto [i, button]: m_buttons) {
+      if(i >= 10) {
+        button->drawButton(m_window);
+      }
+    }
 
     // Towers
     for (auto* at : m_gameLogic.GetAttackingTowers()) {
@@ -287,7 +352,7 @@ void GameState::Draw() {
       }
     }
     // Increment / reset the frame counter
-    m_frameInTick = (m_frameInTick >= ANIMATION_LENGTH) ? 0 : m_frameInTick + 1;
+    m_frameInTick = (m_frameInTick >= ANIMATION_LENGTH) ? 0 : m_frameInTick + m_gameSpeed;
   }
 
   // Display (shared)
@@ -304,6 +369,7 @@ void GameState::Priv_DrawBCG() {
   m_window.draw(m_healthText);
   m_window.draw(m_moneyText);
   m_window.draw(m_scoreText);
+  m_window.draw(m_roundNumText);
 }
 
 void GameState::Priv_InitializeText(sf::Text& text, int32_t x, int32_t y) {
@@ -311,4 +377,12 @@ void GameState::Priv_InitializeText(sf::Text& text, int32_t x, int32_t y) {
   text.setColor(sf::Color::White);
   text.setCharacterSize(24);
   text.setPosition(x, y);
+}
+
+void GameState::Priv_ClearSpeedHighlights() {
+  for(auto [i, button]: m_buttons) {
+    if(i > 10) {
+      button->removeHighlight();
+    }
+  }
 }
