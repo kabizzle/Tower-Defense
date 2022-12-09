@@ -279,7 +279,7 @@ void GameState::Draw() {
                                        static_cast<Action>(i))) {
         if (i == Action::UpgradeTower){
           const AttackingTower* tower = static_cast<const AttackingTower*>(m_gameLogic.GetTower({m_selX, m_selY}));
-          m_buttons[Action::UpgradeTower]->changeText("Upgrade tower ( " + std::to_string(tower->GetUpgradeCost()) + ")");
+          m_buttons[Action::UpgradeTower]->changeText("Upgrade tower" + std::to_string(tower->GetUpgradeCost()) + "cr");
         }
         button->enableButton();
       } else {
