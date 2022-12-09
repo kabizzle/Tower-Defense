@@ -45,6 +45,9 @@ class GameState : public State {
   std::vector<sf::Sprite> m_mapTileSprites;
   std::map<int, Button*> m_buttons;
   sf::RectangleShape m_selectedShape;
+  sf::Text m_scoreText;
+  sf::Text m_healthText;
+  sf::Text m_moneyText;
   sf::CircleShape m_projectile;
 
   // For the build phase
@@ -61,4 +64,6 @@ class GameState : public State {
    * Assumes that the window has been properly cleared
    */
   void Priv_DrawBCG();
+
+  void Priv_InitializeText(sf::Text& text, int32_t x, int32_t y);
 };
