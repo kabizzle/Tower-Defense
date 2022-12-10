@@ -120,7 +120,6 @@ void GameState::Priv_PollEvents() {
 
       if (this->m_event.type == sf::Event::MouseButtonPressed) {
         if (this->m_event.mouseButton.button == sf::Mouse::Left) {
-          std::cout << "the left button was pressed" << std::endl;
           sf::Vector2f mouse =
               m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
           // Check if the mouse press was inside the map area
@@ -232,7 +231,6 @@ void GameState::Priv_PollEvents() {
       if (m_event.type == sf::Event::Closed) m_window.close();
       if (this->m_event.type == sf::Event::MouseButtonPressed) {
         if (this->m_event.mouseButton.button == sf::Mouse::Left) {
-          std::cout << "the left button was pressed" << std::endl;
           sf::Vector2f mouse =
               m_window.mapPixelToCoords(sf::Mouse::getPosition(m_window));
 
@@ -316,11 +314,31 @@ void GameState::Priv_Draw() {
   }
 
   // Draw the background and shared information between the phases
-  Priv_DrawBCG();
+  Priv_DrawMap();
 
   // Draw the rest depending on the phase the game is on.
   if (m_buildPhase) {
     // DRAW THE BUILD PHASE:
+
+    // Check if the selected tile contains tower
+    const Tower* t = m_gameLogic.GetTower(std::make_pair(m_selX, m_selY));
+    if (t) {
+      m_drawRange = true;
+      Priv_ChangeCircle(m_rangeCircle, TILE_SIZE * t->GetRange());
+      if (m_drawUpgradeRange)
+        Priv_ChangeCircle(m_upgradeRange, TILE_SIZE * (t->GetRange() + 2));
+    }
+
+    // Draw range of tower if needed
+    if (m_drawRange) m_window.draw(m_rangeCircle);
+
+    // Draw upgrade range if needed
+    if (m_drawUpgradeRange) {
+      m_window.draw(m_upgradeRange);
+    }
+
+    // Draw background and text
+    Priv_DrawBCG();
 
     // Draw the towers
     for (auto* at : m_gameLogic.GetAttackingTowers()) {
@@ -344,26 +362,12 @@ void GameState::Priv_Draw() {
       }
     }
 
-    // Check if the selected tile contains tower
-    const Tower* t = m_gameLogic.GetTower(std::make_pair(m_selX, m_selY));
-    if (t) {
-      m_drawRange = true;
-      Priv_ChangeCircle(m_rangeCircle, TILE_SIZE * t->GetRange());
-      if (m_drawUpgradeRange)
-        Priv_ChangeCircle(m_upgradeRange, TILE_SIZE * (t->GetRange() + 2));
-    }
-
-    // Draw range of tower if needed
-    if (m_drawRange) m_window.draw(m_rangeCircle);
-
-    // Draw upgrade range if needed
-    if (m_drawUpgradeRange) {
-      std::cout << "upgrade" << std::endl;
-      m_window.draw(m_upgradeRange);
-    }
 
   } else {
     // DRAW THE WAVE PHASE:
+
+    // Draw background and text
+    Priv_DrawBCG();
 
     // The game logic is advanced only once per second
     if (m_frameInTick == 0) {
@@ -455,14 +459,17 @@ void GameState::Priv_Draw() {
 void GameState::Priv_DrawBCG() {
   const auto& bcg = Renderables::getBackgroundSprite();
   m_window.draw(bcg);
-  for (const auto& s : m_mapTileSprites) {
-    m_window.draw(s);
-  }
   // Draw health, money and score
   m_window.draw(m_healthText);
   m_window.draw(m_moneyText);
   m_window.draw(m_scoreText);
   m_window.draw(m_roundNumText);
+}
+
+void GameState::Priv_DrawMap() {
+  for (const auto& s : m_mapTileSprites) {
+    m_window.draw(s);
+  }
 }
 
 void GameState::Priv_InitializeText(sf::Text& text, int32_t x, int32_t y) {

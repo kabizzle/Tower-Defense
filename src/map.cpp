@@ -48,8 +48,6 @@ bool Map::InitializeMap(const std::string& filename) {
     }
   }
   m_grid.erase(std::make_pair(30, 19));
-  std::cout << "Map loading complete, next validating and building the path."
-            << std::endl;
 
   return ValidateMap() && BuildPath();
 }

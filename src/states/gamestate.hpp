@@ -63,10 +63,17 @@ class GameState : public State {
   void Priv_Draw();
 
   /**
-   * @brief Draws the background and map to the window
+   * @brief Draws the background to the window
    * Assumes that the window has been properly cleared
    */
   void Priv_DrawBCG();
+
+  /**
+   * @brief Draws the map to the window. Assumes
+   * that the window has been properly cleared.
+   */
+  void Priv_DrawMap();
+
 
   /**
    * @brief Initializes some text at set location
