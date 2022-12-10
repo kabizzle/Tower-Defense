@@ -103,8 +103,8 @@ GameState::~GameState() {
 }
 
 void GameState::Run() {
-  this->PollEvents();
-  this->Draw();
+  this->Priv_PollEvents();
+  this->Priv_Draw();
   // If the game is over, we change the state to endstate
   if (m_gameOver) {
     m_gui.ChangeState(new EndState(m_gui, m_window, m_gameLogic.GetScore(),
@@ -112,7 +112,7 @@ void GameState::Run() {
   }
 }
 
-void GameState::PollEvents() {
+void GameState::Priv_PollEvents() {
   if (m_buildPhase) {
     // PollEvents in the Build phase
     while (m_window.pollEvent(m_event)) {
@@ -288,7 +288,7 @@ void GameState::PollEvents() {
   m_roundNumText.setString("Round:  " + std::to_string(m_roundNum));
 }
 
-void GameState::Draw() {
+void GameState::Priv_Draw() {
   m_window.clear();
 
   // Check which buttons must be enabled
@@ -308,8 +308,6 @@ void GameState::Draw() {
         button->enableButton();
       } else {
         if (i == Action::UpgradeTower) {
-          //const AttackingTower* tower = static_cast<const AttackingTower*>(
-          //    m_gameLogic.GetTower({m_selX, m_selY}));
           m_buttons[Action::UpgradeTower]->changeText("Upgrade tower");
         }
         button->disableButton();

@@ -7,19 +7,22 @@
 #include "../map.hpp"
 #include "state.hpp"
 
+/**
+ * @brief A state run by GUI corresponding to the main menu state
+ */
 class MenuState : public State {
  public:
   /**
    * @brief Construct a new Menu State object
    *
-   * @param gui
-   * @param window
+   * @param gui A ref to the GUI
+   * @param window A ref to the window
    */
   MenuState(GUI& gui, sf::RenderWindow& window);
 
   /**
    * @brief Destroy the Menu State object
-   *
+   * Frees the buttons
    */
   ~MenuState();
 
@@ -42,6 +45,8 @@ class MenuState : public State {
   std::map<int, Button*> m_buttons;
   std::vector<sf::Text> m_texts;
   bool m_editing;
+
+  
   void PollEvents();
 
   void Draw();

@@ -54,7 +54,7 @@ EditorState::EditorState(GUI& gui, sf::RenderWindow& window,
   m_instructions.setPosition(915, 175);
 }
 
-void EditorState::PollEvents() {
+void EditorState::Priv_PollEvents() {
   while (m_window.pollEvent(m_event)) {
     if (m_event.type == sf::Event::Closed) m_window.close();
 
@@ -168,7 +168,7 @@ void EditorState::PollEvents() {
   }
 }
 
-void EditorState::Draw() {
+void EditorState::Priv_Draw() {
   m_window.clear();
 
   // Initialize the map tiles
@@ -226,8 +226,8 @@ void EditorState::Draw() {
 }
 
 void EditorState::Run() {
-  this->PollEvents();
-  this->Draw();
+  this->Priv_PollEvents();
+  this->Priv_Draw();
 }
 
 EditorState::~EditorState() {

@@ -7,20 +7,24 @@
 #include "../highscores.hpp"
 #include "state.hpp"
 
+/**
+ * @brief A gamestate run by GUI corresponding to the game over screen
+ */
 class EndState : public State {
  public:
   /**
    * @brief Construct a new End State object
    *
-   * @param gui
-   * @param window
-   * @param score
+   * @param gui A ref to the GUI
+   * @param window A ref to the window to draw on
+   * @param score The score that was achieved in game
+   * @param difficulty The difficulty that the game was played on
    */
   EndState(GUI& gui, sf::RenderWindow& window, uint32_t score, Difficulty difficulty);
 
   /**
    * @brief Destroy the End State object
-   *
+   * Frees the buttons
    */
   ~EndState();
 
@@ -48,6 +52,13 @@ class EndState : public State {
 
   sf::Font m_font;
 
+  /**
+   * @brief Polls the events that have happened in GUI
+   */
   void Priv_PollEvents();
+
+  /**
+   * @brief Draws the frame to the screen
+   */
   void Priv_Draw();
 };
