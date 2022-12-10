@@ -150,9 +150,9 @@ bool Game::IsActionPossible(const std::pair<int32_t, int32_t>& coords,
     return false;
   }
 
-  tileType tile = m_map.GetPos(coords);
+  TileType tile = m_map.GetPos(coords);
   // Actions are only possible on towerTiles
-  if (tile != tileType::towerTile) {
+  if (tile != TileType::towerTile) {
     return false;
   }
   // Check if there is a tower at the location

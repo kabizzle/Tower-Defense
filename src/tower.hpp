@@ -31,7 +31,12 @@ enum TowerType {
 class Tower : public Renderable {
  public:
   /**
+   * @brief Virtual destructor
+   */
+  virtual ~Tower() { }
+  /**
    * @brief Get the coordinates of the tower
+   * @return const std::pair<int32_t, int32_t>&
    */
   const std::pair<int32_t, int32_t>& GetCoords() const;
 
@@ -91,20 +96,15 @@ class Tower : public Renderable {
   std::vector<sf::Sprite>
       m_allSprites;  //< Stores all the sprites of the tower, one for each level
 
-  // Private functions
   /**
    * @brief Plain towers are not meant to be constructed, only the subclassess
    * are
    * @param range The basic range, all towers have this
    * @param coords The coordinates of the tower
-   * @param imageName The name of the image representing this particular tower,
-   * also the name of the tower type
+   * @param name The name of the tower
+   * @param sprites Sprites for the different levels of the tower
    */
   Tower(uint32_t range, const std::pair<int32_t, int32_t>& coords,
-        const std::string& imageName, const std::vector<sf::Sprite>& sprites);
+        const std::string& name, const std::vector<sf::Sprite>& sprites);
 
-  /**
-   * @brief Virtual destructor
-   */
-  virtual ~Tower() {}
 };

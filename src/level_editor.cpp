@@ -5,15 +5,15 @@
 
 #define PRINT_EDITOR_ERRORS false
 
-LevelEditor::LevelEditor(int width, int height, std::string& mapPath)
-    : m_width(width),
+LevelEditor::LevelEditor(int32_t width, int32_t height, std::string& mapPath)
+    : m_map(Map(width, height)),
+      m_width(width),
       m_height(height),
-      m_map(Map(width, height)),
       m_mapPath(mapPath) {
   m_map.InitializeMap(m_mapPath);
 }
 
-bool LevelEditor::Edit(std::pair<int, int> coordinate, tileType tile) {
+bool LevelEditor::Edit(std::pair<int32_t, int32_t> coordinate, TileType tile) {
   return m_map.Edit(coordinate, tile);
 }
 
@@ -35,26 +35,26 @@ bool LevelEditor::Save() {
     throw std::invalid_argument("File selecting failed.");
   }
 
-  int tile;
+  int32_t tile;
 
-  for (int y = 0; y < m_height; y++) {
-    for (int x = 0; x < m_width; x++) {
+  for (int32_t y = 0; y < m_height; y++) {
+    for (int32_t x = 0; x < m_width; x++) {
       tile = m_map.GetPos(std::make_pair(x, y));
 
       switch (tile) {
-        case tileType::towerTile:
+        case TileType::towerTile:
           os << '_' << std::flush;
           break;
 
-        case tileType::startTile:
+        case TileType::startTile:
           os << 'S' << std::flush;
           break;
 
-        case tileType::pathTile:
+        case TileType::pathTile:
           os << 'X' << std::flush;
           break;
 
-        case tileType::endTile:
+        case TileType::endTile:
           os << 'E' << std::flush;
           break;
 

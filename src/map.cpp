@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+Map::Map(int32_t width, int32_t height) : m_width(width), m_height(height) { }
+
 bool Map::InitializeMap(const std::string& filename) {
   std::ifstream is(filename);
   if (is.rdstate() && (is.failbit | is.badbit)) {
@@ -19,20 +21,20 @@ bool Map::InitializeMap(const std::string& filename) {
 
       switch (c) {
         case '_':
-          m_grid[std::make_pair(x, y)] = tileType::towerTile;
+          m_grid[std::make_pair(x, y)] = TileType::towerTile;
           break;
 
         case 'S':
-          m_grid[std::make_pair(x, y)] = tileType::startTile;
+          m_grid[std::make_pair(x, y)] = TileType::startTile;
           m_start = std::make_pair(x, y);
           break;
 
         case 'X':
-          m_grid[std::make_pair(x, y)] = tileType::pathTile;
+          m_grid[std::make_pair(x, y)] = TileType::pathTile;
           break;
 
         case 'E':
-          m_grid[std::make_pair(x, y)] = tileType::endTile;
+          m_grid[std::make_pair(x, y)] = TileType::endTile;
           m_end = std::make_pair(x, y);
           break;
 
@@ -71,13 +73,13 @@ std::vector<std::pair<int, int>> Map::GetNeighbors(int x, int y) {
   return neighbors;
 }
 
-bool Map::TestTilePos(std::pair<int, int> coordinate, tileType tile) {
+bool Map::TestTilePos(std::pair<int, int> coordinate, TileType tile) {
   std::vector<std::pair<int, int>> neighbors =
       GetNeighbors(coordinate.first, coordinate.second);
   int count = 0;
 
   switch (tile) {
-    case tileType::startTile:
+    case TileType::startTile:
       if (coordinate.first != 0) {
         throw std::invalid_argument(
             "Start tile is not in the leftmost column.");
@@ -85,19 +87,19 @@ bool Map::TestTilePos(std::pair<int, int> coordinate, tileType tile) {
       }
       return true;
 
-    case tileType::endTile:
+    case TileType::endTile:
       if (coordinate.second != (m_width - 1)) {
         throw std::invalid_argument("End tile is not in the rightmost column.");
         return false;
       }
       return true;
 
-    case tileType::towerTile:
+    case TileType::towerTile:
       return true;
 
-    case tileType::pathTile:
+    case TileType::pathTile:
       for (auto iter = neighbors.begin(); iter != neighbors.end(); iter++) {
-        if (m_grid[*iter] == tileType::towerTile) {
+        if (m_grid[*iter] == TileType::towerTile) {
           count++;
         }
       }
@@ -119,7 +121,7 @@ bool Map::ValidateMap() {
   int endFlag = 0;
   m_start = std::make_pair(-1, -1);
   m_end = std::make_pair(-1, -1);
-  if (m_grid.size() != (m_height * m_width)) {
+  if (static_cast<int32_t>(m_grid.size()) != (m_height * m_width)) {
     throw std::invalid_argument("Loaded map is wrong size.");
   }
 
@@ -130,7 +132,7 @@ bool Map::ValidateMap() {
       int count = 0;
 
       switch (tile) {
-        case tileType::startTile:
+        case TileType::startTile:
           if (startFlag != 0) {
             throw std::invalid_argument("Loaded map has multiple start tiles.");
             return false;
@@ -143,7 +145,7 @@ bool Map::ValidateMap() {
           m_start = std::make_pair(x, y);
           break;
 
-        case tileType::endTile:
+        case TileType::endTile:
           if (endFlag != 0) {
             throw std::invalid_argument("Loaded map has multiple end tiles.");
           } else if (x != (m_width - 1)) {
@@ -155,12 +157,12 @@ bool Map::ValidateMap() {
           m_end = std::make_pair(x, y);
           break;
 
-        case tileType::towerTile:
+        case TileType::towerTile:
           break;
 
-        case tileType::pathTile:
+        case TileType::pathTile:
           for (auto iter = neighbors.begin(); iter != neighbors.end(); iter++) {
-            if (m_grid[*iter] == tileType::towerTile) {
+            if (m_grid[*iter] == TileType::towerTile) {
               count++;
             }
           }
@@ -207,7 +209,7 @@ intact:;
     std::vector<std::pair<int, int>> neighbors =
         GetNeighbors(position.first, position.second);
     for (auto iter = neighbors.begin(); iter != neighbors.end(); iter++) {
-      if (m_grid[*iter] != tileType::towerTile && *iter != previous_position) {
+      if (m_grid[*iter] != TileType::towerTile && *iter != previous_position) {
         previous_position = position;
         position = *iter;
         m_path.push_back(*iter);
@@ -229,15 +231,15 @@ const std::pair<int, int> Map::GetStart() const { return m_start; }
 
 const std::pair<int, int> Map::GetEnd() const { return m_end; }
 
-tileType Map::GetPos(std::pair<int, int> coordinate) const {
+TileType Map::GetPos(std::pair<int, int> coordinate) const {
   return m_grid.at(coordinate);
 }
 
-const std::map<std::pair<int, int>, tileType>& Map::GetGrid() const {
+const std::map<std::pair<int, int>, TileType>& Map::GetGrid() const {
   return m_grid;
 }
 
-bool Map::Edit(std::pair<int, int> coordinate, tileType tile) {
+bool Map::Edit(std::pair<int, int> coordinate, TileType tile) {
   if (coordinate.first >= m_width || coordinate.first < 0 ||
       coordinate.second >= m_height || coordinate.second < 0) {
     return false;

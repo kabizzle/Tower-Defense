@@ -12,7 +12,7 @@ Highscores::Highscores(const std::string& filename)
 
 std::vector<std::string> Highscores::GetTop10() {
   std::vector<std::string> top10;
-  for (int i = 0; i < std::min((int)m_highscores.size(), 10); i++) {
+  for (int32_t i = 0; i < std::min(static_cast<int32_t>(m_highscores.size()), 10); i++) {
     std::stringstream line;
     line << std::to_string(i + 1) << ". ";
     line << std::get<0>(m_highscores[i]) << ": ";

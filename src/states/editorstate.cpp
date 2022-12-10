@@ -75,7 +75,7 @@ void EditorState::PollEvents() {
             case 0:
               try {
                 m_editor.Edit(std::make_pair(m_selX, m_selY),
-                              tileType::towerTile);
+                              TileType::towerTile);
               } catch (std::exception& e) {
                 std::cout << e.what() << std::endl;
               }
@@ -83,7 +83,7 @@ void EditorState::PollEvents() {
             case 1:
               try {
                 m_editor.Edit(std::make_pair(m_selX, m_selY),
-                              tileType::pathTile);
+                              TileType::pathTile);
               } catch (std::exception& e) {
                 std::cout << e.what() << std::endl;
               }
@@ -91,7 +91,7 @@ void EditorState::PollEvents() {
             case 2:
               try {
                 m_editor.Edit(std::make_pair(m_selX, m_selY),
-                              tileType::startTile);
+                              TileType::startTile);
               } catch (std::exception& e) {
                 std::cout << e.what() << std::endl;
               }
@@ -99,7 +99,7 @@ void EditorState::PollEvents() {
             case 3:
               try {
                 m_editor.Edit(std::make_pair(m_selX, m_selY),
-                              tileType::endTile);
+                              TileType::endTile);
               } catch (std::exception& e) {
                 std::cout << e.what() << std::endl;
               }

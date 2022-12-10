@@ -293,7 +293,7 @@ void GameState::Draw() {
 
   // Check which buttons must be enabled
   for (auto [i, button] : m_buttons) {
-    // Only the ones where i < 8 need the checks to see if the buttons should be
+    // Only the ones where i < 9 need the checks to see if the buttons should be
     // grayed out
     if (i < 9) {
       if (m_gameLogic.IsActionPossible({m_selX, m_selY},
@@ -307,8 +307,8 @@ void GameState::Draw() {
         button->enableButton();
       } else {
         if (i == Action::UpgradeTower) {
-          const AttackingTower* tower = static_cast<const AttackingTower*>(
-              m_gameLogic.GetTower({m_selX, m_selY}));
+          //const AttackingTower* tower = static_cast<const AttackingTower*>(
+          //    m_gameLogic.GetTower({m_selX, m_selY}));
           m_buttons[Action::UpgradeTower]->changeText("Upgrade tower");
         }
         button->disableButton();

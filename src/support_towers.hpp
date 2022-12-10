@@ -4,15 +4,26 @@
 
 /**
  * @brief A virtual base class for the supporting towers
- * 
+ * Cannot be directly instanciated
  */
 class SupportTower : public Tower
 {
 protected:
+  /**
+   * @brief Construct a new Support Tower object
+   * 
+   * @param range The range of the tower
+   * @param coords The coordinates of the tower
+   * @param name The name of this tower
+   * @param sprites Support towers cannot be upgraded, so the collection only has one sprite for them
+   */
   SupportTower(uint32_t range, const std::pair<int32_t, int32_t>& coords,
-               const std::string& imageName, const std::vector<sf::Sprite>& sprites);
+               const std::string& name, const std::vector<sf::Sprite>& sprites);
 
 public:
+  /**
+   * @brief Virtual destructor
+   */
   virtual ~SupportTower() { }
 
   /**
@@ -30,34 +41,47 @@ public:
 
   /**
    * @brief Overload to stream output operator
-   * @return std::ostream& 
    */
   friend std::ostream& operator<<(std::ostream& os, const SupportTower& st);
 
   //static functions to create support towers
+  /**
+   * @brief Creates a BuffTower called calculator
+   * @param coords Where to create the tower
+   * @return SupportTower*
+   */
   static SupportTower* Calculator(const std::pair<int32_t, int32_t>& coords);
+
+  /**
+   * @brief Creates a HealTower called coffee_table
+   * @param coords Where to create the tower
+   * @return SupportTower* 
+   */
   static SupportTower* CoffeeTable(const std::pair<int32_t, int32_t>& coords);
 
 };
 
 /**
  * @brief A tower which buffs attacking towers making the do more damage
- * 
  */
 class BuffTower : public SupportTower
 {
 public:
   /**
    * @brief Construct a new Buff Tower object
-   * 
    * @param range The basic range
    * @param coords The coordinates of the tower
    * @param buffStrength The amount of buff the tower gives, for example 20% buff is 0.2f
-   * @param imageName The name of the image representing this particular tower, also the name of the tower type
+   * @param name The name of the tower
+   * @param sprites Support towers cannot be upgraded, so the collection only has one sprite for them
    */
   BuffTower(uint32_t range, const std::pair<int32_t, int32_t>& coords, float buffStrength,
-            const std::string& imageName, const std::vector<sf::Sprite>& sprites);
+            const std::string& name, const std::vector<sf::Sprite>& sprites);
   
+  /**
+   * @brief Default destructor
+   */
+  ~BuffTower() = default;
 
   /**
    * @brief Goes trough the attacking towers in the game and applies buff to them
@@ -81,11 +105,17 @@ public:
    * @param range The basic range
    * @param coords The coordinates of the tower
    * @param healStrength The amount this tower can heal each tower during each tick
-   * @param imageName The name of the image representing this particular tower, also the name of the tower type
+   * @param name The name of the tower
+   * @param sprites Support towers cannot be upgraded, so the collection only has one sprite for them
    */
   HealTower(uint32_t range, const std::pair<int32_t, int32_t>& coords, uint32_t healStrength,
-            const std::string& imageName, const std::vector<sf::Sprite>& sprites);
-  //~HealTower();
+            const std::string& name, const std::vector<sf::Sprite>& sprites);
+  
+  /**
+   * @brief Default destructor
+   */
+  ~HealTower() = default;
+  
   /**
    * @brief Goes through the attacking towers and heals them if in range and not in full health already
    * 

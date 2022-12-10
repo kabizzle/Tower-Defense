@@ -3,8 +3,8 @@
 #include "renderables.hpp"
 
 SupportTower::SupportTower(uint32_t range, const std::pair<int32_t, int32_t>& coords,
-                           const std::string& imageName, const std::vector<sf::Sprite>& sprites)
-  : Tower(range, coords, imageName, sprites) { }
+                           const std::string& name, const std::vector<sf::Sprite>& sprites)
+  : Tower(range, coords, name, sprites) { }
 
 std::ostream& operator<<(std::ostream& os, const SupportTower& st) {
   os << "Support tower: " << st.EntityName()  << " in (" << st.m_coords.first << "," << st.m_coords.second << ")" << std::endl;
@@ -30,8 +30,8 @@ SupportTower* SupportTower::CoffeeTable(const std::pair<int32_t, int32_t>& coord
 
 
 BuffTower::BuffTower(uint32_t range, const std::pair<int32_t, int32_t>& coords, float buffStrength,
-                     const std::string& imageName, const std::vector<sf::Sprite>& sprites)
-  : SupportTower(range, coords, imageName, sprites), m_buffStrength(buffStrength) { }
+                     const std::string& name, const std::vector<sf::Sprite>& sprites)
+  : SupportTower(range, coords, name, sprites), m_buffStrength(buffStrength) { }
 
 void BuffTower::Act(std::list<AttackingTower*>& towers) {
   for(AttackingTower* t : towers){
@@ -45,8 +45,8 @@ void BuffTower::Act(std::list<AttackingTower*>& towers) {
 
 
 HealTower::HealTower(uint32_t range, const std::pair<int32_t, int32_t>& coords, uint32_t healStrength,
-                     const std::string& imageName, const std::vector<sf::Sprite>& sprites)
-  : SupportTower(range, coords, imageName, sprites), m_healStrength(healStrength) { }
+                     const std::string& name, const std::vector<sf::Sprite>& sprites)
+  : SupportTower(range, coords, name, sprites), m_healStrength(healStrength) { }
 
 void HealTower::Act(std::list<AttackingTower*>& towers) {
   for(AttackingTower* t : towers){

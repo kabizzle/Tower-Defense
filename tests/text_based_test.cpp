@@ -31,16 +31,16 @@ int main(void) {
       char c;
       // enum tileType { towerTile, startTile, pathTile, endTile }
       switch (tile) {
-        case tileType::towerTile:
+        case TileType::towerTile:
           c = '#';
           break;
-        case tileType::startTile:
+        case TileType::startTile:
           c = 'S';
           break;
-        case tileType::endTile:
+        case TileType::endTile:
           c = 'F';
           break;
-        case tileType::pathTile:
+        case TileType::pathTile:
           c = ' ';
           break;
         default:

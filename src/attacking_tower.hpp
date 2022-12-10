@@ -14,9 +14,11 @@ public:
    * @param power The amount of damage this tower can do to an enemy
    * @param range The basic range
    * @param health The health of this tower
+   * @param upgCost The cost of upgrading this tower
    * @param coords The coordinates of the tower
    * @param map A reference to the map used for the game, this is needed to know the enemy path and find attackable locations
    * @param name The name of the tower
+   * @param sprites A collection of the sprites of different levels of this tower
    */
   AttackingTower(uint32_t power, uint32_t range, uint32_t health, uint32_t upgCost,
                  const std::pair<int32_t, int32_t>& coords, const Map& map,

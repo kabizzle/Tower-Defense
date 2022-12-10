@@ -5,6 +5,11 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/Audio.hpp"
 
+/**
+ * @brief A class which handles the textures for different sprites
+ * One instance of this class must be constructed somewhere in the code
+ * before any static getters are accessed!
+ */
 class Renderables {
 public:
     Renderables();
@@ -116,6 +121,11 @@ private:
 
     sf::Sound attack_sound;
     sf::Sound select_sound;
+
+    /**
+     * @brief A static pointer to an instance of this class
+     * Is initialized when an instance is constructed somewhere in the program
+     */
     static Renderables* s_instance;
 };
 

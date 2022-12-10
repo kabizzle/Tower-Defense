@@ -11,6 +11,11 @@ class Renderable
 {
 public:
   /**
+   * @brief A virtual destructor
+   */
+  virtual ~Renderable() { }
+
+  /**
    * @brief Get the name of the entity
    * Mainly for debugging
    * @return const std::string&
@@ -36,11 +41,6 @@ protected:
    * @param sprite The sprite used by the entity
    */
   Renderable(const std::string& entityName, const sf::Sprite& sprite);
-
-  /**
-   * @brief A virtual destructor
-   */
-  virtual ~Renderable() { }
 
   /**
    * @brief Set the Sprite object
