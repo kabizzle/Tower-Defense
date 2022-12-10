@@ -52,10 +52,10 @@ class Tower : public Renderable {
    * @brief The prices of the different kinds of towers
    */
   inline static const std::map<TowerType, uint32_t> towerPrices = {
-      {TowerType::Freshman, 100},   {TowerType::Teekkari, 300},
-      {TowerType::Bachelor, 600},   {TowerType::Master, 1000},
-      {TowerType::Doctor, 1500},    {TowerType::Calculator, 500},
-      {TowerType::CoffeeTable, 500}};
+      {TowerType::Freshman, 50},     {TowerType::Teekkari, 300},
+      {TowerType::Bachelor, 1000},   {TowerType::Master, 3000},
+      {TowerType::Doctor, 5000},     {TowerType::Calculator, 1000},
+      {TowerType::CoffeeTable, 1000}};
 
   /**
    * @brief The base ranges of the towers

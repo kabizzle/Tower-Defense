@@ -8,7 +8,7 @@ Game::Game(uint32_t mapWidth, uint32_t mapLength, const std::string& filename,
            Difficulty difficulty)
     : m_playerHealth(100 - difficulty * 20),
       m_score(0),
-      m_money(100),
+      m_money(50),
       m_map(Map(mapWidth, mapLength)),
       m_enemyFactory(difficulty) {
   m_map.InitializeMap(filename);
