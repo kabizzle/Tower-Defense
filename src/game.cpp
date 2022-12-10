@@ -123,7 +123,7 @@ std::vector<std::list<Assignment*>>& Game::GetEnemies() { return m_enemies; }
 
 const std::list<
     std::pair<std::pair<int32_t, int32_t>, std::pair<int32_t, int32_t>>>&
-Game::GetAttacks() {
+Game::GetAttacks() const {
   return m_tickAttacks;
 }
 

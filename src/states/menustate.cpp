@@ -9,16 +9,16 @@ MenuState::MenuState(GUI& gui, sf::RenderWindow& window)
       m_selectedMap("src/maps/map1.txt"),
       m_editing(false) {
   // Create buttons
-  m_buttons[0] = m_gui.createButton("Easy", 60, 260);
+  m_buttons[0] = m_gui.CreateButton("Easy", 60, 260);
   m_buttons[0]->addHighlight();  // Highlight default selection
-  m_buttons[1] = m_gui.createButton("Medium", 465, 260);
-  m_buttons[2] = m_gui.createButton("Hard", 870, 260);
-  m_buttons[3] = m_gui.createButton("Map 1", 60, 360);
+  m_buttons[1] = m_gui.CreateButton("Medium", 465, 260);
+  m_buttons[2] = m_gui.CreateButton("Hard", 870, 260);
+  m_buttons[3] = m_gui.CreateButton("Map 1", 60, 360);
   m_buttons[3]->addHighlight();  // Highlight default selection
-  m_buttons[4] = m_gui.createButton("Map 2", 465, 360);
-  m_buttons[5] = m_gui.createButton("Map 3", 870, 360);
-  m_buttons[6] = m_gui.createButton("Edit map", 465, 460);
-  m_buttons[7] = m_gui.createButton("Play now", 465, 560);
+  m_buttons[4] = m_gui.CreateButton("Map 2", 465, 360);
+  m_buttons[5] = m_gui.CreateButton("Map 3", 870, 360);
+  m_buttons[6] = m_gui.CreateButton("Edit map", 465, 460);
+  m_buttons[7] = m_gui.CreateButton("Play now", 465, 560);
 
   // Create text boxes
   sf::Text titleText, subtitleText, difficultyText, mapText;
@@ -107,13 +107,13 @@ void MenuState::PollEvents() {
               Renderables::getSelectSound().play();
               break;
             case 6:
-              m_gui.changeState(
+              m_gui.ChangeState(
                   new EditorState(m_gui, m_window, m_selectedMap));
               m_buttons[6]->addHighlight();
               Renderables::getSelectSound().play();
               break;
             case 7:
-              m_gui.changeState(
+              m_gui.ChangeState(
                   new GameState(m_gui, m_window, m_difficulty, m_selectedMap));
               m_buttons[7]->addHighlight();
               Renderables::getSelectSound().play();

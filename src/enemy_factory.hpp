@@ -39,9 +39,13 @@ class EnemyFactory {
   EnemyFactory(Difficulty diff);
 
   /**
-   * @brief Copying is not allowed
+   * @brief Delete copy constructor
    */
   EnemyFactory(const EnemyFactory& other) = delete;
+  
+  /**
+   * @brief Delete assignment operator
+   */
   EnemyFactory& operator=(const EnemyFactory& other) = delete;
 
   /**

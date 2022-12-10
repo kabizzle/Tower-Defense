@@ -5,8 +5,8 @@
 EndState::EndState(GUI& gui, sf::RenderWindow& window, uint32_t score, Difficulty difficulty)
     : State(gui, window), m_score(score), m_difficulty(difficulty) {
   // Create buttons
-  m_buttons[0] = m_gui.createButton("Main Menu", 30, 30);
-  m_buttons[1] = m_gui.createButton("Save score", 30, 80);
+  m_buttons[0] = m_gui.CreateButton("Main Menu", 30, 30);
+  m_buttons[1] = m_gui.CreateButton("Save score", 30, 80);
 
   // Create Text objects
   m_text_score.setFont(m_gui.GetFont());
@@ -41,7 +41,7 @@ void EndState::Priv_PollEvents() {
 
           switch (b.first) {
             case 0:
-              m_gui.changeState(new MenuState(m_gui, m_window));
+              m_gui.ChangeState(new MenuState(m_gui, m_window));
               break;
             case 1:
               // Save the score if name is not empty
