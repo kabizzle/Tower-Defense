@@ -1,8 +1,8 @@
 #include "assignment.hpp"
 
 Assignment::Assignment(uint32_t cr, uint32_t timeToMove,
-                       const std::string& imageName, const sf::Sprite& sprite)
-    : Renderable(imageName, sprite),
+                       const std::string& name, const sf::Sprite& sprite)
+    : Renderable(name, sprite),
       m_maxCr(cr),
       m_curCr(cr),
       m_timeToMove(timeToMove),
@@ -39,6 +39,6 @@ uint32_t Assignment::TakeDmg(uint32_t dmg, std::list<Assignment*>& location) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Assignment& as) {
-  os << "Enemy: " << as.ImgPath() << "\t\tHealth: " << as.m_curCr << std::endl;
+  os << "Enemy: " << as.EntityName() << "\t\tHealth: " << as.m_curCr << std::endl;
   return os;
 }

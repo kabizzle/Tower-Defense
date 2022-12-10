@@ -25,8 +25,12 @@ uint32_t EnemyFactory::NextRoundInit() {
       //This type is present, so we add them
       m_batchSizes[e] += m_batchSizeDeltas[e];
       //We update the batch size
-      for(uint32_t i = 0; i < m_batchSizes[e]; i++){
-        m_roundEnemies.emplace_back(CreateEnemy(static_cast<Enemy>(e)));
+      try {
+        for(uint32_t i = 0; i < m_batchSizes[e]; i++){
+          m_roundEnemies.emplace_back(CreateEnemy(static_cast<Enemy>(e)));
+        }
+      } catch(const std::exception& e) {
+        std::cerr << "In EnemyFactory::NextRoundInit an error occure: " << e.what() << std::endl;
       }
     }
   }
@@ -82,9 +86,7 @@ Assignment* EnemyFactory::CreateEnemy(Enemy e) const {
                       {Enemy::Essay, 70}, {Enemy::Homework, 100}
                     });
   default:
-    return new Assignment(1, 1, "ERROR", Renderables::getHomeworkSprite());
-    //TODO - maybe an exeption here
-    //break;
+    throw std::invalid_argument(std::string("The value ") + std::to_string(e) + " is not a valid enemy type");
   }
 }
 

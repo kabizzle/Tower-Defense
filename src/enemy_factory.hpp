@@ -4,6 +4,9 @@
 
 #include "degree.hpp"
 
+/**
+ * @brief An enumeration for the game difficulties
+ */
 enum Difficulty { Easy, Medium, Hard };
 
 /**
@@ -31,7 +34,6 @@ class EnemyFactory {
  public:
   /**
    * @brief Constructs a new Enemy Factory object
-   *
    * @param diff The difficulty of the game, scales the HP of the enemies
    */
   EnemyFactory(Difficulty diff);
@@ -64,25 +66,22 @@ class EnemyFactory {
    * The max amound of enemies during the tick for round n is approximately
    * base-2-log(a_n) + 1 where a_n is the element of the sequence used to
    * determine the types present
+   * @return std::list<Assignment*>
    */
   std::list<Assignment*> NextTick();
 
   /**
    * @brief Tells if there are still enemies left which have not been handed to
    * the Game logic unit
+   * @return bool
    */
   bool EnemiesLeft() const;
-
-  /**
-   * @brief TODO initializes any round desired
-   */
-  void Round(uint32_t r);
 
   /**
    * @brief Creates an Enemy object
    * Can be used either by this class itself or by the game core to spawn the
    * additional enemies at some location
-   * @return A dynamically allocated enemy
+   * @return Assignment* A dynamically allocated enemy
    */
   Assignment* CreateEnemy(Enemy e) const;
 
@@ -91,27 +90,32 @@ class EnemyFactory {
    */
   friend std::ostream& operator<<(std::ostream& os, const EnemyFactory& ef);
 
+  /**
+   * @brief Tells the set difficulty
+   * @return Difficulty 
+   */
   Difficulty GetDifficulty() const;
 
  private:
   Difficulty m_diff;
   uint32_t m_round;
-  uint32_t m_nums[3] = {1, 1, 1};  //< Used in the internal logic to get the
-                                   //enemy composition of each round
+  uint32_t m_nums[3] = {1, 1, 1};  // Used in the internal logic to get the enemy composition of each round
   std::list<Assignment*> m_roundEnemies;
-  uint32_t m_batchSizes[9] = {0},
-           m_batchSizeDeltas[9] = {10, 5, 3, 2, 2, 2, 1, 1, 1};
+  /* Each time an enemy type is presend on a round, the number of that specific type is determined using
+     these. The initial batch sizes refer to round 0 */
+  uint32_t m_batchSizes[9] = {0};
+  uint32_t m_batchSizeDeltas[9] = {10, 5, 3, 2, 2, 2, 1, 1, 1};
 
   // Private functions
 
   /**
-   * @brief Uses m_nums to calculate the next one in the sequence
-   * @return the next number in the sequence
+   * @brief Private. Uses m_nums to calculate the next one in the sequence
+   * @return uint32_t The next number in the sequence
    */
   uint32_t Priv_NextNum();
 
   /**
-   * @brief Used by destructor to free the enemies which are left
+   * @brief Private Used to free the enemies which are left
    */
   void Priv_Free();
 };

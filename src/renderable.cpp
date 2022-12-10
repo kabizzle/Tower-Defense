@@ -1,18 +1,14 @@
 #include "renderable.hpp"
 
-Renderable::Renderable(const std::string& imageName, const sf::Sprite& sprite)
-  : m_imageName(imageName), m_sprite(sprite) { }
+Renderable::Renderable(const std::string& entityName, const sf::Sprite& sprite)
+  : m_entityName(entityName), m_sprite(sprite) { }
 
-const std::string Renderable::ImgPath() const {
-  return m_imageName + ".png";
+const std::string& Renderable::EntityName() const {
+  return m_entityName;
 }
 
 sf::Sprite& Renderable::GetSprite() { 
   return m_sprite;
-}
-
-void Renderable::AddSuffix(const std::string& suffix) {
-  m_imageName += suffix;
 }
 
 void Renderable::SetSprite(const sf::Sprite& newSprite) {

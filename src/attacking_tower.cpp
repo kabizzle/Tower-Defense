@@ -3,8 +3,8 @@
 
 AttackingTower::AttackingTower(uint32_t power, uint32_t range, uint32_t health, uint32_t upgCost,
                                const std::pair<int32_t, int32_t>& coords, const Map& map,
-                               const std::string& imageName, const std::vector<sf::Sprite>& sprites)
-  : Tower(range, coords, imageName, sprites), m_basePower(power), m_maxHealth(health),
+                               const std::string& name, const std::vector<sf::Sprite>& sprites)
+  : Tower(range, coords, name, sprites), m_basePower(power), m_maxHealth(health),
     m_health(health), m_upgCost(upgCost), m_level(1),
     m_buffs(1.0f), m_map(map) {
   //Check the path from map to see which coordinated are accessible
@@ -66,7 +66,8 @@ uint32_t AttackingTower::Upgrade() {
   m_maxHealth += m_maxHealth / 2;
   m_range += 2;
   Priv_UpdateRange(m_range);
-  auto& newSprite = m_allSprites[m_level];
+  uint32_t spriteInd = (m_level <= 2) ? m_level : 2;
+  auto& newSprite = m_allSprites[spriteInd];
   newSprite.setPosition(m_coords.first * TILE_SIZE, m_coords.second * TILE_SIZE);
   SetSprite(newSprite);
   m_level++;
@@ -74,7 +75,7 @@ uint32_t AttackingTower::Upgrade() {
 }
 
 std::ostream& operator<<(std::ostream& os, const AttackingTower& at) {
-  os << "Attacking tower: " << at.ImgPath()  << " in (" << at.m_coords.first << "," << at.m_coords.second
+  os << "Attacking tower: " << at.EntityName()  << " in (" << at.m_coords.first << "," << at.m_coords.second
      << ")\tHP: " << at.m_health << " Pow: " << at.m_basePower << " Buf: " << at.m_buffs << std::endl;
   return os;
 }
@@ -120,18 +121,6 @@ AttackingTower* AttackingTower::Doctor(const std::pair<int32_t, int32_t>& coords
 }
 
 void AttackingTower::Priv_UpdateRange(uint32_t newRange) {
-  //NOTE: Required by the old overload of Attack
-  /*auto rIter = m_map.GetPath().crbegin(), rIterEnd = m_map.GetPath().crend();
-  for(; rIter != rIterEnd; rIter++) {
-    //Check the distance of this coordinate pair from the coordinates of the tower
-    auto& c = *rIter;
-    float d = UtilFunctions::distance(*rIter, m_coords);
-    if(d <= newRange) {
-      //If the distance is sufficiently small, add this coordinate pair to the possible target coordinates
-      m_inRange.push_back(c);
-    }
-  }*/
-  //NOTE: For the new overload
   const std::vector<std::pair<int32_t, int32_t>>& path = m_map.GetPath();
   for(int32_t i = path.size() - 1; i >= 0; i--) {
     auto& c = path[i];

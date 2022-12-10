@@ -1,33 +1,34 @@
 #pragma once
 
-//#include <cmath>
-
 #include "tower.hpp"
 #include "assignment.hpp"
 
 /**
- * @brief A class for the offensive towers
- * 
+ * @brief A class for the offensive towers 
  */
 class AttackingTower : public Tower
 {
 public:
   /**
    * @brief Construct a new Attacking Tower object
-   * 
    * @param power The amount of damage this tower can do to an enemy
    * @param range The basic range
    * @param health The health of this tower
    * @param coords The coordinates of the tower
    * @param map A reference to the map used for the game, this is needed to know the enemy path and find attackable locations
-   * @param imageName The name of the image representing this particular tower, also the name of the tower type
+   * @param name The name of the tower
    */
   AttackingTower(uint32_t power, uint32_t range, uint32_t health, uint32_t upgCost,
                  const std::pair<int32_t, int32_t>& coords, const Map& map,
-                 const std::string& imageName, const std::vector<sf::Sprite>& sprites);
+                 const std::string& name, const std::vector<sf::Sprite>& sprites);
 
   /**
-   * @brief Performs an attack against one enemy NOTE: migrate to using this overload
+   * @brief Default destructor
+   */
+  ~AttackingTower() = default;
+
+  /**
+   * @brief Performs an attack against one enemy
    * The tower goes through the possible targetable locations in m_inRangeInd, starting from the one closest to end
    * and when it finds a living enemy in one of the locations, it attacks that.
    * After performing an attack, it clears the buffs
@@ -47,6 +48,7 @@ public:
 
   /**
    * @brief Tells whether the tower is functional or destroyed
+   * @return bool
    */
   bool IsFunctional() const;
 
@@ -59,8 +61,8 @@ public:
 
   /**
    * @brief Tells whether or not this tower can be upgraded with the corrent amount of money
-   * The cost of upgrading 1 -> 2 is the base cost m_upgCost and 2 -> 3 is twice that.
    * Also checks that this tower is not already max level.
+   * @return bool
    */
   bool IsUpgradeable(uint32_t money) const;
 
@@ -72,32 +74,67 @@ public:
 
   /**
    * @brief Can be used to upgrade the tower to the next level. Assumes that tower is upgradeable.
-   * @return Cost of the upgrade
+   * @return uint32_t The cost of the upgrade
    */
   uint32_t Upgrade();
 
+  /**
+   * @brief Overload for the stream output operator
+   */
   friend std::ostream& operator<<(std::ostream& os, const AttackingTower& at);
 
 
-  //Static member functions to create some types of attacking towers
+  /**
+   * @brief Static function to create a specific tower
+   * @param coords Where the tower is placed
+   * @param map A const ref to the map the tower is placed on
+   * @return AttackingTower* 
+   */
   static AttackingTower* Freshman(const std::pair<int32_t, int32_t>& coords, const Map& map);
 
+  /**
+   * @brief Static function to create a specific tower
+   * @param coords Where the tower is placed
+   * @param map A const ref to the map the tower is placed on
+   * @return AttackingTower* 
+   */
   static AttackingTower* Teekkari(const std::pair<int32_t, int32_t>& coords, const Map& map);
 
+  /**
+   * @brief Static function to create a specific tower
+   * @param coords Where the tower is placed
+   * @param map A const ref to the map the tower is placed on
+   * @return AttackingTower* 
+   */
   static AttackingTower* Bachelor(const std::pair<int32_t, int32_t>& coords, const Map& map);
 
+  /**
+   * @brief Static function to create a specific tower
+   * @param coords Where the tower is placed
+   * @param map A const ref to the map the tower is placed on
+   * @return AttackingTower* 
+   */
   static AttackingTower* Master(const std::pair<int32_t, int32_t>& coords, const Map& map);
 
+  /**
+   * @brief Static function to create a specific tower
+   * @param coords Where the tower is placed
+   * @param map A const ref to the map the tower is placed on
+   * @return AttackingTower* 
+   */
   static AttackingTower* Doctor(const std::pair<int32_t, int32_t>& coords, const Map& map);
 
 private:
   uint32_t m_basePower, m_maxHealth, m_health, m_upgCost, m_level;
   float m_buffs;
-  //std::vector<std::pair<int32_t, int32_t>> m_inRange;
-  std::vector<uint32_t> m_inRangeInd;
+  std::vector<uint32_t> m_inRangeInd;   //The indices in the enemy path where the tower can shoot to
   const Map& m_map;
 
   //Private functions
 
+  /**
+   * @brief Private. Used to update the m_inRangeInd
+   * @param newRange The new range of the tower
+   */
   void Priv_UpdateRange(uint32_t newRange);
 };

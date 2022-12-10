@@ -12,8 +12,12 @@ uint32_t Degree::TakeDmg(uint32_t dmg, std::list<Assignment*>& location){
       //The enemy dies, so it will spawn its descendants and return some damage
       m_curCr = 0;
       for(auto [e, n]: m_decendants) {
-        for(uint32_t i = 0; i < n; i++){
-          location.emplace_back(m_ef.CreateEnemy(e));
+        try {
+          for(uint32_t i = 0; i < n; i++) {
+            location.emplace_back(m_ef.CreateEnemy(e));
+          }
+        } catch (const std::exception& e) {
+          std::cerr << "In Degree::TakeDmg an error occured: " << e.what() << std::endl;
         }
       }
       return m_maxCr / 4;

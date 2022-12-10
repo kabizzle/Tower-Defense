@@ -11,25 +11,41 @@ class Renderable
 {
 public:
   /**
-   * @brief Returns the path to the image of this renderable object, for rendering purposes
-   * 
-   * @return Path to the image for rendering purposes
+   * @brief Get the name of the entity
+   * Mainly for debugging
+   * @return const std::string&
    */
-  const std::string ImgPath() const;
+  const std::string& EntityName() const;
 
-
+  /**
+   * @brief Get the Sprite of this entity
+   * For rendering purposes
+   * @return sf::Sprite& 
+   */
   sf::Sprite& GetSprite();
 
 protected:
-  Renderable(const std::string& imageName, const sf::Sprite& sprite);
+  std::string m_entityName;
+  sf::Sprite m_sprite;
+
+  //Protected functions
 
   /**
-   * @brief Is used by the towers to alter the image name to update the look of upgraded towers NOTE not needed anymore
+   * @brief Construct a new Renderable object
+   * @param entityName The name
+   * @param sprite The sprite used by the entity
    */
-  void AddSuffix(const std::string& suffix);
+  Renderable(const std::string& entityName, const sf::Sprite& sprite);
 
+  /**
+   * @brief A virtual destructor
+   */
+  virtual ~Renderable() { }
+
+  /**
+   * @brief Set the Sprite object
+   * Used by the towers when they are upgraded
+   * @param newSprite A ref to the new sprite
+   */
   void SetSprite(const sf::Sprite& newSprite);
-protected:
-  std::string m_imageName;
-  sf::Sprite m_sprite;
 };

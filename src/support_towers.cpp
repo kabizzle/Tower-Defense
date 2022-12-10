@@ -7,7 +7,7 @@ SupportTower::SupportTower(uint32_t range, const std::pair<int32_t, int32_t>& co
   : Tower(range, coords, imageName, sprites) { }
 
 std::ostream& operator<<(std::ostream& os, const SupportTower& st) {
-  os << "Support tower: " << st.ImgPath()  << " in (" << st.m_coords.first << "," << st.m_coords.second << ")" << std::endl;
+  os << "Support tower: " << st.EntityName()  << " in (" << st.m_coords.first << "," << st.m_coords.second << ")" << std::endl;
   return os;
 }
 

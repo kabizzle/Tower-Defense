@@ -1,7 +1,7 @@
 #include "button.hpp"
 #define TILE_SIZE 30
 
-Button::Button(std::string text, int x, int y, sf::Font& font)
+Button::Button(std::string text, int32_t x, int32_t y, sf::Font& font)
     : m_button(sf::RectangleShape(sf::Vector2f(350, 30))), m_font(font) {
   m_button.setPosition(sf::Vector2f(x, y));
   // m_button.setFillColor(sf::Color::Cyan);
@@ -61,7 +61,7 @@ void Button::changeText(std::string text) {
 }
 
 
-TowerButton::TowerButton(TowerType tower, int x, int y,
+TowerButton::TowerButton(TowerType tower, int32_t x, int32_t y,
                          sf::Font& font)
     : Button("", x, y, font) {
   switch (tower) {
