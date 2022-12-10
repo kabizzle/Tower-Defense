@@ -10,6 +10,21 @@ In a tower defense game, the enemies move in waves from some position of the map
 - Juho Poteri
 - Antti Pekkanen
 
+# Building instructions
+
+```shell
+# Download the repository
+git clone git@version.aalto.fi:bissesk1/tower-defense-2.git
+cd tower-defense-2
+
+# Build the project
+cmake -B ./build
+make -C ./build
+
+# Start the game
+./build/tower-defense
+```
+
 # Repository organization
 Your project implementation should follow the skeleton organization in this repository.
 See readme.md files in each folder.

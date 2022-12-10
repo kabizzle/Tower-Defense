@@ -59,7 +59,6 @@ void EndState::Priv_PollEvents() {
     // Check if text has been entered
     if (m_event.type == sf::Event::TextEntered) {
       char c = static_cast<char>(m_event.text.unicode);
-      std::cout << "You pressed: " << c << std::endl;  // TODO: Remove
       if (isalpha(c) || c == ' ') {
         m_input += c;
         m_text_name.setString("Type your name: " + m_input);
