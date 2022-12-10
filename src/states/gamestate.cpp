@@ -45,32 +45,32 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
 
   // Initialize the buttons
   m_buttons[Action::BuyFreshman] =
-      m_gui.createTowerButton(TowerType::Freshman, 915, 15);
+      m_gui.CreateTowerButton(TowerType::Freshman, 915, 15);
   m_buttons[Action::BuyTeekkari] =
-      m_gui.createTowerButton(TowerType::Teekkari, 915, 55);
+      m_gui.CreateTowerButton(TowerType::Teekkari, 915, 55);
   m_buttons[Action::BuyBachelor] =
-      m_gui.createTowerButton(TowerType::Bachelor, 915, 95);
+      m_gui.CreateTowerButton(TowerType::Bachelor, 915, 95);
   m_buttons[Action::BuyMaster] =
-      m_gui.createTowerButton(TowerType::Master, 915, 135);
+      m_gui.CreateTowerButton(TowerType::Master, 915, 135);
   m_buttons[Action::BuyDoctor] =
-      m_gui.createTowerButton(TowerType::Doctor, 915, 175);
+      m_gui.CreateTowerButton(TowerType::Doctor, 915, 175);
   m_buttons[Action::BuyCalculator] =
-      m_gui.createTowerButton(TowerType::Calculator, 915, 215);
+      m_gui.CreateTowerButton(TowerType::Calculator, 915, 215);
   m_buttons[Action::BuyCoffeeTable] =
-      m_gui.createTowerButton(TowerType::CoffeeTable, 915, 255);
+      m_gui.CreateTowerButton(TowerType::CoffeeTable, 915, 255);
   m_buttons[Action::UpgradeTower] =
-      m_gui.createButton("Upgrade tower", 915, 295);
+      m_gui.CreateButton("Upgrade tower", 915, 295);
   m_buttons[Action::DestroyTower] =
-      m_gui.createButton("Destroy tower", 915, 335);
-  m_buttons[9] = m_gui.createButton("Next round", 915, 620);
+      m_gui.CreateButton("Destroy tower", 915, 335);
+  m_buttons[9] = m_gui.CreateButton("Next round", 915, 620);
   // During both phases
-  m_buttons[10] = m_gui.createButton("Give up", 915, 670);
+  m_buttons[10] = m_gui.CreateButton("Give up", 915, 670);
   // During enemy phase
-  m_buttons[11] = m_gui.createButton("Gamespeed 1x", 915, 15);
-  m_buttons[12] = m_gui.createButton("Gamespeed 2x", 915, 55);
-  m_buttons[13] = m_gui.createButton("Gamespeed 5x", 915, 95);
-  m_buttons[14] = m_gui.createButton("Gamespeed 10x", 915, 135);
-  m_buttons[15] = m_gui.createButton("Gamespeed 20x", 915, 175);
+  m_buttons[11] = m_gui.CreateButton("Gamespeed 1x", 915, 15);
+  m_buttons[12] = m_gui.CreateButton("Gamespeed 2x", 915, 55);
+  m_buttons[13] = m_gui.CreateButton("Gamespeed 5x", 915, 95);
+  m_buttons[14] = m_gui.CreateButton("Gamespeed 10x", 915, 135);
+  m_buttons[15] = m_gui.CreateButton("Gamespeed 20x", 915, 175);
 
   // 1x speed is the default
   m_buttons[11]->addHighlight();
@@ -107,7 +107,7 @@ void GameState::Run() {
   this->Draw();
   // If the game is over, we change the state to endstate
   if (m_gameOver) {
-    m_gui.changeState(new EndState(m_gui, m_window, m_gameLogic.GetScore(),
+    m_gui.ChangeState(new EndState(m_gui, m_window, m_gameLogic.GetScore(),
                                    m_gameLogic.GetDifficulty()));
   }
 }
@@ -180,7 +180,7 @@ void GameState::PollEvents() {
                   m_buildPhase = false;
                   break;
                 case 10:
-                  m_gui.changeState(new EndState(m_gui, m_window,
+                  m_gui.ChangeState(new EndState(m_gui, m_window,
                                                  m_gameLogic.GetScore(),
                                                  m_gameLogic.GetDifficulty()));
                   m_buttons[10]->addHighlight();
@@ -241,7 +241,7 @@ void GameState::PollEvents() {
 
             switch (i) {
               case 10:
-                m_gui.changeState(new EndState(m_gui, m_window,
+                m_gui.ChangeState(new EndState(m_gui, m_window,
                                                m_gameLogic.GetScore(),
                                                m_gameLogic.GetDifficulty()));
                 m_buttons[0]->addHighlight();

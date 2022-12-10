@@ -7,48 +7,82 @@
 #include "button.hpp"
 #include "renderables.hpp"
 
-class State;
+class State;  //Forward declaration
 
 /**
  * @brief A class to add elements to the Graphical User Interface
- *
  */
 class GUI {
  public:
-  // Constructor
+  /**
+   * @brief Construct a new GUI object
+   * This will create a Renderables object, which stores the sprites of everything
+   */
   GUI();
 
-  // Destructor
+  /**
+   * @brief Destroy the GUI object
+   * Frees the dynamically allocated member variables
+   */
   ~GUI();
 
-  // Initialise variables
+  /**
+   * @brief Initializes the different variables and makes the window ready
+   */
   void init();
 
-  // determine if gui is open
+  /**
+   * @brief Tells if the GUI is open
+   * @return bool
+   */
   bool running();
 
   // Detect events in gui window
-  void pollEvents();
+  //void pollEvents();
 
-  // Renders changed to gui window
+  /**
+   * @brief Updates GUI each frame
+   */
   void update();
 
   // move enemy
-  void moveEnemies();
+  //void moveEnemies();
 
-  Button* createButton(std::string text, int x, int y);
-  TowerButton* createTowerButton(TowerType type, int x, int y);
+  /**
+   * @brief Is used to create button objects
+   * 
+   * @param text What is shown on the button
+   * @param x The x-coordinate of the upper left corner
+   * @param y The y-coordinate of the upper left corner
+   * @return Button* 
+   */
+  Button* CreateButton(std::string text, int32_t x, int32_t y);
 
-  sf::Font& GetFont();
+  /**
+   * @brief Is used to create towerbutton objects
+   * 
+   * @param text What is shown on the button
+   * @param x The x-coordinate of the upper left corner
+   * @param y The y-coordinate of the upper left corner
+   * @return Button* 
+   */
+  TowerButton* CreateTowerButton(TowerType type, int32_t x, int32_t y);
 
-  void changeState(State* state);
+  /**
+   * @brief Get the Font used here
+   * @return const sf::Font& 
+   */
+  const sf::Font& GetFont() const;
 
-  void deleteState();
+  /**
+   * @brief Changes the state present in the GUI
+   * @param state The new state
+   */
+  void ChangeState(State* state);
 
- protected:
-  Renderables* m_renderables;
 
  private:
+  Renderables* m_renderables;
   sf::RenderWindow* m_window;       // window that displays game
   sf::VideoMode m_videoMode;        // dimensions of window
   sf::Event m_event;                // events that occur in gui window
@@ -59,7 +93,13 @@ class GUI {
   sf::Font m_font;
   State* m_state;
   State* m_new_state;
+
+  /**
+   * @brief Private deletes the state in the GUI, if present
+   */
+  void Priv_DeleteState();
 };
+
 
 // void GUI::addEnemy(std::string type, sf::Vector2f pos) {
 //   // if (!this->texture.loadFromFile("src/images/bachelor.png")) {

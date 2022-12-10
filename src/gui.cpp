@@ -11,9 +11,11 @@
 GUI::GUI() : m_renderables(new Renderables()) {}
 
 GUI::~GUI() {
-  delete this->m_window;
-  delete this->m_renderables;
-  this->deleteState();
+  delete m_renderables;
+  if(m_window) {
+    delete m_window;
+  }
+  this->Priv_DeleteState();
 }
 
 void GUI::init() {
@@ -30,7 +32,7 @@ void GUI::init() {
 
 bool GUI::running() { return this->m_window->isOpen(); }
 
-void GUI::pollEvents() {
+/*void GUI::pollEvents() {
   while (this->m_window->pollEvent(this->m_event)) {
     if (this->m_event.type == sf::Event::Closed) this->m_window->close();
 
@@ -42,7 +44,7 @@ void GUI::pollEvents() {
       }
     }
   }
-}
+}*/
 
 // void GUI::addEnemy(std::string type, sf::Vector2f pos) {
 
@@ -62,7 +64,7 @@ void GUI::pollEvents() {
 //   // // this->m_window->draw(enemy);
 // }
 
-void GUI::moveEnemies() {
+/*void GUI::moveEnemies() {
   for (auto enemy = this->enemies.begin(); enemy != this->enemies.end();
        enemy++) {
     sf::Vector2f position = enemy->getPosition();
@@ -73,21 +75,21 @@ void GUI::moveEnemies() {
 
     enemy->setPosition(position);
   }
-}
+}*/
 
-Button* GUI::createButton(std::string text, int x, int y) {
+Button* GUI::CreateButton(std::string text, int32_t x, int32_t y) {
   Button* button = new Button(text, x, y, m_font);
   return button;
 }
 
-TowerButton* GUI::createTowerButton(TowerType type, int x, int y) {
+TowerButton* GUI::CreateTowerButton(TowerType type, int32_t x, int32_t y) {
   TowerButton* towerButton = new TowerButton(type, x, y, m_font);
   return towerButton;
 }
 
 void GUI::update() {
   if (this->m_new_state){
-    this->deleteState();
+    this->Priv_DeleteState();
     this->m_state = this->m_new_state;
     this->m_new_state = nullptr;
   }
@@ -95,16 +97,16 @@ void GUI::update() {
   this->m_state->Run();
 }
 
-sf::Font& GUI::GetFont() {
+const sf::Font& GUI::GetFont() const {
   return m_font;
 }
 
-void GUI::changeState(State* state) {
+void GUI::ChangeState(State* state) {
   this->m_new_state = state;
 }
 
 
-void GUI::deleteState() {
+void GUI::Priv_DeleteState() {
   if (this->m_state) {
     delete this->m_state;
   }

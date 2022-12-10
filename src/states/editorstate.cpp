@@ -13,13 +13,13 @@ EditorState::EditorState(GUI& gui, sf::RenderWindow& window,
       m_selY(-1),
       m_selectedButton(0) {
   // Initialize the buttons
-  m_buttons[0] = m_gui.createButton("Clear tile", 915, 15);
+  m_buttons[0] = m_gui.CreateButton("Clear tile", 915, 15);
   m_buttons[0]->addHighlight();
-  m_buttons[1] = m_gui.createButton("Path tile", 915, 55);
-  m_buttons[2] = m_gui.createButton("Path starting tile", 915, 95);
-  m_buttons[3] = m_gui.createButton("Path ending tile", 915, 135);
-  m_buttons[4] = m_gui.createButton("Save and return", 915, 620);
-  m_buttons[5] = m_gui.createButton("Cancel changes", 915, 670);
+  m_buttons[1] = m_gui.CreateButton("Path tile", 915, 55);
+  m_buttons[2] = m_gui.CreateButton("Path starting tile", 915, 95);
+  m_buttons[3] = m_gui.CreateButton("Path ending tile", 915, 135);
+  m_buttons[4] = m_gui.CreateButton("Save and return", 915, 620);
+  m_buttons[5] = m_gui.CreateButton("Cancel changes", 915, 670);
 
   // Initialize the selected tile square shape
   m_selectedShape = sf::RectangleShape(sf::Vector2f(30, 30));
@@ -139,10 +139,10 @@ void EditorState::PollEvents() {
                 } catch (std::exception& e) {
                   std::cout << e.what() << std::endl;
                 }
-                m_gui.changeState(new MenuState(m_gui, m_window));
+                m_gui.ChangeState(new MenuState(m_gui, m_window));
                 break;
               case 5:
-                m_gui.changeState(new MenuState(m_gui, m_window));
+                m_gui.ChangeState(new MenuState(m_gui, m_window));
                 m_buttons[4]->addHighlight();
                 break;
             }

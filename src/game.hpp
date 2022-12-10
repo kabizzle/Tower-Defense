@@ -12,8 +12,8 @@
 
 /**
  * @brief An enumeration for different actions on grid cells
+ * Used to test the possibility of actions
  */
-
 enum Action {
   BuyFreshman,
   BuyTeekkari,
@@ -26,9 +26,19 @@ enum Action {
   DestroyTower
 };
 
+/**
+ * @brief A class which holds the logic of the game
+ */
 class Game {
- public:
-  Game(uint32_t mapWidth, uint32_t mapLength, const std::string& filename,
+public:
+  /**
+   * @brief Construct a new Game object
+   * @param mapWidth The width of the map (should be 30)
+   * @param mapHeigth The height of the map (should be 20)
+   * @param filename The file where the map's text representation is
+   * @param difficulty The difficulty for the game
+   */
+  Game(uint32_t mapWidth, uint32_t mapHeigth, const std::string& filename,
        Difficulty difficulty);
 
   /**
@@ -36,6 +46,16 @@ class Game {
    * In case of a game over / quit the enemies and towers present must be freed
    */
   ~Game();
+
+  /**
+   * @brief Delete copy constructor
+   */
+  Game(const Game& other) = delete;
+  
+  /**
+   * @brief Delete assignment operator
+   */
+  Game& operator=(const Game& other) = delete;
 
   /**
    * @brief Used to start the next round
@@ -54,18 +74,23 @@ class Game {
 
   /**
    * @brief Makes the towers attack the enemies
-   * If enemies died during the attacking, returns true
+   * If enemies died during the attacking, returns true (for sound effects)
    * @return bool
    */
   bool TowerTurn();
 
   /**
-   * @brief Used to check if the round is still ongoing. SHOULD be called only
-   * AFTER StartNextRound()!
+   * @brief Used to check if the round is still ongoing.
+   * SHOULD be called only AFTER StartNextRound()!
+   * @return bool
    */
   bool RoundIsFinished();
 
-  // Method for getting enemies and their coordinates for GUI to draw
+  /**
+   * @brief Get the Enemies in the game now
+   * Method for getting enemies and their coordinates for GUI to draw
+   * @return std::vector<std::list<Assignment*>>& 
+   */
   std::vector<std::list<Assignment*>>& GetEnemies();
 
   /**
@@ -75,20 +100,17 @@ class Game {
    */
   const std::list<
       std::pair<std::pair<int32_t, int32_t>, std::pair<int32_t, int32_t>>>&
-  GetAttacks();
+  GetAttacks() const;
 
   /**
-   * @brief Gets a const ref version of the map used, to get for example the
-   * path
-   *
+   * @brief Gets a const ref version of the map used
    * @return const Map&
    */
   const Map& GetMap() const;
 
   /**
-   * @brief For adding a tower to the Game. NOTE: not ideal implementation, just
-   * for the text-based test
-   *
+   * @brief For adding a tower to the Game.
+   * Only for the text_based_test.cpp
    * @param t A pointer to the dynamically allocated tower
    * Will fail if the Tower is not an instance of Attacking or supporting Tower
    * @return bool Whether the adding was successfull
@@ -96,36 +118,7 @@ class Game {
   bool AddTower(Tower* t);
 
   /**
-   * @brief For building attacking tower. Assumes that tower is at suitable
-   * location. MAYBE NOT NEEDED
-   * @param t tower to build
-   * @param cost cost of building tower NOTE: should probably be included in
-   * Tower class
-   * @return if building tower was successful
-   */
-  bool BuildAttackingTower(AttackingTower* t, uint32_t cost);
-
-  /**
-   * @brief For building support tower. Assumes that tower is at suitable
-   * location. MAYBE NOT NEEDED
-   * @param t tower to build
-   * @param cost cost of building tower NOTE: should probably be included in
-   * Tower class
-   * @return if building tower was successful
-   */
-  bool BuildSupportTower(SupportTower* t, uint32_t cost);
-
-  /**
-   * @brief Upgrade tower. Checks if the tower exist and can be upgraded.
-   * MAYBE NOT NEEDED
-   * @param coords coordinates where tower is
-   * @return if upgrade was successful
-   */
-  // bool UpgradeTower(const std::pair<int32_t, int32_t>& coords);
-
-  /**
    * @brief Used by GUI states to check what can be done
-   * NOTE: TODO make this check the price
    * @param coords The grid coordinates
    * @param a Enumeration telling the desired action
    * @return bool
@@ -173,24 +166,37 @@ class Game {
   /**
    * @brief Get a pointer to Tower in a cell
    * The function will return nullptr if no tower is at the desired location
-   * @param coords The xy-coordinates where we want
+   * @param coords The xy-coordinates where we want to look
    * @return const Tower*
    */
   const Tower* GetTower(const std::pair<int32_t, int32_t>& coords) const;
 
   /**
-   * @brief Calculates player's score. Total money earned is multiplied by 100
-   *        and then divided by the length of the path. When the path is shorter
-   *        there is shorter time to defeat enemies so player get more points.
+   * @brief Calculates player's score.
+   * Total money earned is multiplied by 100
+   * and then divided by the length of the path. When the path is shorter
+   * there is shorter time to defeat enemies so player get more points.
    * 
-   * @return player's score
+   * @return uint32_t player's score
    */
   uint32_t GetScore() const;
 
+  /**
+   * @brief Tells the player's current money
+   * @return uint32_t 
+   */
   uint32_t GetMoney() const;
 
+  /**
+   * @brief Tells the player's current health
+   * @return uint32_t 
+   */
   uint32_t GetHealth() const;
 
+  /**
+   * @brief Tells the difficulty of the current game
+   * @return Difficulty 
+   */
   Difficulty GetDifficulty() const;
 
   /**
@@ -208,15 +214,13 @@ class Game {
   std::list<SupportTower*> m_supportingTowers;
 
   /*  Enemies are strored in lists which are stored in vector
-      where indices corresponds to indices of Map::GetPath
-  */
+      where indices corresponds to indices of Map::GetPath */
   std::vector<std::list<Assignment*>> m_enemies;
 
-  /**
-   * @brief Stores the attack performed during towerturn so that they can be
-   * rendered They are stored as pairs of coordinate pairs, in the order "from,
-   * to"
-   */
+  /*
+   Stores the attack performed during towerturn so that they can be
+   rendered They are stored as pairs of coordinate pairs, in the order "from,
+   to" */
   std::list<std::pair<std::pair<int32_t, int32_t>, std::pair<int32_t, int32_t>>>
       m_tickAttacks;
 };
