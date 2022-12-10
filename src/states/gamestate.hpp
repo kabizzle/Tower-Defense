@@ -52,7 +52,8 @@ class GameState : public State {
   sf::CircleShape m_rangeCircle;
   sf::CircleShape m_upgradeRange;
   sf::CircleShape m_projectile;
-  int32_t m_selX, m_selY;  // The selected tile on the map, -1, -1 means nothing selected
+  int32_t m_selX,
+      m_selY;  // The selected tile on the map, -1, -1 means nothing selected
 
   // Private functions
 

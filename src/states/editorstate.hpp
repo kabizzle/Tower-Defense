@@ -35,13 +35,17 @@ class EditorState : public State {
 
  private:
   LevelEditor m_editor;
-  std::string m_mapPath;
-  int32_t m_selX,
-      m_selY;  // The selected tile on the map, -1, -1 means nothing selected
   std::vector<sf::Sprite> m_mapTileSprites;
   std::map<int, Button*> m_buttons;
   sf::RectangleShape m_selectedShape;
-
+  sf::Text m_validated;
+  sf::Text m_unvalidated;
+  sf::Text m_instructions;
+  std::string m_mapPath;
+  int32_t m_selX,
+      m_selY;  // The selected tile on the map, -1, -1 means nothing selected
+  bool m_drawSelectedShape;
+  int32_t m_selectedButton;
   void PollEvents();
   void Draw();
 };

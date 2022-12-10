@@ -73,6 +73,7 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
   m_buttons[15] = m_gui.createButton("Gamespeed 20x", 915, 175);
 
   // 1x speed is the default
+  m_buttons[11]->addHighlight();
 
   // Initialize the selected tile square shape
   m_selectedShape = sf::RectangleShape(sf::Vector2f(30, 30));
@@ -96,7 +97,7 @@ GameState::GameState(GUI& gui, sf::RenderWindow& window, Difficulty difficulty,
 }
 
 GameState::~GameState() {
-  for(auto [i, button]: m_buttons) {
+  for (auto [i, button] : m_buttons) {
     delete button;
   }
 }
@@ -166,7 +167,8 @@ void GameState::PollEvents() {
                 case Action::UpgradeTower:
                   m_gameLogic.UpgradeTower(std::make_pair(m_selX, m_selY));
                   // Draw uprage range only if it can be upgraded again
-                  m_drawUpgradeRange = m_gameLogic.IsActionPossible(std::make_pair(m_selX, m_selY), Action::UpgradeTower);
+                  m_drawUpgradeRange = m_gameLogic.IsActionPossible(
+                      std::make_pair(m_selX, m_selY), Action::UpgradeTower);
                   break;
                 case Action::DestroyTower:
                   m_gameLogic.DestroyTower(std::make_pair(m_selX, m_selY));
@@ -199,21 +201,26 @@ void GameState::PollEvents() {
         // Reset to false
         m_drawRange = false;
         // Check if tower could be built to selected tile
-        if (m_gameLogic.IsActionPossible(std::make_pair(m_selX, m_selY), Action::BuyFreshman)) {
+        if (m_gameLogic.IsActionPossible(std::make_pair(m_selX, m_selY),
+                                         Action::BuyFreshman)) {
           for (uint32_t action = 0; action <= 6; action++) {
             // Check if mouse is hovering at TowerButton
-            if (m_buttons[action]->getGlobalBounds().contains(m_event.mouseMove.x, m_event.mouseMove.y)) {
+            if (m_buttons[action]->getGlobalBounds().contains(
+                    m_event.mouseMove.x, m_event.mouseMove.y)) {
               m_drawRange = true;
-              uint32_t range = TILE_SIZE * Tower::towerRanges.at(static_cast<TowerType>(action));
+              uint32_t range = TILE_SIZE * Tower::towerRanges.at(
+                                               static_cast<TowerType>(action));
               Priv_ChangeCircle(m_rangeCircle, range);
             }
           }
         }
         m_drawUpgradeRange = false;
         // Check if tower can be upgraded in selected tile
-        if (m_gameLogic.IsActionPossible(std::make_pair(m_selX, m_selY), Action::UpgradeTower)) {
+        if (m_gameLogic.IsActionPossible(std::make_pair(m_selX, m_selY),
+                                         Action::UpgradeTower)) {
           // Check if mouse is hovering at UpgradeButton
-          if (m_buttons[Action::UpgradeTower]->getGlobalBounds().contains(m_event.mouseMove.x, m_event.mouseMove.y)) {
+          if (m_buttons[Action::UpgradeTower]->getGlobalBounds().contains(
+                  m_event.mouseMove.x, m_event.mouseMove.y)) {
             m_drawUpgradeRange = true;
           }
         }
@@ -275,7 +282,8 @@ void GameState::PollEvents() {
   }
   // Update text
   m_healthText.setString("Health: " + std::to_string(m_gameLogic.GetHealth()));
-  m_moneyText.setString("Money: " + std::to_string(m_gameLogic.GetMoney()) + " cr");
+  m_moneyText.setString("Money: " + std::to_string(m_gameLogic.GetMoney()) +
+                        " cr");
   m_scoreText.setString("Score: " + std::to_string(m_gameLogic.GetScore()));
   m_roundNumText.setString("Round:  " + std::to_string(m_roundNum));
 }
@@ -290,14 +298,17 @@ void GameState::Draw() {
     if (i < 9) {
       if (m_gameLogic.IsActionPossible({m_selX, m_selY},
                                        static_cast<Action>(i))) {
-        if (i == Action::UpgradeTower){
-          const AttackingTower* tower = static_cast<const AttackingTower*>(m_gameLogic.GetTower({m_selX, m_selY}));
-          m_buttons[Action::UpgradeTower]->changeText("Upgrade tower" + std::to_string(tower->GetUpgradeCost()) + "cr");
+        if (i == Action::UpgradeTower) {
+          const AttackingTower* tower = static_cast<const AttackingTower*>(
+              m_gameLogic.GetTower({m_selX, m_selY}));
+          m_buttons[Action::UpgradeTower]->changeText(
+              "Upgrade tower" + std::to_string(tower->GetUpgradeCost()) + "cr");
         }
         button->enableButton();
       } else {
-        if (i == Action::UpgradeTower){
-          const AttackingTower* tower = static_cast<const AttackingTower*>(m_gameLogic.GetTower({m_selX, m_selY}));
+        if (i == Action::UpgradeTower) {
+          const AttackingTower* tower = static_cast<const AttackingTower*>(
+              m_gameLogic.GetTower({m_selX, m_selY}));
           m_buttons[Action::UpgradeTower]->changeText("Upgrade tower");
         }
         button->disableButton();
@@ -339,7 +350,8 @@ void GameState::Draw() {
     if (t) {
       m_drawRange = true;
       Priv_ChangeCircle(m_rangeCircle, TILE_SIZE * t->GetRange());
-      if (m_drawUpgradeRange) Priv_ChangeCircle(m_upgradeRange, TILE_SIZE * (t->GetRange() + 2));
+      if (m_drawUpgradeRange)
+        Priv_ChangeCircle(m_upgradeRange, TILE_SIZE * (t->GetRange() + 2));
     }
 
     // Draw range of tower if needed
@@ -472,5 +484,6 @@ void GameState::Priv_ClearSpeedHighlights() {
 void GameState::Priv_ChangeCircle(sf::CircleShape& circle, uint32_t range) {
   circle.setRadius(range);
   circle.setOrigin(range, range);
-  circle.setPosition(m_selX * TILE_SIZE + TILE_SIZE / 2, m_selY * TILE_SIZE + TILE_SIZE / 2);
+  circle.setPosition(m_selX * TILE_SIZE + TILE_SIZE / 2,
+                     m_selY * TILE_SIZE + TILE_SIZE / 2);
 }

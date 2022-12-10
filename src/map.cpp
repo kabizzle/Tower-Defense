@@ -117,6 +117,8 @@ bool Map::TestTilePos(std::pair<int, int> coordinate, tileType tile) {
 bool Map::ValidateMap() {
   int startFlag = 0;
   int endFlag = 0;
+  m_start = std::make_pair(-1, -1);
+  m_end = std::make_pair(-1, -1);
   if (m_grid.size() != (m_height * m_width)) {
     throw std::invalid_argument("Loaded map is wrong size.");
   }
@@ -138,6 +140,7 @@ bool Map::ValidateMap() {
             return false;
           }
           startFlag = 1;
+          m_start = std::make_pair(x, y);
           break;
 
         case tileType::endTile:
@@ -149,6 +152,7 @@ bool Map::ValidateMap() {
             return false;
           }
           endFlag = 1;
+          m_end = std::make_pair(x, y);
           break;
 
         case tileType::towerTile:
@@ -179,10 +183,20 @@ bool Map::ValidateMap() {
 bool Map::BuildPath() {
   m_path.clear();
   bool endFlag = false;
+
+  if (m_start.first < 0 || m_start.second < 0) {
+    throw std::invalid_argument("Start tile is missing.");
+    return false;
+  } else if (m_end.first < 0 || m_end.second < 0) {
+    throw std::invalid_argument("End tile is missing.");
+    return false;
+  }
+
   m_path.push_back(m_start);
   std::pair<int, int> previous_position;
   std::pair<int, int> position = m_start;
 
+intact:;
   while (!endFlag) {
     if (position == m_end) {
       endFlag = true;
@@ -197,9 +211,10 @@ bool Map::BuildPath() {
         previous_position = position;
         position = *iter;
         m_path.push_back(*iter);
-        break;
+        goto intact;
       }
     }
+    return false;  // The path is not intact
   }
   if (m_path.front() != m_start || m_path.back() != m_end) {
     throw std::invalid_argument(
