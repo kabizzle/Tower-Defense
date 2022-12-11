@@ -129,7 +129,7 @@ From there, the player can choose to save their score or go to the main menu.
 Division of work among group members 
 
 - Elias Peltokangas
-  - Implemented non-hardcoded maps - maps can be read from files
+  - Implemented non-hardcoded maps - maps can be read from files ()
   - Implemented Level editor
   - Designed towers, enemies, map and path tiles
   - Maintained code to support Doxygen documentation
@@ -139,8 +139,8 @@ Division of work among group members
   - Documentation
 - Juho Poteri
   - Implemented Enemy Factory - enemies spawned with increasing difficulty
-  - Implemented Tower classes - types of towers and how they interact with enemies 
-  - Implemented Enemy classes - types of enemies and how they interact with the map/towers 
+  - Implemented Tower class - types of towers and how they interact with enemies 
+  - Implemented Enemy class - types of enemies and how they interact with the map/towers 
   - Maintained code to support Doxygen documentation
 - Antti Pekkanen
   - Wrote game core - logic that causes game to run
