@@ -139,8 +139,8 @@ Division of work among group members
   - Documentation
 - Juho Poteri
   - Implemented Enemy Factory - enemies spawned with increasing difficulty
-  - Implemented Tower class - types of towers and how they interact with enemies 
-  - Implemented Enemy class - types of enemies and how they interact with the map/towers 
+  - Implemented Tower classes - types of towers and how they interact with enemies 
+  - Implemented Enemy classes - types of enemies and how they interact with the map/towers 
   - Maintained code to support Doxygen documentation
 - Antti Pekkanen
   - Wrote game core - logic that causes game to run
