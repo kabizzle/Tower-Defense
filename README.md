@@ -58,7 +58,7 @@ make -C ./build
 The library SFML was used to build this game. It can be installed using 
 
 ```shell
-sudo apt-get install libsfml-dev
+sudo apt install libsfml-dev
 ```
 
 # Project Structure
