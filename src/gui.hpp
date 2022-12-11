@@ -99,27 +99,3 @@ class GUI {
    */
   void Priv_DeleteState();
 };
-
-
-// void GUI::addEnemy(std::string type, sf::Vector2f pos) {
-//   // if (!this->texture.loadFromFile("src/images/bachelor.png")) {
-//   //   std::cout << "Error: Image not found" << std::endl;
-//   //   return;
-//   // }
-//   sf::Texture texture;
-//   this->textures.push_back(texture);
-//   int size = this->textures.size();
-//   if (this->textures_map.find(type) != this->textures_map.end()){
-//     if (this->textures[size-1].loadFromFile(this->textures_map[type])) {
-//       std::cout << "Error: Image not found" << std::endl;
-//       return;
-//     }
-//     sf::Sprite enemy(this->textures[size - 1]);
-//     enemy.setPosition(pos);
-//     this->enemies.push_back(enemy);
-//   }
-//   else {
-//     std::cout << "Texture does not exist" << std::endl;
-//     return;
-//   }
-// }

@@ -32,51 +32,6 @@ void GUI::init() {
 
 bool GUI::running() { return this->m_window->isOpen(); }
 
-/*void GUI::pollEvents() {
-  while (this->m_window->pollEvent(this->m_event)) {
-    if (this->m_event.type == sf::Event::Closed) this->m_window->close();
-
-    if (this->m_event.type == sf::Event::MouseButtonPressed) {
-      if (this->m_event.mouseButton.button == sf::Mouse::Right) {
-        std::cout << "the right button was pressed" << std::endl;
-        std::cout << "mouse x: " << this->m_event.mouseButton.x << std::endl;
-        std::cout << "mouse y: " << this->m_event.mouseButton.y << std::endl;
-      }
-    }
-  }
-}*/
-
-// void GUI::addEnemy(std::string type, sf::Vector2f pos) {
-
-//   // if (this->textures_map.find(type) != this->textures_map.end()){
-//   //   if (!this->texture.loadFromFile(this->textures_map[type])) {
-//   //     std::cout << "Error: Image not found" << std::endl;
-//   //     return;
-//   //   }
-//   //   sf::Sprite enemy(this->texture);
-//   //   enemy.setPosition(pos);
-//   //   this->enemies.push_back(enemy);
-//   // }
-//   // else {
-//   //   std::cout << "Texture does not exist" << std::endl;
-//   //   return;
-//   // }
-//   // // this->m_window->draw(enemy);
-// }
-
-/*void GUI::moveEnemies() {
-  for (auto enemy = this->enemies.begin(); enemy != this->enemies.end();
-       enemy++) {
-    sf::Vector2f position = enemy->getPosition();
-    if (position.x < 0 || position.x > 1280 - 20) this->x_velo *= -1;
-    // if (position.y < 0 || position.y > 720 - 20) this->y_velo *= -1;
-    position.x += this->x_velo;
-    // position.y += this->y_velo;
-
-    enemy->setPosition(position);
-  }
-}*/
-
 Button* GUI::CreateButton(std::string text, int32_t x, int32_t y) {
   Button* button = new Button(text, x, y, m_font);
   return button;
