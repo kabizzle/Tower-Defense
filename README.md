@@ -1,16 +1,46 @@
 # Tower Defense 2
 
-“Tower defense (or informally TD) is a subgenre of strategy video game where the goal is to defend a player’s territories or possessions by obstructing enemy attackers, usually achieved by placing defensive structures on or along their path of attack.”  
-
-In a tower defense game, the enemies move in waves from some position of the map to another. The goal of the player is to place towers on their path in order to block, impede, attack or destroy the enemies before they are able to reach their goal. The primary object is the survival of the base.
-
-# Group
+# Group members
 - Elias Peltokangas
 - Kabir Bissessar
 - Juho Poteri
 - Antti Pekkanen
 
+# Overview
+
+**Goal:** create a Tower Defense game, using C++
+
+“Tower defense (or informally TD) is a subgenre of strategy video game where the goal is to defend a player’s territories or possessions by obstructing enemy attackers, usually achieved by placing defensive structures on or along their path of attack.”  
+
+In a tower defense game, the enemies move in waves from some position of the map to another. The goal of the player is to place towers on their path in order to block, impede, attack or destroy the enemies before they are able to reach their goal. The primary object is the survival of the base.
+
+The theme of this game is "Wave University" - where students try to complete the assignments
+
+## Features of the project
+
+### Minimum Requirements
+
+- Functioning tower defense game
+- Basic graphics
+- At least three different types of towers
+- At least three different types of enemies
+- At least five different levels, with increasing difficulty
+- Game can be controlled with mouse input
+- User interface which shows player information e.g. Score, Money, Health
+
+### Additional Features Implemented
+
+- Non-hardcoded maps - maps can be read from files
+- Upgradeable towers
+- Level editor - maps can be edited using GUI
+- High scores list
+- Towers can be damaged by enemies
+- Sound effects
+
+
 # Building instructions
+
+This project was built and tested using Linux. It is also possible to run using WSL on Windows 11, however WSL on Windows 10 does not support it.
 
 ```shell
 # Download the repository
@@ -25,59 +55,95 @@ make -C ./build
 ./build/tower-defense
 ```
 
-# Repository organization
-Your project implementation should follow the skeleton organization in this repository.
-See readme.md files in each folder.
+The library SFML was used to build this game. It can be installed using 
 
-# Project Implementation 
-You must use git repository for the work on the project, making frequent enough commits so 
-that the project group (and course staff) can follow the progress.
+```shell
+sudo apt-get install libsfml-dev
+```
 
-The completed project work will be demonstrated to the group's advisor at a demo session. 
-The final demonstrations are arranged on week 50. After the final demonstrations project group 
-evaluates another project, and self-evaluates own project. In addition, project members will 
-give a confidential individual assessment of each group member
+# Project Structure
 
-The course staff should be able to easily compile the project work using makefile and related 
-instructions provided in the git repository. The final output should be in the **master branch** of the git repository.
+- doc/ -- This folder contains the documentation of the project
 
-# Working practices
-Each project group is assigned an advisor from the project teaching personnel. 
-There will be a dedicated Teams channel for each project topic to facilitate discussion between 
-the groups in the same topic and the advisor. 
+- images/ This folder contains media (.png .wav) files necessary for the project 
 
-**The group should meet weekly.** The weekly meeting does not need to be long if there are no special issues 
-to discuss, and can be taken remotely as voice/video chat on the group Teams channel (or Zoom or other similar tool), 
-preferably at a regular weekly time. In the meeting the group updates:
+- plan/ -- This folder contains the project plan, created at the start of the project
 
-- What each member has done during the week
-- Are there challenges or problems? Discuss the possible solutions
-- Plan for the next week for everyone
-- Deviations and changes to the project plan, if any
-- After the meetings, the meeting notes will be committed to the project repository in the `Meeting-notes.md` file. 
-    * The commits within the week should have some commit messages referring to the meeting notes so 
-      that the project advisor can follow the progress.  
-    * **The meeting notes should be in English.**
+- src/ -- This folder contains the C++ source files for the project.
 
-> Everyone may not be able to participate to all meetings, but at least a couple of members should be present in each meeting. 
-> Regular absence from meetings will affect in individual evaluation.
+- tests/ -- This folder contains C++ files used to test the project, during the development stage.
 
-# Source code documentation
-It is strongly recommended to use Doxygen to document your source code.
-Please go over the *Project Guidelines* for details.
 
-# TODOs
-Detailed to-do lists for each person for each week will be set in meeting notes.
+# Using the Software
+The game has two main phases: the build phase and wave phase. The game starts with the build phase.
 
-## TO DO:
-* Discuss plan with advisor
-* Implement modules
-* Piece modules together
-* Test the full game
-* Create final documentation
-* Submit project
-* Present demo to advisor
-* Do peer-reviews
+During the build phase, towers can be built, upgraded and/or destroyed on the map. 
+When "Next round" is selected, the phase is switched. If the game is in the build phase, the wave phase would then start.
 
-## COMPLETED:
-* Project plan
+During the wave phase, the enemies spawn from the start tile and follow the path to the end tile. Towers will attack the enemies, if they are in range. 
+If the towers kill the enemies, the player gains money and the score increases. However, if enemies survive the towers and make it to the end tile, the player loses health.
+
+The game launches on this screen. 
+
+![Image showing main menu of game](images/main_menu.png)
+
+By selecting a map and clicking "Edit map", the level editor will be opened, where the selected map can be edited using a visual interface :
+
+![Image showing level editor of game](images/level_editor.png)
+
+When difficulty and map can be selected, the game can be started by clicking "Play now".
+
+The game will then enter the build phase, which looks like this :
+
+![Image showing build phase of game](images/build_phase.png)
+
+Towers can be built by selecting a tile, and then clicking the tower type. 
+
+Attack towers will deal damage to enemies.
+
+Buff towers will enhance the damage of Attack towers.
+
+Heal towers will heal Attack towers as they take damage, and revive them if they die.
+
+Towers can be placed on any tile in the game, except the path tiles.
+When a tile is selected, the attack range of a tower can be seen by hovering over the tower type.
+After a tower is built on the map, it can be upgraded and/or destroyed.
+
+When "Next round" is selected, the game will enter the wave phase, which looks like this :
+
+![Image showing wave phase of game](images/game_phase.png)
+
+The wave phase can be sped up by selecting a "Gamespeed".
+
+Some enemies explode into multiple weaker enemies when they are killed. 
+When these enemies explode, they will attack the tower that killed them. 
+Towers can die as a result of this, which will cause them to stop attacking enemies.
+
+When the player loses all their health, or when "Give up" is clicked, the game ends and the High Score screen is shown.
+
+From there, the player can choose to save their score or go to the main menu.
+
+
+# Work log
+
+Division of work among group members 
+
+- Elias Peltokangas
+  - Implemented non-hardcoded maps - maps can be read from files ()
+  - Implemented Level editor
+  - Designed towers, enemies, map and path tiles
+  - Maintained code to support Doxygen documentation
+- Kabir Bissessar 
+  - Implemented GUI - sprites, buttons, text
+  - Added sound effects
+  - Documentation
+- Juho Poteri
+  - Implemented Enemy Factory - enemies spawned with increasing difficulty
+  - Implemented Tower class - types of towers and how they interact with enemies 
+  - Implemented Enemy class - types of enemies and how they interact with the map/towers 
+  - Maintained code to support Doxygen documentation
+- Antti Pekkanen
+  - Wrote game core - logic that causes game to run
+  - Implemented game scoring and high scores list 
+  - Player information displayed during game - Score, Money, Health
+  - Implemented CMake build  

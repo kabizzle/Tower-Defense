@@ -171,7 +171,7 @@ Backend is close to complete, GUI and the game loops have been designed and need
 
 ## Summary of works
 1. **Elias**: LevelEditor, pseudo code for MenuState.
-2. **Kabir**: Renderabls, planning the GameState
+2. **Kabir**: Renderables, planning the GameState
 3. **Juho**: Text based test to fix the game backend.
 4. **Antti**: Building towers, money logic.
 
